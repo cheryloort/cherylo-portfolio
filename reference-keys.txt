@@ -3,4 +3,5 @@ curriculum-vitae
 opleidingen
 werkervaring
 vaardigheden
+cursussen
 vrije-tijd
