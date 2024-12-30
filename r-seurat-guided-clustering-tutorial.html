@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>5 R Seurat: Guided Clustering Tutorial | Portfolio</title>
+  <meta name="description" content="5 R Seurat: Guided Clustering Tutorial | Portfolio" />
+  <meta name="generator" content="bookdown 0.41 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="5 R Seurat: Guided Clustering Tutorial | Portfolio" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="5 R Seurat: Guided Clustering Tutorial | Portfolio" />
+  
+  
+  
+
+<meta name="author" content="Cheryl" />
+
+
+<meta name="date" content="2024-12-30" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="r-for-mass-spectrometry.html"/>
+<link rel="next" href="guerrilla-analytics-framework.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="libs/datatables-binding-0.33/datatables.js"></script>
+<link href="libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
+<link href="libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
+<script src="libs/plotly-binding-4.10.4/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introductie</a></li>
+<li class="chapter" data-level="2" data-path="curriculum-vitae.html"><a href="curriculum-vitae.html"><i class="fa fa-check"></i><b>2</b> Curriculum vitae</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="curriculum-vitae.html"><a href="curriculum-vitae.html#opleidingen"><i class="fa fa-check"></i><b>2.1</b> Opleidingen</a></li>
+<li class="chapter" data-level="2.2" data-path="curriculum-vitae.html"><a href="curriculum-vitae.html#werkervaring"><i class="fa fa-check"></i><b>2.2</b> Werkervaring</a></li>
+<li class="chapter" data-level="2.3" data-path="curriculum-vitae.html"><a href="curriculum-vitae.html#vaardigheden"><i class="fa fa-check"></i><b>2.3</b> Vaardigheden</a></li>
+<li class="chapter" data-level="2.4" data-path="curriculum-vitae.html"><a href="curriculum-vitae.html#cursussen"><i class="fa fa-check"></i><b>2.4</b> Cursussen</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="looking-ahead.html"><a href="looking-ahead.html"><i class="fa fa-check"></i><b>3</b> Looking ahead</a></li>
+<li class="chapter" data-level="4" data-path="r-for-mass-spectrometry.html"><a href="r-for-mass-spectrometry.html"><i class="fa fa-check"></i><b>4</b> R for Mass Spectrometry</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="r-for-mass-spectrometry.html"><a href="r-for-mass-spectrometry.html#introductie-1"><i class="fa fa-check"></i><b>4.1</b> Introductie</a></li>
+<li class="chapter" data-level="4.2" data-path="r-for-mass-spectrometry.html"><a href="r-for-mass-spectrometry.html#planning"><i class="fa fa-check"></i><b>4.2</b> Planning</a></li>
+<li class="chapter" data-level="4.3" data-path="r-for-mass-spectrometry.html"><a href="r-for-mass-spectrometry.html#uitvoering-met-voorbeeld-data-pxdooooo1"><i class="fa fa-check"></i><b>4.3</b> Uitvoering met voorbeeld data PXDOOOOO1</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="r-for-mass-spectrometry.html"><a href="r-for-mass-spectrometry.html#inlezen-van-de-data-in-r"><i class="fa fa-check"></i><b>4.3.1</b> Inlezen van de data in R</a></li>
+<li class="chapter" data-level="4.3.2" data-path="r-for-mass-spectrometry.html"><a href="r-for-mass-spectrometry.html#ruwe-data-visualisatie-verwerking-en-manipulatie"><i class="fa fa-check"></i><b>4.3.2</b> Ruwe data visualisatie, verwerking en manipulatie</a></li>
+<li class="chapter" data-level="4.3.3" data-path="r-for-mass-spectrometry.html"><a href="r-for-mass-spectrometry.html#identification-data"><i class="fa fa-check"></i><b>4.3.3</b> Identification data</a></li>
+<li class="chapter" data-level="4.3.4" data-path="r-for-mass-spectrometry.html"><a href="r-for-mass-spectrometry.html#msnbase-package"><i class="fa fa-check"></i><b>4.3.4</b> MSnbase package</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="r-for-mass-spectrometry.html"><a href="r-for-mass-spectrometry.html#uitvoering-met-ms-data-pxd008990"><i class="fa fa-check"></i><b>4.4</b> Uitvoering met MS data PXD008990</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="r-for-mass-spectrometry.html"><a href="r-for-mass-spectrometry.html#inlezen-van-de-data-in-r-1"><i class="fa fa-check"></i><b>4.4.1</b> Inlezen van de data in R</a></li>
+<li class="chapter" data-level="4.4.2" data-path="r-for-mass-spectrometry.html"><a href="r-for-mass-spectrometry.html#ruwe-data-visualisatie-verwerking-en-manipulatie-1"><i class="fa fa-check"></i><b>4.4.2</b> Ruwe data visualisatie, verwerking en manipulatie</a></li>
+<li class="chapter" data-level="4.4.3" data-path="r-for-mass-spectrometry.html"><a href="r-for-mass-spectrometry.html#samenvattings-opdracht"><i class="fa fa-check"></i><b>4.4.3</b> Samenvattings opdracht</a></li>
+<li class="chapter" data-level="4.4.4" data-path="r-for-mass-spectrometry.html"><a href="r-for-mass-spectrometry.html#msnbase-package-1"><i class="fa fa-check"></i><b>4.4.4</b> MSnbase package</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="r-for-mass-spectrometry.html"><a href="r-for-mass-spectrometry.html#uitvoering-met-ms-data-pxd018226"><i class="fa fa-check"></i><b>4.5</b> Uitvoering met MS data PXD018226</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="r-for-mass-spectrometry.html"><a href="r-for-mass-spectrometry.html#inlezen-van-data-in-r"><i class="fa fa-check"></i><b>4.5.1</b> Inlezen van data in R</a></li>
+<li class="chapter" data-level="4.5.2" data-path="r-for-mass-spectrometry.html"><a href="r-for-mass-spectrometry.html#ruwe-data-visualisatie"><i class="fa fa-check"></i><b>4.5.2</b> Ruwe data visualisatie</a></li>
+<li class="chapter" data-level="4.5.3" data-path="r-for-mass-spectrometry.html"><a href="r-for-mass-spectrometry.html#identification-data-1"><i class="fa fa-check"></i><b>4.5.3</b> Identification data</a></li>
+<li class="chapter" data-level="4.5.4" data-path="r-for-mass-spectrometry.html"><a href="r-for-mass-spectrometry.html#combineren-van-identificatie-data-met-ruwe-data"><i class="fa fa-check"></i><b>4.5.4</b> Combineren van identificatie data met ruwe data</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="r-for-mass-spectrometry.html"><a href="r-for-mass-spectrometry.html#links"><i class="fa fa-check"></i><b>4.6</b> Links</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="r-seurat-guided-clustering-tutorial.html"><a href="r-seurat-guided-clustering-tutorial.html"><i class="fa fa-check"></i><b>5</b> R Seurat: Guided Clustering Tutorial</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="r-seurat-guided-clustering-tutorial.html"><a href="r-seurat-guided-clustering-tutorial.html#uitvoering-met-voorbeeld-data"><i class="fa fa-check"></i><b>5.1</b> Uitvoering met voorbeeld data</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="r-seurat-guided-clustering-tutorial.html"><a href="r-seurat-guided-clustering-tutorial.html#pre-processing-workflow"><i class="fa fa-check"></i><b>5.1.1</b> Pre-processing workflow</a></li>
+<li class="chapter" data-level="5.1.2" data-path="r-seurat-guided-clustering-tutorial.html"><a href="r-seurat-guided-clustering-tutorial.html#identification-of-highly-variable-features"><i class="fa fa-check"></i><b>5.1.2</b> Identification of highly variable features</a></li>
+<li class="chapter" data-level="5.1.3" data-path="r-seurat-guided-clustering-tutorial.html"><a href="r-seurat-guided-clustering-tutorial.html#perform-linear-dimensional-reduction"><i class="fa fa-check"></i><b>5.1.3</b> Perform linear dimensional reduction</a></li>
+<li class="chapter" data-level="5.1.4" data-path="r-seurat-guided-clustering-tutorial.html"><a href="r-seurat-guided-clustering-tutorial.html#cluster-the-cells-umap"><i class="fa fa-check"></i><b>5.1.4</b> Cluster the cells &amp; UMAP</a></li>
+<li class="chapter" data-level="5.1.5" data-path="r-seurat-guided-clustering-tutorial.html"><a href="r-seurat-guided-clustering-tutorial.html#finding-differentially-expressed-features"><i class="fa fa-check"></i><b>5.1.5</b> Finding differentially expressed features</a></li>
+<li class="chapter" data-level="5.1.6" data-path="r-seurat-guided-clustering-tutorial.html"><a href="r-seurat-guided-clustering-tutorial.html#assigning-cell-type-identity-to-clusters"><i class="fa fa-check"></i><b>5.1.6</b> Assigning cell type identity to clusters</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="r-seurat-guided-clustering-tutorial.html"><a href="r-seurat-guided-clustering-tutorial.html#uitvoering-met-csf1r-related-disorder"><i class="fa fa-check"></i><b>5.2</b> Uitvoering met CSF1R-related disorder</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="r-seurat-guided-clustering-tutorial.html"><a href="r-seurat-guided-clustering-tutorial.html#pre-processing-workflow-1"><i class="fa fa-check"></i><b>5.2.1</b> Pre-processing workflow</a></li>
+<li class="chapter" data-level="5.2.2" data-path="r-seurat-guided-clustering-tutorial.html"><a href="r-seurat-guided-clustering-tutorial.html#identification-of-highly-variable-features-1"><i class="fa fa-check"></i><b>5.2.2</b> Identification of highly variable features</a></li>
+<li class="chapter" data-level="5.2.3" data-path="r-seurat-guided-clustering-tutorial.html"><a href="r-seurat-guided-clustering-tutorial.html#perform-linear-dimensional-reduction-1"><i class="fa fa-check"></i><b>5.2.3</b> Perform linear dimensional reduction</a></li>
+<li class="chapter" data-level="5.2.4" data-path="r-seurat-guided-clustering-tutorial.html"><a href="r-seurat-guided-clustering-tutorial.html#cluster-the-cells-umap-1"><i class="fa fa-check"></i><b>5.2.4</b> Cluster the cells &amp; UMAP</a></li>
+<li class="chapter" data-level="5.2.5" data-path="r-seurat-guided-clustering-tutorial.html"><a href="r-seurat-guided-clustering-tutorial.html#finding-differentially-expressed-features-1"><i class="fa fa-check"></i><b>5.2.5</b> Finding differentially expressed features</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="r-seurat-guided-clustering-tutorial.html"><a href="r-seurat-guided-clustering-tutorial.html#links-1"><i class="fa fa-check"></i><b>5.3</b> Links</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="guerrilla-analytics-framework.html"><a href="guerrilla-analytics-framework.html"><i class="fa fa-check"></i><b>6</b> Guerrilla Analytics framework</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="guerrilla-analytics-framework.html"><a href="guerrilla-analytics-framework.html#daur2"><i class="fa fa-check"></i><b>6.1</b> Daur2</a></li>
+<li class="chapter" data-level="6.2" data-path="guerrilla-analytics-framework.html"><a href="guerrilla-analytics-framework.html#workflows"><i class="fa fa-check"></i><b>6.2</b> Workflows</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="c.elegans-plate-experiment.html"><a href="c.elegans-plate-experiment.html"><i class="fa fa-check"></i><b>7</b> <em>C.elegans</em> plate experiment</a></li>
+<li class="chapter" data-level="8" data-path="open-peer-review-reproducibility.html"><a href="open-peer-review-reproducibility.html"><i class="fa fa-check"></i><b>8</b> Open peer review: reproducibility</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="open-peer-review-reproducibility.html"><a href="open-peer-review-reproducibility.html#part-1"><i class="fa fa-check"></i><b>8.1</b> Part 1</a></li>
+<li class="chapter" data-level="8.2" data-path="open-peer-review-reproducibility.html"><a href="open-peer-review-reproducibility.html#part-2"><i class="fa fa-check"></i><b>8.2</b> Part 2</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="create-a-package.html"><a href="create-a-package.html"><i class="fa fa-check"></i><b>9</b> Create a package</a></li>
+<li class="chapter" data-level="10" data-path="projecticum-antimicrobiële-resistentie-amr.html"><a href="projecticum-antimicrobiële-resistentie-amr.html"><i class="fa fa-check"></i><b>10</b> Projecticum Antimicrobiële Resistentie (AMR)</a></li>
+<li class="chapter" data-level="11" data-path="ecdc-covid-19-cases-data-parameterization.html"><a href="ecdc-covid-19-cases-data-parameterization.html"><i class="fa fa-check"></i><b>11</b> ECDC COVID-19 cases data parameterization</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Portfolio</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="r-seurat-guided-clustering-tutorial" class="section level1 hasAnchor" number="5">
+<h1><span class="header-section-number">5</span> R Seurat: Guided Clustering Tutorial<a href="r-seurat-guided-clustering-tutorial.html#r-seurat-guided-clustering-tutorial" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="uitvoering-met-voorbeeld-data" class="section level2 hasAnchor" number="5.1">
+<h2><span class="header-section-number">5.1</span> Uitvoering met voorbeeld data<a href="r-seurat-guided-clustering-tutorial.html#uitvoering-met-voorbeeld-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="r-seurat-guided-clustering-tutorial.html#cb122-1" tabindex="-1"></a>pbmc.data <span class="ot">&lt;-</span> <span class="fu">Read10X</span>(<span class="at">data.dir =</span> <span class="st">&quot;seurat_data/ruwe data/filtered_gene_bc_matrices/hg19/&quot;</span>)</span>
+<span id="cb122-2"><a href="r-seurat-guided-clustering-tutorial.html#cb122-2" tabindex="-1"></a></span>
+<span id="cb122-3"><a href="r-seurat-guided-clustering-tutorial.html#cb122-3" tabindex="-1"></a><span class="co"># Initialize the Seurat object with the raw (non-normalized data).</span></span>
+<span id="cb122-4"><a href="r-seurat-guided-clustering-tutorial.html#cb122-4" tabindex="-1"></a>pbmc <span class="ot">&lt;-</span> <span class="fu">CreateSeuratObject</span>(<span class="at">counts =</span> pbmc.data, <span class="at">project =</span> <span class="st">&quot;pbmc3k&quot;</span>, <span class="at">min.cells =</span> <span class="dv">3</span>, <span class="at">min.features =</span> <span class="dv">200</span>)</span>
+<span id="cb122-5"><a href="r-seurat-guided-clustering-tutorial.html#cb122-5" tabindex="-1"></a>pbmc</span></code></pre></div>
+<pre><code>## An object of class Seurat 
+## 13714 features across 2700 samples within 1 assay 
+## Active assay: RNA (13714 features, 0 variable features)
+##  1 layer present: counts</code></pre>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="r-seurat-guided-clustering-tutorial.html#cb124-1" tabindex="-1"></a><span class="co"># Lets examine a few genes in the first thirty cells</span></span>
+<span id="cb124-2"><a href="r-seurat-guided-clustering-tutorial.html#cb124-2" tabindex="-1"></a>pbmc.data[<span class="fu">c</span>(<span class="st">&quot;CD3D&quot;</span>, <span class="st">&quot;TCL1A&quot;</span>, <span class="st">&quot;MS4A1&quot;</span>), <span class="dv">1</span><span class="sc">:</span><span class="dv">30</span>]</span></code></pre></div>
+<pre><code>## 3 x 30 sparse Matrix of class &quot;dgCMatrix&quot;</code></pre>
+<pre><code>##                                                                    
+## CD3D  4 . 10 . . 1 2 3 1 . . 2 7 1 . . 1 3 . 2  3 . . . . . 3 4 1 5
+## TCL1A . .  . . . . . . 1 . . . . . . . . . . .  . 1 . . . . . . . .
+## MS4A1 . 6  . . . . . . 1 1 1 . . . . . . . . . 36 1 2 . . 2 . . . .</code></pre>
+<p><br>
+De <code>.</code> waardes in de matrix vertegenwoordigen 0 waardes, oftewel geen moleculen gedetecteerd.</p>
+<div id="pre-processing-workflow" class="section level3 hasAnchor" number="5.1.1">
+<h3><span class="header-section-number">5.1.1</span> Pre-processing workflow<a href="r-seurat-guided-clustering-tutorial.html#pre-processing-workflow" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Met pre-processing worden de cellen met een lage kwaliteit eruit gefilterd. nFeature is het aantal genen en nCount is het aantal moleculen. Een cel met een lage kwaliteit heeft een laag aantal genen en/of moleculen.</p>
+<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="r-seurat-guided-clustering-tutorial.html#cb127-1" tabindex="-1"></a><span class="co"># % MT reads</span></span>
+<span id="cb127-2"><a href="r-seurat-guided-clustering-tutorial.html#cb127-2" tabindex="-1"></a>pbmc[[<span class="st">&quot;percent.mt&quot;</span>]] <span class="ot">&lt;-</span> <span class="fu">PercentageFeatureSet</span>(pbmc, <span class="at">pattern =</span> <span class="st">&quot;^MT-&quot;</span>)</span>
+<span id="cb127-3"><a href="r-seurat-guided-clustering-tutorial.html#cb127-3" tabindex="-1"></a></span>
+<span id="cb127-4"><a href="r-seurat-guided-clustering-tutorial.html#cb127-4" tabindex="-1"></a><span class="co"># Visualize QC metrics as a violin plot</span></span>
+<span id="cb127-5"><a href="r-seurat-guided-clustering-tutorial.html#cb127-5" tabindex="-1"></a><span class="fu">VlnPlot</span>(pbmc, <span class="at">features =</span> <span class="fu">c</span>(<span class="st">&quot;nFeature_RNA&quot;</span>, <span class="st">&quot;nCount_RNA&quot;</span>, <span class="st">&quot;percent.mt&quot;</span>), <span class="at">ncol =</span> <span class="dv">3</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/QC%20and%20selecting%20cells-1.png" width="672" /></p>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="r-seurat-guided-clustering-tutorial.html#cb128-1" tabindex="-1"></a><span class="co"># Feature scatter</span></span>
+<span id="cb128-2"><a href="r-seurat-guided-clustering-tutorial.html#cb128-2" tabindex="-1"></a>plot1 <span class="ot">&lt;-</span> <span class="fu">FeatureScatter</span>(pbmc, <span class="at">feature1 =</span> <span class="st">&quot;nCount_RNA&quot;</span>, <span class="at">feature2 =</span> <span class="st">&quot;percent.mt&quot;</span>)</span>
+<span id="cb128-3"><a href="r-seurat-guided-clustering-tutorial.html#cb128-3" tabindex="-1"></a>plot2 <span class="ot">&lt;-</span> <span class="fu">FeatureScatter</span>(pbmc, <span class="at">feature1 =</span> <span class="st">&quot;nCount_RNA&quot;</span>, <span class="at">feature2 =</span> <span class="st">&quot;nFeature_RNA&quot;</span>) <span class="sc">+</span> <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&#39;lm&#39;</span>)</span>
+<span id="cb128-4"><a href="r-seurat-guided-clustering-tutorial.html#cb128-4" tabindex="-1"></a>plot1 <span class="sc">+</span> plot2</span></code></pre></div>
+<p><img src="_main_files/figure-html/QC%20and%20selecting%20cells-2.png" width="672" /></p>
+<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="r-seurat-guided-clustering-tutorial.html#cb129-1" tabindex="-1"></a><span class="co"># Filtering of cells</span></span>
+<span id="cb129-2"><a href="r-seurat-guided-clustering-tutorial.html#cb129-2" tabindex="-1"></a>pbmc <span class="ot">&lt;-</span> <span class="fu">subset</span>(pbmc, <span class="at">subset =</span> nFeature_RNA <span class="sc">&gt;</span> <span class="dv">200</span> <span class="sc">&amp;</span> nFeature_RNA <span class="sc">&lt;</span> <span class="dv">2500</span> <span class="sc">&amp;</span> percent.mt <span class="sc">&lt;</span> <span class="dv">5</span>)</span>
+<span id="cb129-3"><a href="r-seurat-guided-clustering-tutorial.html#cb129-3" tabindex="-1"></a></span>
+<span id="cb129-4"><a href="r-seurat-guided-clustering-tutorial.html#cb129-4" tabindex="-1"></a><span class="co"># Normalizing the data</span></span>
+<span id="cb129-5"><a href="r-seurat-guided-clustering-tutorial.html#cb129-5" tabindex="-1"></a>pbmc <span class="ot">&lt;-</span> <span class="fu">NormalizeData</span>(pbmc)</span></code></pre></div>
+<p><br>
+Met <code>PercentageFeatureSet</code> kan het percentage van alle counts die bij een bepaald gen van de cel horen berekend worden. Met de bovenstaande code wordt het percentage van reads/counts berekend die behoren tot het mitochondriaal genoom. Met <code>pattern = "^MT-"</code> wordt er gezocht naar alle genen die starten met MT. <br>
+<code>VlnPlot</code> maakt een violin plot van single cell data. Met features wordt aangegeven welk kenmerk geplot moet worden. <br>
+<code>FeatureScatter</code> maakt een scatterplot van twee kenmerken (features), de cellen zijn gekleurd op basis van hun identiteits klasse. De pearson correlation tussen de twee kenmerken is boven aan het plot weergeven. <br>
+Op basis van de visualisatie worden de cellen gefilterd die een unique feature counts over 2500 of minder dan 200 hebben en die meer dan 5% mitochondrial counts hebben.</p>
+</div>
+<div id="identification-of-highly-variable-features" class="section level3 hasAnchor" number="5.1.2">
+<h3><span class="header-section-number">5.1.2</span> Identification of highly variable features<a href="r-seurat-guided-clustering-tutorial.html#identification-of-highly-variable-features" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>In dit deel wordt er een deel van de kenmerken verzameld welk een hoge cell-to-cell variatie hebben in de dataset, dit houdt in dat ze hoog tot expressie komen in sommige cellen en laag in andere cellen.</p>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="r-seurat-guided-clustering-tutorial.html#cb130-1" tabindex="-1"></a>pbmc <span class="ot">&lt;-</span> <span class="fu">FindVariableFeatures</span>(pbmc, <span class="at">selection.method =</span> <span class="st">&quot;vst&quot;</span>, <span class="at">nfeatures =</span> <span class="dv">2000</span>)</span>
+<span id="cb130-2"><a href="r-seurat-guided-clustering-tutorial.html#cb130-2" tabindex="-1"></a></span>
+<span id="cb130-3"><a href="r-seurat-guided-clustering-tutorial.html#cb130-3" tabindex="-1"></a><span class="co"># Identify the 10 most highly variable genes</span></span>
+<span id="cb130-4"><a href="r-seurat-guided-clustering-tutorial.html#cb130-4" tabindex="-1"></a>top10 <span class="ot">&lt;-</span> <span class="fu">head</span>(<span class="fu">VariableFeatures</span>(pbmc), <span class="dv">10</span>)</span>
+<span id="cb130-5"><a href="r-seurat-guided-clustering-tutorial.html#cb130-5" tabindex="-1"></a></span>
+<span id="cb130-6"><a href="r-seurat-guided-clustering-tutorial.html#cb130-6" tabindex="-1"></a><span class="co"># plot variable features with and without labels</span></span>
+<span id="cb130-7"><a href="r-seurat-guided-clustering-tutorial.html#cb130-7" tabindex="-1"></a>plot1 <span class="ot">&lt;-</span> <span class="fu">VariableFeaturePlot</span>(pbmc)</span>
+<span id="cb130-8"><a href="r-seurat-guided-clustering-tutorial.html#cb130-8" tabindex="-1"></a>plot2 <span class="ot">&lt;-</span> <span class="fu">LabelPoints</span>(<span class="at">plot =</span> plot1, <span class="at">points =</span> top10, <span class="at">repel =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb130-9"><a href="r-seurat-guided-clustering-tutorial.html#cb130-9" tabindex="-1"></a>plot1 <span class="sc">+</span> plot2</span></code></pre></div>
+<p><img src="_main_files/figure-html/variable%20features-1.png" width="672" />
+<br>
+<code>FindVariableFeatures</code> identificeerd kenmerken die outliers zijn op een mean variability plot. Met <code>selection.method</code> geef je aan hoe de top variabelen kenmerken gekozen moeten worden. “vst” zet eerst een lijn op van de relatie tussen de log(variance) en de log(mean) en standaardiseerd de feature values door gebruik te maken van het waargenomen gemiddelde en de verwachte variance. <br></p>
+</div>
+<div id="perform-linear-dimensional-reduction" class="section level3 hasAnchor" number="5.1.3">
+<h3><span class="header-section-number">5.1.3</span> Perform linear dimensional reduction<a href="r-seurat-guided-clustering-tutorial.html#perform-linear-dimensional-reduction" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="r-seurat-guided-clustering-tutorial.html#cb131-1" tabindex="-1"></a>all.genes <span class="ot">&lt;-</span> <span class="fu">rownames</span>(pbmc)</span>
+<span id="cb131-2"><a href="r-seurat-guided-clustering-tutorial.html#cb131-2" tabindex="-1"></a>pbmc <span class="ot">&lt;-</span> <span class="fu">ScaleData</span>(pbmc, <span class="at">features =</span> all.genes)</span></code></pre></div>
+<pre><code>## Centering and scaling data matrix</code></pre>
+<p>De <code>ScaleData</code> functie verschuift de expressie van elk gen, zodat de gemiddelde expressie over de cellen 0 is en schaalt de expressie van elk gen, zodat de variantie tussen cellen 1 is.</p>
+<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="r-seurat-guided-clustering-tutorial.html#cb133-1" tabindex="-1"></a><span class="co"># Perform a PCA dimensionality reduction</span></span>
+<span id="cb133-2"><a href="r-seurat-guided-clustering-tutorial.html#cb133-2" tabindex="-1"></a>pbmc <span class="ot">&lt;-</span> <span class="fu">RunPCA</span>(pbmc, <span class="at">features =</span> <span class="fu">VariableFeatures</span>(<span class="at">object =</span> pbmc))</span>
+<span id="cb133-3"><a href="r-seurat-guided-clustering-tutorial.html#cb133-3" tabindex="-1"></a></span>
+<span id="cb133-4"><a href="r-seurat-guided-clustering-tutorial.html#cb133-4" tabindex="-1"></a><span class="co"># Visualizing the PCA</span></span>
+<span id="cb133-5"><a href="r-seurat-guided-clustering-tutorial.html#cb133-5" tabindex="-1"></a><span class="fu">VizDimLoadings</span>(pbmc, <span class="at">dims =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="at">reduction =</span> <span class="st">&quot;pca&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/linear%20dimensional%20reduction-1.png" width="672" /></p>
+<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="r-seurat-guided-clustering-tutorial.html#cb134-1" tabindex="-1"></a><span class="fu">DimPlot</span>(pbmc, <span class="at">reduction =</span> <span class="st">&quot;pca&quot;</span>) <span class="sc">+</span> <span class="fu">NoLegend</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/linear%20dimensional%20reduction-2.png" width="672" /></p>
+<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="r-seurat-guided-clustering-tutorial.html#cb135-1" tabindex="-1"></a><span class="fu">DimHeatmap</span>(pbmc, <span class="at">dims =</span> <span class="dv">1</span>, <span class="at">cells =</span> <span class="dv">500</span>, <span class="at">balanced =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/linear%20dimensional%20reduction-3.png" width="672" /></p>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="r-seurat-guided-clustering-tutorial.html#cb136-1" tabindex="-1"></a><span class="fu">DimHeatmap</span>(pbmc, <span class="at">dims =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">15</span>, <span class="at">cells =</span> <span class="dv">500</span>, <span class="at">balanced =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/linear%20dimensional%20reduction-4.png" width="672" />
+<br>
+<code>RunPCA</code> levert een lijst met genen met de meest positieve en negatieve ladingen, die modules van genen vertegenwoordigen die correlatie of anticorrelatie vertonen tussen afzonderlijke cellen in de dataset. Een positieve lading betekent dat het gen positief correleert met het component, oftewel, een hogere expressie van dit gen draagt bij aan een hogere waarde van het component. Een negatieve lading houdt in dat een hogere expressie van dit gen bijdraagt aan een lagere waarde van die component. <br>
+De <code>DimHeatmap</code> functie visualiseert de genen die het meest bijdragen aan de gekozen principal component (PC). De rijen vertegenwoordigen de genen die bijdrage aan de eerste dimensie (PC1), de kolommen vertegenwoordigen de 500 cellen (cells = 500) en de kleurintensiteit in de heatmap geeft de bijdrage van een gen aan de eerste dimensie van de dimensionale reductie aan. Als bepaalde genen felgekleurde vakjes hebben, betekent dit dat deze genen sterk bijdragen aan de variatie in de data die door de eerste dimensie wordt vastgelegd. Het argument <code>balance = TRUE</code> zorgt ervoor dat de kleurintensiteit over de heatmap gebalanceerd wordt.</p>
+<div id="determine-the-dimensionality-of-the-dataset" class="section level4 hasAnchor" number="5.1.3.1">
+<h4><span class="header-section-number">5.1.3.1</span> Determine the dimensionality of the dataset<a href="r-seurat-guided-clustering-tutorial.html#determine-the-dimensionality-of-the-dataset" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="r-seurat-guided-clustering-tutorial.html#cb137-1" tabindex="-1"></a><span class="fu">ElbowPlot</span>(pbmc)</span></code></pre></div>
+<p><img src="_main_files/figure-html/dimensionality-1.png" width="672" />
+<br>
+Het doel van de <code>ElbowPlot</code> functie is om te bepalen hoeveel principal components je moet behouden. Het identificeert het punt waar het toevoegen van meer componenten niet veel extra variatie verklaart. De elbow is het punt waar de verklaarde variatie sterk begint af te nemen en de curve begint af te vlakken. In het bovenstaande voorbeeld is de elbow zichtbaar rond PC9-10, wat erop wijst dat het merendeel van het echte signaal wordt opgevangen op de eerste tien pc’s.</p>
+</div>
+</div>
+<div id="cluster-the-cells-umap" class="section level3 hasAnchor" number="5.1.4">
+<h3><span class="header-section-number">5.1.4</span> Cluster the cells &amp; UMAP<a href="r-seurat-guided-clustering-tutorial.html#cluster-the-cells-umap" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="r-seurat-guided-clustering-tutorial.html#cb138-1" tabindex="-1"></a>pbmc <span class="ot">&lt;-</span> <span class="fu">FindNeighbors</span>(pbmc, <span class="at">dims =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)</span>
+<span id="cb138-2"><a href="r-seurat-guided-clustering-tutorial.html#cb138-2" tabindex="-1"></a>pbmc <span class="ot">&lt;-</span> <span class="fu">FindClusters</span>(pbmc, <span class="at">resolution =</span> <span class="fl">0.5</span>)</span></code></pre></div>
+<pre><code>## Modularity Optimizer version 1.3.0 by Ludo Waltman and Nees Jan van Eck
+## 
+## Number of nodes: 2638
+## Number of edges: 95927
+## 
+## Running Louvain algorithm...
+## Maximum modularity in 10 random starts: 0.8728
+## Number of communities: 9
+## Elapsed time: 0 seconds</code></pre>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="r-seurat-guided-clustering-tutorial.html#cb140-1" tabindex="-1"></a>pbmc <span class="ot">&lt;-</span> <span class="fu">RunUMAP</span>(pbmc, <span class="at">dims =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)</span>
+<span id="cb140-2"><a href="r-seurat-guided-clustering-tutorial.html#cb140-2" tabindex="-1"></a><span class="fu">DimPlot</span>(pbmc, <span class="at">reduction =</span> <span class="st">&quot;umap&quot;</span>, <span class="at">label =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/clustering-1.png" width="672" />
+<br>
+De <code>FindNeighbors</code> functie berekent de afstanden tussen cellen in de lagere dimensionale ruimte (zoals PCA). Dit wordt uitgevoerd op de eerste 10 PC’s zoals bepaald met de ElbowPlot. <br>
+De <code>FindClusters</code> functie wordt gebruikt om cellen te groeperen in clustergroepen op basis van hun genexpressieprofielen.</p>
+</div>
+<div id="finding-differentially-expressed-features" class="section level3 hasAnchor" number="5.1.5">
+<h3><span class="header-section-number">5.1.5</span> Finding differentially expressed features<a href="r-seurat-guided-clustering-tutorial.html#finding-differentially-expressed-features" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<pre><code>## For a (much!) faster implementation of the Wilcoxon Rank Sum Test,
+## (default method for FindMarkers) please install the presto package
+## --------------------------------------------
+## install.packages(&#39;devtools&#39;)
+## devtools::install_github(&#39;immunogenomics/presto&#39;)
+## --------------------------------------------
+## After installation of presto, Seurat will automatically use the more 
+## efficient implementation (no further action necessary).
+## This message will be shown once per session</code></pre>
+<pre><code>##             p_val avg_log2FC pct.1 pct.2    p_val_adj
+## IL32 2.892340e-90  1.3070772 0.947 0.465 3.966555e-86
+## LTB  1.060121e-86  1.3312674 0.981 0.643 1.453850e-82
+## CD3D 8.794641e-71  1.0597620 0.922 0.432 1.206097e-66
+## IL7R 3.516098e-68  1.4377848 0.750 0.326 4.821977e-64
+## LDHB 1.642480e-67  0.9911924 0.954 0.614 2.252497e-63</code></pre>
+<pre><code>##                       p_val avg_log2FC pct.1 pct.2     p_val_adj
+## FCGR3A        8.246578e-205   6.794969 0.975 0.040 1.130936e-200
+## IFITM3        1.677613e-195   6.192558 0.975 0.049 2.300678e-191
+## CFD           2.401156e-193   6.015172 0.938 0.038 3.292945e-189
+## CD68          2.900384e-191   5.530330 0.926 0.035 3.977587e-187
+## RP11-290F20.3 2.513244e-186   6.297999 0.840 0.017 3.446663e-182</code></pre>
+<pre><code>## Calculating cluster 0</code></pre>
+<pre><code>## Calculating cluster 1</code></pre>
+<pre><code>## Calculating cluster 2</code></pre>
+<pre><code>## Calculating cluster 3</code></pre>
+<pre><code>## Calculating cluster 4</code></pre>
+<pre><code>## Calculating cluster 5</code></pre>
+<pre><code>## Calculating cluster 6</code></pre>
+<pre><code>## Calculating cluster 7</code></pre>
+<pre><code>## Calculating cluster 8</code></pre>
+<pre><code>## # A tibble: 7,019 × 7
+## # Groups:   cluster [9]
+##        p_val avg_log2FC pct.1 pct.2 p_val_adj cluster gene     
+##        &lt;dbl&gt;      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt; &lt;fct&gt;   &lt;chr&gt;    
+##  1 3.75e-112       1.21 0.912 0.592 5.14e-108 0       LDHB     
+##  2 9.57e- 88       2.40 0.447 0.108 1.31e- 83 0       CCR7     
+##  3 1.15e- 76       1.06 0.845 0.406 1.58e- 72 0       CD3D     
+##  4 1.12e- 54       1.04 0.731 0.4   1.54e- 50 0       CD3E     
+##  5 1.35e- 51       2.14 0.342 0.103 1.86e- 47 0       LEF1     
+##  6 1.94e- 47       1.20 0.629 0.359 2.66e- 43 0       NOSIP    
+##  7 2.81e- 44       1.53 0.443 0.185 3.85e- 40 0       PIK3IP1  
+##  8 6.27e- 43       1.99 0.33  0.112 8.60e- 39 0       PRKCQ-AS1
+##  9 1.16e- 40       2.70 0.2   0.04  1.59e- 36 0       FHIT     
+## 10 1.34e- 34       1.96 0.268 0.087 1.84e- 30 0       MAL      
+## # ℹ 7,009 more rows</code></pre>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="r-seurat-guided-clustering-tutorial.html#cb154-1" tabindex="-1"></a><span class="fu">VlnPlot</span>(pbmc, <span class="at">features =</span> <span class="fu">c</span>(<span class="st">&quot;MS4A1&quot;</span>, <span class="st">&quot;CD79A&quot;</span>))</span></code></pre></div>
+<p><img src="_main_files/figure-html/DE%20visualisatie-1.png" width="672" /></p>
+<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="r-seurat-guided-clustering-tutorial.html#cb155-1" tabindex="-1"></a><span class="co"># you can plot raw counts as well</span></span>
+<span id="cb155-2"><a href="r-seurat-guided-clustering-tutorial.html#cb155-2" tabindex="-1"></a><span class="fu">VlnPlot</span>(pbmc, <span class="at">features =</span> <span class="fu">c</span>(<span class="st">&quot;NKG7&quot;</span>, <span class="st">&quot;PF4&quot;</span>), <span class="at">slot =</span> <span class="st">&quot;counts&quot;</span>, <span class="at">log =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## Warning: The `slot` argument of `VlnPlot()` is deprecated as of
+## Seurat 5.0.0.
+## ℹ Please use the `layer` argument instead.
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_lifecycle_warnings()` to see where
+## this warning was generated.</code></pre>
+<p><img src="_main_files/figure-html/DE%20visualisatie-2.png" width="672" /></p>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="r-seurat-guided-clustering-tutorial.html#cb157-1" tabindex="-1"></a><span class="fu">FeaturePlot</span>(pbmc, <span class="at">features =</span> <span class="fu">c</span>(<span class="st">&quot;MS4A1&quot;</span>, <span class="st">&quot;GNLY&quot;</span>, <span class="st">&quot;CD3E&quot;</span>, <span class="st">&quot;CD14&quot;</span>, <span class="st">&quot;FCER1A&quot;</span>, <span class="st">&quot;FCGR3A&quot;</span>, <span class="st">&quot;LYZ&quot;</span>, <span class="st">&quot;PPBP&quot;</span>,</span>
+<span id="cb157-2"><a href="r-seurat-guided-clustering-tutorial.html#cb157-2" tabindex="-1"></a>    <span class="st">&quot;CD8A&quot;</span>))</span></code></pre></div>
+<p><img src="_main_files/figure-html/DE%20visualisatie-3.png" width="672" /></p>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="r-seurat-guided-clustering-tutorial.html#cb158-1" tabindex="-1"></a>pbmc.markers <span class="sc">%&gt;%</span></span>
+<span id="cb158-2"><a href="r-seurat-guided-clustering-tutorial.html#cb158-2" tabindex="-1"></a>    <span class="fu">group_by</span>(cluster) <span class="sc">%&gt;%</span></span>
+<span id="cb158-3"><a href="r-seurat-guided-clustering-tutorial.html#cb158-3" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">filter</span>(avg_log2FC <span class="sc">&gt;</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb158-4"><a href="r-seurat-guided-clustering-tutorial.html#cb158-4" tabindex="-1"></a>    <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">10</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb158-5"><a href="r-seurat-guided-clustering-tutorial.html#cb158-5" tabindex="-1"></a>    <span class="fu">ungroup</span>() <span class="ot">-&gt;</span> top10</span>
+<span id="cb158-6"><a href="r-seurat-guided-clustering-tutorial.html#cb158-6" tabindex="-1"></a><span class="fu">DoHeatmap</span>(pbmc, <span class="at">features =</span> top10<span class="sc">$</span>gene) <span class="sc">+</span> <span class="fu">NoLegend</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/DE%20visualisatie-4.png" width="672" />
+<br>
+De code <code>VlnPlot(pbmc, features = c("MS4A1", "CD79A"))</code> genereert een violin plot die laat zien hoe de genexpressie van “MS4A1” en “CD79A” varieert over de cellen in pbmc. Met <code>slot = "counts"</code> geeft aan dat de ruwe telwaardes worden gebruikt voor de visualisatie. <br>
+<code>FeaturePlot</code> kleurt single cellen in een dimensional reduction plot volgens een feature (kenmerk), in dit geval volgens de gen naam.
+Met de <code>DoHeatmap</code> functie en de voorgaande filter worden de top 10 genen per cluster weergeven. De balk helemaal bovenaan weergeeft het cluster nummer, welk ook terug te zien zijn in de UMAP.</p>
+</div>
+<div id="assigning-cell-type-identity-to-clusters" class="section level3 hasAnchor" number="5.1.6">
+<h3><span class="header-section-number">5.1.6</span> Assigning cell type identity to clusters<a href="r-seurat-guided-clustering-tutorial.html#assigning-cell-type-identity-to-clusters" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="r-seurat-guided-clustering-tutorial.html#cb159-1" tabindex="-1"></a>new.cluster.ids <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Naive CD4 T&quot;</span>, <span class="st">&quot;CD14+ Mono&quot;</span>, <span class="st">&quot;Memory CD4 T&quot;</span>, <span class="st">&quot;B&quot;</span>, <span class="st">&quot;CD8 T&quot;</span>, <span class="st">&quot;FCGR3A+ Mono&quot;</span>,</span>
+<span id="cb159-2"><a href="r-seurat-guided-clustering-tutorial.html#cb159-2" tabindex="-1"></a>    <span class="st">&quot;NK&quot;</span>, <span class="st">&quot;DC&quot;</span>, <span class="st">&quot;Platelet&quot;</span>)</span>
+<span id="cb159-3"><a href="r-seurat-guided-clustering-tutorial.html#cb159-3" tabindex="-1"></a><span class="fu">names</span>(new.cluster.ids) <span class="ot">&lt;-</span> <span class="fu">levels</span>(pbmc)</span>
+<span id="cb159-4"><a href="r-seurat-guided-clustering-tutorial.html#cb159-4" tabindex="-1"></a>pbmc <span class="ot">&lt;-</span> <span class="fu">RenameIdents</span>(pbmc, new.cluster.ids)</span>
+<span id="cb159-5"><a href="r-seurat-guided-clustering-tutorial.html#cb159-5" tabindex="-1"></a><span class="fu">DimPlot</span>(pbmc, <span class="at">reduction =</span> <span class="st">&quot;umap&quot;</span>, <span class="at">label =</span> <span class="cn">TRUE</span>, <span class="at">pt.size =</span> <span class="fl">0.5</span>) <span class="sc">+</span> <span class="fu">NoLegend</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/cell%20type-1.png" width="672" /></p>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="r-seurat-guided-clustering-tutorial.html#cb160-1" tabindex="-1"></a>plot <span class="ot">&lt;-</span> <span class="fu">DimPlot</span>(pbmc, <span class="at">reduction =</span> <span class="st">&quot;umap&quot;</span>, <span class="at">label =</span> <span class="cn">TRUE</span>, <span class="at">label.size =</span> <span class="fl">4.5</span>) <span class="sc">+</span> <span class="fu">xlab</span>(<span class="st">&quot;UMAP 1&quot;</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">&quot;UMAP 2&quot;</span>) <span class="sc">+</span></span>
+<span id="cb160-2"><a href="r-seurat-guided-clustering-tutorial.html#cb160-2" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>), <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>)) <span class="sc">+</span> <span class="fu">guides</span>(<span class="at">colour =</span> <span class="fu">guide_legend</span>(<span class="at">override.aes =</span> <span class="fu">list</span>(<span class="at">size =</span> <span class="dv">6</span>)))</span>
+<span id="cb160-3"><a href="r-seurat-guided-clustering-tutorial.html#cb160-3" tabindex="-1"></a>plot</span></code></pre></div>
+<p><img src="_main_files/figure-html/cell%20type-2.png" width="672" /></p>
+</div>
+</div>
+<div id="uitvoering-met-csf1r-related-disorder" class="section level2 hasAnchor" number="5.2">
+<h2><span class="header-section-number">5.2</span> Uitvoering met CSF1R-related disorder<a href="r-seurat-guided-clustering-tutorial.html#uitvoering-met-csf1r-related-disorder" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Bij CSF1R-RD is er sprake van mutaties in de colony-stimulating factor-1 receptor CSF1R gen (microglia) die voornamelijk een effect hebben op de witte stof van het brein. CSF1R is essentieel voor de proliferatie, fagocytose, motiliteit en overleving van microglia. Met single nucleaire RNA-sequencing (snRNAseq) zijn twee microglia celtoestanden geïdentificeerd die geassocieerd worden met de CSF1R-RD, dit zijn de lipid-laden en de inflammatory toestanden. <br>
+De verkregen data set bevat de resultaten van de snRNAseq van de microglia.</p>
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="r-seurat-guided-clustering-tutorial.html#cb161-1" tabindex="-1"></a><span class="co"># Pad naar rds file</span></span>
+<span id="cb161-2"><a href="r-seurat-guided-clustering-tutorial.html#cb161-2" tabindex="-1"></a>ad_file <span class="ot">&lt;-</span> <span class="st">&quot;../../Downloads/f9bca543-f82a-4863-bd62-b270b634ea10.rds&quot;</span></span>
+<span id="cb161-3"><a href="r-seurat-guided-clustering-tutorial.html#cb161-3" tabindex="-1"></a></span>
+<span id="cb161-4"><a href="r-seurat-guided-clustering-tutorial.html#cb161-4" tabindex="-1"></a><span class="co"># Read the AnnData file into a Seurat object</span></span>
+<span id="cb161-5"><a href="r-seurat-guided-clustering-tutorial.html#cb161-5" tabindex="-1"></a>alzheimer <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(ad_file)</span>
+<span id="cb161-6"><a href="r-seurat-guided-clustering-tutorial.html#cb161-6" tabindex="-1"></a></span>
+<span id="cb161-7"><a href="r-seurat-guided-clustering-tutorial.html#cb161-7" tabindex="-1"></a><span class="co"># Kijk tot welke class object alzheimer behoort</span></span>
+<span id="cb161-8"><a href="r-seurat-guided-clustering-tutorial.html#cb161-8" tabindex="-1"></a><span class="fu">class</span>(alzheimer)</span></code></pre></div>
+<pre><code>## [1] &quot;Seurat&quot;
+## attr(,&quot;package&quot;)
+## [1] &quot;SeuratObject&quot;</code></pre>
+<p>Na het inlezen met readRDS is het bestand al een seurat object, de <code>CreateSeuratObject</code> functie hoeft daarom niet meer toegepast te worden.</p>
+<div id="pre-processing-workflow-1" class="section level3 hasAnchor" number="5.2.1">
+<h3><span class="header-section-number">5.2.1</span> Pre-processing workflow<a href="r-seurat-guided-clustering-tutorial.html#pre-processing-workflow-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="r-seurat-guided-clustering-tutorial.html#cb163-1" tabindex="-1"></a><span class="co"># Visualize QC metrics as a violin plot</span></span>
+<span id="cb163-2"><a href="r-seurat-guided-clustering-tutorial.html#cb163-2" tabindex="-1"></a><span class="fu">VlnPlot</span>(alzheimer, <span class="at">features =</span> <span class="fu">c</span>(<span class="st">&quot;nFeaturess_RNA&quot;</span>, <span class="st">&quot;nCounts_RNA&quot;</span>, <span class="st">&quot;pct_counts_mt&quot;</span>), <span class="at">ncol =</span> <span class="dv">3</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/QC%20and%20selecting%20cells%20ad-1.png" width="672" /></p>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="r-seurat-guided-clustering-tutorial.html#cb164-1" tabindex="-1"></a><span class="co"># Feature scatter</span></span>
+<span id="cb164-2"><a href="r-seurat-guided-clustering-tutorial.html#cb164-2" tabindex="-1"></a>plot1 <span class="ot">&lt;-</span> <span class="fu">FeatureScatter</span>(alzheimer, <span class="at">feature1 =</span> <span class="st">&quot;nCounts_RNA&quot;</span>, <span class="at">feature2 =</span> <span class="st">&quot;pct_counts_mt&quot;</span>) </span>
+<span id="cb164-3"><a href="r-seurat-guided-clustering-tutorial.html#cb164-3" tabindex="-1"></a>plot2 <span class="ot">&lt;-</span> <span class="fu">FeatureScatter</span>(alzheimer, <span class="at">feature1 =</span> <span class="st">&quot;nCounts_RNA&quot;</span>, <span class="at">feature2 =</span> <span class="st">&quot;nFeaturess_RNA&quot;</span>) <span class="sc">+</span> <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&#39;lm&#39;</span> )</span>
+<span id="cb164-4"><a href="r-seurat-guided-clustering-tutorial.html#cb164-4" tabindex="-1"></a>plot1 <span class="sc">+</span> plot2</span></code></pre></div>
+<p><img src="_main_files/figure-html/QC%20and%20selecting%20cells%20ad-2.png" width="672" /></p>
+<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="r-seurat-guided-clustering-tutorial.html#cb165-1" tabindex="-1"></a>alzheimer <span class="ot">&lt;-</span> <span class="fu">subset</span>(alzheimer, <span class="at">subset =</span> nFeaturess_RNA <span class="sc">&gt;</span> <span class="dv">200</span> <span class="sc">&amp;</span> nFeaturess_RNA <span class="sc">&lt;</span> <span class="dv">3500</span> <span class="sc">&amp;</span> pct_counts_mt <span class="sc">&lt;</span> <span class="dv">5</span>)</span>
+<span id="cb165-2"><a href="r-seurat-guided-clustering-tutorial.html#cb165-2" tabindex="-1"></a></span>
+<span id="cb165-3"><a href="r-seurat-guided-clustering-tutorial.html#cb165-3" tabindex="-1"></a><span class="co"># Normalizing the data</span></span>
+<span id="cb165-4"><a href="r-seurat-guided-clustering-tutorial.html#cb165-4" tabindex="-1"></a>alzheimer <span class="ot">&lt;-</span> <span class="fu">NormalizeData</span>(alzheimer)</span></code></pre></div>
+<p><br>
+Het Seurat object bevat al een pct_counts_mt dus dit hoeft niet meer berekend te worden met <code>PercentageFeatureSet</code>. <br>
+Het object is gefilterd voor nFeaturess boven de 200 en onder de 3500, dit omdat bij 3500 ongeveer de stippen niet meer langs de lijn gaan.</p>
+</div>
+<div id="identification-of-highly-variable-features-1" class="section level3 hasAnchor" number="5.2.2">
+<h3><span class="header-section-number">5.2.2</span> Identification of highly variable features<a href="r-seurat-guided-clustering-tutorial.html#identification-of-highly-variable-features-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="r-seurat-guided-clustering-tutorial.html#cb166-1" tabindex="-1"></a>alzheimer <span class="ot">&lt;-</span> <span class="fu">FindVariableFeatures</span>(alzheimer, <span class="at">selection.method =</span> <span class="st">&quot;vst&quot;</span>, <span class="at">nfeatures =</span> <span class="dv">2000</span>)</span>
+<span id="cb166-2"><a href="r-seurat-guided-clustering-tutorial.html#cb166-2" tabindex="-1"></a></span>
+<span id="cb166-3"><a href="r-seurat-guided-clustering-tutorial.html#cb166-3" tabindex="-1"></a><span class="co"># Identify the 10 most highly variable genes</span></span>
+<span id="cb166-4"><a href="r-seurat-guided-clustering-tutorial.html#cb166-4" tabindex="-1"></a>top10 <span class="ot">&lt;-</span> <span class="fu">head</span>(<span class="fu">VariableFeatures</span>(alzheimer), <span class="dv">10</span>)</span>
+<span id="cb166-5"><a href="r-seurat-guided-clustering-tutorial.html#cb166-5" tabindex="-1"></a></span>
+<span id="cb166-6"><a href="r-seurat-guided-clustering-tutorial.html#cb166-6" tabindex="-1"></a><span class="co"># plot variable features with and without labels</span></span>
+<span id="cb166-7"><a href="r-seurat-guided-clustering-tutorial.html#cb166-7" tabindex="-1"></a>plot1 <span class="ot">&lt;-</span> <span class="fu">VariableFeaturePlot</span>(alzheimer)</span>
+<span id="cb166-8"><a href="r-seurat-guided-clustering-tutorial.html#cb166-8" tabindex="-1"></a>plot2 <span class="ot">&lt;-</span> <span class="fu">LabelPoints</span>(<span class="at">plot =</span> plot1, <span class="at">points =</span> top10, <span class="at">repel =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb166-9"><a href="r-seurat-guided-clustering-tutorial.html#cb166-9" tabindex="-1"></a>plot2</span></code></pre></div>
+<p><img src="_main_files/figure-html/variable%20features%20ad-1.png" width="672" />
+<br>
+In het bovenstaande plot staan de genen aangegeven die de hoogste variatie hebben, de genen zijn aangegeven met hun Ensembl ID.</p>
+</div>
+<div id="perform-linear-dimensional-reduction-1" class="section level3 hasAnchor" number="5.2.3">
+<h3><span class="header-section-number">5.2.3</span> Perform linear dimensional reduction<a href="r-seurat-guided-clustering-tutorial.html#perform-linear-dimensional-reduction-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="r-seurat-guided-clustering-tutorial.html#cb167-1" tabindex="-1"></a>all.genes <span class="ot">&lt;-</span> <span class="fu">rownames</span>(alzheimer)</span>
+<span id="cb167-2"><a href="r-seurat-guided-clustering-tutorial.html#cb167-2" tabindex="-1"></a>alzheimer <span class="ot">&lt;-</span> <span class="fu">ScaleData</span>(alzheimer, <span class="at">features =</span> all.genes)</span></code></pre></div>
+<pre><code>## Centering and scaling data matrix</code></pre>
+<p><br>
+De <code>ScaleData</code> functie verschuift de expressie van elk gen, zodat de gemiddelde expressie over de cellen 0 is en schaalt de expressie van elk gen, zodat de variantie tussen cellen 1 is.</p>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="r-seurat-guided-clustering-tutorial.html#cb169-1" tabindex="-1"></a><span class="co"># Perform a PCA dimensionality reduction</span></span>
+<span id="cb169-2"><a href="r-seurat-guided-clustering-tutorial.html#cb169-2" tabindex="-1"></a>alzheimer <span class="ot">&lt;-</span> <span class="fu">RunPCA</span>(alzheimer, <span class="at">features =</span> <span class="fu">VariableFeatures</span>(<span class="at">object =</span> alzheimer))</span>
+<span id="cb169-3"><a href="r-seurat-guided-clustering-tutorial.html#cb169-3" tabindex="-1"></a></span>
+<span id="cb169-4"><a href="r-seurat-guided-clustering-tutorial.html#cb169-4" tabindex="-1"></a><span class="co"># Visualizing the PCA</span></span>
+<span id="cb169-5"><a href="r-seurat-guided-clustering-tutorial.html#cb169-5" tabindex="-1"></a><span class="fu">VizDimLoadings</span>(alzheimer, <span class="at">dims =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="at">reduction =</span> <span class="st">&quot;pca&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/linear%20dimensional%20reduction%20ad-1.png" width="672" /></p>
+<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="r-seurat-guided-clustering-tutorial.html#cb170-1" tabindex="-1"></a><span class="fu">DimPlot</span>(alzheimer, <span class="at">reduction =</span> <span class="st">&quot;pca&quot;</span>) <span class="sc">+</span> <span class="fu">NoLegend</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/linear%20dimensional%20reduction%20ad-2.png" width="672" /></p>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="r-seurat-guided-clustering-tutorial.html#cb171-1" tabindex="-1"></a><span class="fu">DimHeatmap</span>(alzheimer, <span class="at">dims =</span> <span class="dv">1</span>, <span class="at">cells =</span> <span class="dv">200</span>, <span class="at">balanced =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/linear%20dimensional%20reduction%20ad-3.png" width="672" /></p>
+<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="r-seurat-guided-clustering-tutorial.html#cb172-1" tabindex="-1"></a><span class="fu">DimHeatmap</span>(alzheimer, <span class="at">dims =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>, <span class="at">cells =</span> <span class="dv">200</span>, <span class="at">balanced =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/linear%20dimensional%20reduction%20ad-4.png" width="672" /></p>
+<div id="determine-the-dimensionality-of-the-dataset-1" class="section level4 hasAnchor" number="5.2.3.1">
+<h4><span class="header-section-number">5.2.3.1</span> Determine the dimensionality of the dataset<a href="r-seurat-guided-clustering-tutorial.html#determine-the-dimensionality-of-the-dataset-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="r-seurat-guided-clustering-tutorial.html#cb173-1" tabindex="-1"></a><span class="fu">ElbowPlot</span>(alzheimer, <span class="at">ndims =</span> <span class="dv">30</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/dimensionality%20ad-1.png" width="672" />
+<br>
+Met <code>ndims</code> kan het aantal dimensions die geplot worden voor standaarddeviatie worden bepaald. Aangezien de Elbow voorbij 20 zat, kan niet de default gebruikt worden die 20 demensions weergeeft en vandaar is het naar 30 gezet. De elbow zit ongeveer bij 22.</p>
+</div>
+</div>
+<div id="cluster-the-cells-umap-1" class="section level3 hasAnchor" number="5.2.4">
+<h3><span class="header-section-number">5.2.4</span> Cluster the cells &amp; UMAP<a href="r-seurat-guided-clustering-tutorial.html#cluster-the-cells-umap-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="r-seurat-guided-clustering-tutorial.html#cb174-1" tabindex="-1"></a>alzheimer <span class="ot">&lt;-</span> <span class="fu">FindNeighbors</span>(alzheimer, <span class="at">dims =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>)</span>
+<span id="cb174-2"><a href="r-seurat-guided-clustering-tutorial.html#cb174-2" tabindex="-1"></a>alzheimer <span class="ot">&lt;-</span> <span class="fu">FindClusters</span>(alzheimer, <span class="at">resolution =</span> <span class="fl">0.5</span>)</span></code></pre></div>
+<pre><code>## Modularity Optimizer version 1.3.0 by Ludo Waltman and Nees Jan van Eck
+## 
+## Number of nodes: 1427
+## Number of edges: 54379
+## 
+## Running Louvain algorithm...
+## Maximum modularity in 10 random starts: 0.8777
+## Number of communities: 7
+## Elapsed time: 0 seconds</code></pre>
+<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="r-seurat-guided-clustering-tutorial.html#cb176-1" tabindex="-1"></a>alzheimer <span class="ot">&lt;-</span> <span class="fu">RunUMAP</span>(alzheimer, <span class="at">dims =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>)</span>
+<span id="cb176-2"><a href="r-seurat-guided-clustering-tutorial.html#cb176-2" tabindex="-1"></a><span class="fu">DimPlot</span>(alzheimer, <span class="at">reduction =</span> <span class="st">&quot;umap&quot;</span>, <span class="at">label =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/clustering%20ad-1.png" width="672" /></p>
+</div>
+<div id="finding-differentially-expressed-features-1" class="section level3 hasAnchor" number="5.2.5">
+<h3><span class="header-section-number">5.2.5</span> Finding differentially expressed features<a href="r-seurat-guided-clustering-tutorial.html#finding-differentially-expressed-features-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="r-seurat-guided-clustering-tutorial.html#cb177-1" tabindex="-1"></a><span class="co"># find markers for every cluster compared to all remaining cells, report only the positive</span></span>
+<span id="cb177-2"><a href="r-seurat-guided-clustering-tutorial.html#cb177-2" tabindex="-1"></a><span class="co"># ones</span></span>
+<span id="cb177-3"><a href="r-seurat-guided-clustering-tutorial.html#cb177-3" tabindex="-1"></a>alzheimer.markers <span class="ot">&lt;-</span> <span class="fu">FindAllMarkers</span>(alzheimer, <span class="at">only.pos =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb177-4"><a href="r-seurat-guided-clustering-tutorial.html#cb177-4" tabindex="-1"></a>alzheimer.markers <span class="sc">%&gt;%</span></span>
+<span id="cb177-5"><a href="r-seurat-guided-clustering-tutorial.html#cb177-5" tabindex="-1"></a>    <span class="fu">group_by</span>(cluster) <span class="sc">%&gt;%</span></span>
+<span id="cb177-6"><a href="r-seurat-guided-clustering-tutorial.html#cb177-6" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">filter</span>(avg_log2FC <span class="sc">&gt;</span> <span class="dv">1</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 7,780 × 7
+## # Groups:   cluster [7]
+##       p_val avg_log2FC pct.1 pct.2 p_val_adj cluster gene           
+##       &lt;dbl&gt;      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt; &lt;fct&gt;   &lt;chr&gt;          
+##  1 3.33e-62       3.15 0.463 0.083  2.05e-57 0       ENSG00000249867
+##  2 1.07e-53       2.57 0.593 0.215  6.55e-49 0       ENSG00000146090
+##  3 2.26e-45       1.80 0.739 0.481  1.39e-40 0       ENSG00000067798
+##  4 2.85e-45       1.29 0.893 0.79   1.75e-40 0       ENSG00000073849
+##  5 1.64e-41       2.15 0.665 0.393  1.01e-36 0       ENSG00000101463
+##  6 1.67e-37       3.40 0.27  0.041  1.02e-32 0       ENSG00000273409
+##  7 7.50e-37       3.80 0.326 0.074  4.61e-32 0       ENSG00000198010
+##  8 9.69e-36       1.45 0.757 0.473  5.96e-31 0       ENSG00000184005
+##  9 3.25e-34       5.21 0.178 0.012  2.00e-29 0       ENSG00000182836
+## 10 1.30e-30       1.05 0.84  0.717  7.99e-26 0       ENSG00000149177
+## # ℹ 7,770 more rows</code></pre>
+<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="r-seurat-guided-clustering-tutorial.html#cb179-1" tabindex="-1"></a><span class="fu">VlnPlot</span>(alzheimer, <span class="at">features =</span> <span class="fu">c</span>(<span class="st">&quot;ENSG00000073849&quot;</span>, <span class="st">&quot;ENSG00000170677&quot;</span>, <span class="st">&quot;ENSG00000146090&quot;</span>, <span class="st">&quot;ENSG00000136235&quot;</span>, <span class="st">&quot;ENSG00000111913&quot;</span>))</span></code></pre></div>
+<p><img src="_main_files/figure-html/DE%20visualisatie%20ad-1.png" width="672" /></p>
+<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="r-seurat-guided-clustering-tutorial.html#cb180-1" tabindex="-1"></a><span class="co"># you can plot raw counts as well</span></span>
+<span id="cb180-2"><a href="r-seurat-guided-clustering-tutorial.html#cb180-2" tabindex="-1"></a><span class="fu">VlnPlot</span>(alzheimer, <span class="at">features =</span> <span class="fu">c</span>(<span class="st">&quot;ENSG00000073849&quot;</span>, <span class="st">&quot;ENSG00000170677&quot;</span>), <span class="at">layer =</span> <span class="st">&quot;counts&quot;</span>, <span class="at">log =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/DE%20visualisatie%20ad-2.png" width="672" /></p>
+<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="r-seurat-guided-clustering-tutorial.html#cb181-1" tabindex="-1"></a><span class="fu">FeaturePlot</span>(alzheimer, <span class="at">features =</span> <span class="fu">c</span>(<span class="st">&quot;ENSG00000073849&quot;</span>, <span class="st">&quot;ENSG00000170677&quot;</span>, <span class="st">&quot;ENSG00000146090&quot;</span>, <span class="st">&quot;ENSG00000136235&quot;</span>, <span class="st">&quot;ENSG00000111913&quot;</span>))</span></code></pre></div>
+<p><img src="_main_files/figure-html/DE%20visualisatie%20ad-3.png" width="672" /></p>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="r-seurat-guided-clustering-tutorial.html#cb182-1" tabindex="-1"></a>alzheimer.markers <span class="sc">%&gt;%</span></span>
+<span id="cb182-2"><a href="r-seurat-guided-clustering-tutorial.html#cb182-2" tabindex="-1"></a>    <span class="fu">group_by</span>(cluster) <span class="sc">%&gt;%</span></span>
+<span id="cb182-3"><a href="r-seurat-guided-clustering-tutorial.html#cb182-3" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">filter</span>(avg_log2FC <span class="sc">&gt;</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb182-4"><a href="r-seurat-guided-clustering-tutorial.html#cb182-4" tabindex="-1"></a>    <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">5</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb182-5"><a href="r-seurat-guided-clustering-tutorial.html#cb182-5" tabindex="-1"></a>    <span class="fu">ungroup</span>() <span class="ot">-&gt;</span> top5</span>
+<span id="cb182-6"><a href="r-seurat-guided-clustering-tutorial.html#cb182-6" tabindex="-1"></a><span class="fu">DoHeatmap</span>(alzheimer, <span class="at">features =</span> top5<span class="sc">$</span>gene) <span class="sc">+</span> <span class="fu">NoLegend</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/DE%20visualisatie%20ad-4.png" width="672" />
+<br>
+De code <code>VlnPlot(pbmc, features = c())</code> genereert een violin plot die laat zien hoe de genexpressie van “ENSG00000073849”, “ENSG00000170677”, “ENSG00000146090”, “ENSG00000136235” en “ENSG00000111913” variëren over de cellen in alzheimer. Zoals je kan zien is ENSG0000073849 in alle clusters aanwezig. ENSG000000136235 komt voornamelijk in cluster 1 tot expressie en ENSG00000111913 komt voornamelijk in cluster 5 tot expressie, dit komt overeen met de heatmap.
+Met <code>layer = "counts"</code> geeft aan dat de ruwe telwaardes worden gebruikt voor de visualisatie. <br>
+<code>FeaturePlot</code> kleurt single cellen in een dimensional reduction plot volgens een feature (kenmerk), in dit geval volgens de gen naam.
+Met de <code>DoHeatmap</code> functie en de voorgaande filter worden de top 5 genen per cluster weergeven. De balk helemaal bovenaan weergeeft het cluster nummer, welk ook terug te zien zijn in de UMAP.</p>
+</div>
+</div>
+<div id="links-1" class="section level2 hasAnchor" number="5.3">
+<h2><span class="header-section-number">5.3</span> Links<a href="r-seurat-guided-clustering-tutorial.html#links-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Seurat tutorial: <a href="https://satijalab.org/seurat/articles/pbmc3k_tutorial#cluster-the-cells">click here for the link</a>
+Dataset Alzheimer: <a href="https://datasets.cellxgene.cziscience.com/f9bca543-f82a-4863-bd62-b270b634ea10.rds">click here for the link</a>
+Artikel: <a href="https://actaneurocomms.biomedcentral.com/articles/10.1186/s40478-024-01853-5">click here for the link</a>
+Youtube tutorial analysis: <a href="https://www.youtube.com/watch?v=5HBzgsz8qyk">click here for the link</a></p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="r-for-mass-spectrometry.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="guerrilla-analytics-framework.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

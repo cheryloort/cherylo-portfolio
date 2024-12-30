@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>4 R for Mass Spectrometry | Portfolio</title>
+  <meta name="description" content="4 R for Mass Spectrometry | Portfolio" />
+  <meta name="generator" content="bookdown 0.41 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="4 R for Mass Spectrometry | Portfolio" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="4 R for Mass Spectrometry | Portfolio" />
+  
+  
+  
+
+<meta name="author" content="Cheryl" />
+
+
+<meta name="date" content="2024-12-30" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="looking-ahead.html"/>
+<link rel="next" href="r-seurat-guided-clustering-tutorial.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="libs/datatables-binding-0.33/datatables.js"></script>
+<link href="libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
+<link href="libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
+<script src="libs/plotly-binding-4.10.4/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introductie</a></li>
+<li class="chapter" data-level="2" data-path="curriculum-vitae.html"><a href="curriculum-vitae.html"><i class="fa fa-check"></i><b>2</b> Curriculum vitae</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="curriculum-vitae.html"><a href="curriculum-vitae.html#opleidingen"><i class="fa fa-check"></i><b>2.1</b> Opleidingen</a></li>
+<li class="chapter" data-level="2.2" data-path="curriculum-vitae.html"><a href="curriculum-vitae.html#werkervaring"><i class="fa fa-check"></i><b>2.2</b> Werkervaring</a></li>
+<li class="chapter" data-level="2.3" data-path="curriculum-vitae.html"><a href="curriculum-vitae.html#vaardigheden"><i class="fa fa-check"></i><b>2.3</b> Vaardigheden</a></li>
+<li class="chapter" data-level="2.4" data-path="curriculum-vitae.html"><a href="curriculum-vitae.html#cursussen"><i class="fa fa-check"></i><b>2.4</b> Cursussen</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="looking-ahead.html"><a href="looking-ahead.html"><i class="fa fa-check"></i><b>3</b> Looking ahead</a></li>
+<li class="chapter" data-level="4" data-path="r-for-mass-spectrometry.html"><a href="r-for-mass-spectrometry.html"><i class="fa fa-check"></i><b>4</b> R for Mass Spectrometry</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="r-for-mass-spectrometry.html"><a href="r-for-mass-spectrometry.html#introductie-1"><i class="fa fa-check"></i><b>4.1</b> Introductie</a></li>
+<li class="chapter" data-level="4.2" data-path="r-for-mass-spectrometry.html"><a href="r-for-mass-spectrometry.html#planning"><i class="fa fa-check"></i><b>4.2</b> Planning</a></li>
+<li class="chapter" data-level="4.3" data-path="r-for-mass-spectrometry.html"><a href="r-for-mass-spectrometry.html#uitvoering-met-voorbeeld-data-pxdooooo1"><i class="fa fa-check"></i><b>4.3</b> Uitvoering met voorbeeld data PXDOOOOO1</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="r-for-mass-spectrometry.html"><a href="r-for-mass-spectrometry.html#inlezen-van-de-data-in-r"><i class="fa fa-check"></i><b>4.3.1</b> Inlezen van de data in R</a></li>
+<li class="chapter" data-level="4.3.2" data-path="r-for-mass-spectrometry.html"><a href="r-for-mass-spectrometry.html#ruwe-data-visualisatie-verwerking-en-manipulatie"><i class="fa fa-check"></i><b>4.3.2</b> Ruwe data visualisatie, verwerking en manipulatie</a></li>
+<li class="chapter" data-level="4.3.3" data-path="r-for-mass-spectrometry.html"><a href="r-for-mass-spectrometry.html#identification-data"><i class="fa fa-check"></i><b>4.3.3</b> Identification data</a></li>
+<li class="chapter" data-level="4.3.4" data-path="r-for-mass-spectrometry.html"><a href="r-for-mass-spectrometry.html#msnbase-package"><i class="fa fa-check"></i><b>4.3.4</b> MSnbase package</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="r-for-mass-spectrometry.html"><a href="r-for-mass-spectrometry.html#uitvoering-met-ms-data-pxd008990"><i class="fa fa-check"></i><b>4.4</b> Uitvoering met MS data PXD008990</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="r-for-mass-spectrometry.html"><a href="r-for-mass-spectrometry.html#inlezen-van-de-data-in-r-1"><i class="fa fa-check"></i><b>4.4.1</b> Inlezen van de data in R</a></li>
+<li class="chapter" data-level="4.4.2" data-path="r-for-mass-spectrometry.html"><a href="r-for-mass-spectrometry.html#ruwe-data-visualisatie-verwerking-en-manipulatie-1"><i class="fa fa-check"></i><b>4.4.2</b> Ruwe data visualisatie, verwerking en manipulatie</a></li>
+<li class="chapter" data-level="4.4.3" data-path="r-for-mass-spectrometry.html"><a href="r-for-mass-spectrometry.html#samenvattings-opdracht"><i class="fa fa-check"></i><b>4.4.3</b> Samenvattings opdracht</a></li>
+<li class="chapter" data-level="4.4.4" data-path="r-for-mass-spectrometry.html"><a href="r-for-mass-spectrometry.html#msnbase-package-1"><i class="fa fa-check"></i><b>4.4.4</b> MSnbase package</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="r-for-mass-spectrometry.html"><a href="r-for-mass-spectrometry.html#uitvoering-met-ms-data-pxd018226"><i class="fa fa-check"></i><b>4.5</b> Uitvoering met MS data PXD018226</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="r-for-mass-spectrometry.html"><a href="r-for-mass-spectrometry.html#inlezen-van-data-in-r"><i class="fa fa-check"></i><b>4.5.1</b> Inlezen van data in R</a></li>
+<li class="chapter" data-level="4.5.2" data-path="r-for-mass-spectrometry.html"><a href="r-for-mass-spectrometry.html#ruwe-data-visualisatie"><i class="fa fa-check"></i><b>4.5.2</b> Ruwe data visualisatie</a></li>
+<li class="chapter" data-level="4.5.3" data-path="r-for-mass-spectrometry.html"><a href="r-for-mass-spectrometry.html#identification-data-1"><i class="fa fa-check"></i><b>4.5.3</b> Identification data</a></li>
+<li class="chapter" data-level="4.5.4" data-path="r-for-mass-spectrometry.html"><a href="r-for-mass-spectrometry.html#combineren-van-identificatie-data-met-ruwe-data"><i class="fa fa-check"></i><b>4.5.4</b> Combineren van identificatie data met ruwe data</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="r-for-mass-spectrometry.html"><a href="r-for-mass-spectrometry.html#links"><i class="fa fa-check"></i><b>4.6</b> Links</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="r-seurat-guided-clustering-tutorial.html"><a href="r-seurat-guided-clustering-tutorial.html"><i class="fa fa-check"></i><b>5</b> R Seurat: Guided Clustering Tutorial</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="r-seurat-guided-clustering-tutorial.html"><a href="r-seurat-guided-clustering-tutorial.html#uitvoering-met-voorbeeld-data"><i class="fa fa-check"></i><b>5.1</b> Uitvoering met voorbeeld data</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="r-seurat-guided-clustering-tutorial.html"><a href="r-seurat-guided-clustering-tutorial.html#pre-processing-workflow"><i class="fa fa-check"></i><b>5.1.1</b> Pre-processing workflow</a></li>
+<li class="chapter" data-level="5.1.2" data-path="r-seurat-guided-clustering-tutorial.html"><a href="r-seurat-guided-clustering-tutorial.html#identification-of-highly-variable-features"><i class="fa fa-check"></i><b>5.1.2</b> Identification of highly variable features</a></li>
+<li class="chapter" data-level="5.1.3" data-path="r-seurat-guided-clustering-tutorial.html"><a href="r-seurat-guided-clustering-tutorial.html#perform-linear-dimensional-reduction"><i class="fa fa-check"></i><b>5.1.3</b> Perform linear dimensional reduction</a></li>
+<li class="chapter" data-level="5.1.4" data-path="r-seurat-guided-clustering-tutorial.html"><a href="r-seurat-guided-clustering-tutorial.html#cluster-the-cells-umap"><i class="fa fa-check"></i><b>5.1.4</b> Cluster the cells &amp; UMAP</a></li>
+<li class="chapter" data-level="5.1.5" data-path="r-seurat-guided-clustering-tutorial.html"><a href="r-seurat-guided-clustering-tutorial.html#finding-differentially-expressed-features"><i class="fa fa-check"></i><b>5.1.5</b> Finding differentially expressed features</a></li>
+<li class="chapter" data-level="5.1.6" data-path="r-seurat-guided-clustering-tutorial.html"><a href="r-seurat-guided-clustering-tutorial.html#assigning-cell-type-identity-to-clusters"><i class="fa fa-check"></i><b>5.1.6</b> Assigning cell type identity to clusters</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="r-seurat-guided-clustering-tutorial.html"><a href="r-seurat-guided-clustering-tutorial.html#uitvoering-met-csf1r-related-disorder"><i class="fa fa-check"></i><b>5.2</b> Uitvoering met CSF1R-related disorder</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="r-seurat-guided-clustering-tutorial.html"><a href="r-seurat-guided-clustering-tutorial.html#pre-processing-workflow-1"><i class="fa fa-check"></i><b>5.2.1</b> Pre-processing workflow</a></li>
+<li class="chapter" data-level="5.2.2" data-path="r-seurat-guided-clustering-tutorial.html"><a href="r-seurat-guided-clustering-tutorial.html#identification-of-highly-variable-features-1"><i class="fa fa-check"></i><b>5.2.2</b> Identification of highly variable features</a></li>
+<li class="chapter" data-level="5.2.3" data-path="r-seurat-guided-clustering-tutorial.html"><a href="r-seurat-guided-clustering-tutorial.html#perform-linear-dimensional-reduction-1"><i class="fa fa-check"></i><b>5.2.3</b> Perform linear dimensional reduction</a></li>
+<li class="chapter" data-level="5.2.4" data-path="r-seurat-guided-clustering-tutorial.html"><a href="r-seurat-guided-clustering-tutorial.html#cluster-the-cells-umap-1"><i class="fa fa-check"></i><b>5.2.4</b> Cluster the cells &amp; UMAP</a></li>
+<li class="chapter" data-level="5.2.5" data-path="r-seurat-guided-clustering-tutorial.html"><a href="r-seurat-guided-clustering-tutorial.html#finding-differentially-expressed-features-1"><i class="fa fa-check"></i><b>5.2.5</b> Finding differentially expressed features</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="r-seurat-guided-clustering-tutorial.html"><a href="r-seurat-guided-clustering-tutorial.html#links-1"><i class="fa fa-check"></i><b>5.3</b> Links</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="guerrilla-analytics-framework.html"><a href="guerrilla-analytics-framework.html"><i class="fa fa-check"></i><b>6</b> Guerrilla Analytics framework</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="guerrilla-analytics-framework.html"><a href="guerrilla-analytics-framework.html#daur2"><i class="fa fa-check"></i><b>6.1</b> Daur2</a></li>
+<li class="chapter" data-level="6.2" data-path="guerrilla-analytics-framework.html"><a href="guerrilla-analytics-framework.html#workflows"><i class="fa fa-check"></i><b>6.2</b> Workflows</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="c.elegans-plate-experiment.html"><a href="c.elegans-plate-experiment.html"><i class="fa fa-check"></i><b>7</b> <em>C.elegans</em> plate experiment</a></li>
+<li class="chapter" data-level="8" data-path="open-peer-review-reproducibility.html"><a href="open-peer-review-reproducibility.html"><i class="fa fa-check"></i><b>8</b> Open peer review: reproducibility</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="open-peer-review-reproducibility.html"><a href="open-peer-review-reproducibility.html#part-1"><i class="fa fa-check"></i><b>8.1</b> Part 1</a></li>
+<li class="chapter" data-level="8.2" data-path="open-peer-review-reproducibility.html"><a href="open-peer-review-reproducibility.html#part-2"><i class="fa fa-check"></i><b>8.2</b> Part 2</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="create-a-package.html"><a href="create-a-package.html"><i class="fa fa-check"></i><b>9</b> Create a package</a></li>
+<li class="chapter" data-level="10" data-path="projecticum-antimicrobiële-resistentie-amr.html"><a href="projecticum-antimicrobiële-resistentie-amr.html"><i class="fa fa-check"></i><b>10</b> Projecticum Antimicrobiële Resistentie (AMR)</a></li>
+<li class="chapter" data-level="11" data-path="ecdc-covid-19-cases-data-parameterization.html"><a href="ecdc-covid-19-cases-data-parameterization.html"><i class="fa fa-check"></i><b>11</b> ECDC COVID-19 cases data parameterization</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Portfolio</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="r-for-mass-spectrometry" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">4</span> R for Mass Spectrometry<a href="r-for-mass-spectrometry.html#r-for-mass-spectrometry" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="introductie-1" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> Introductie<a href="r-for-mass-spectrometry.html#introductie-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Massa spectrometrie is een technologie die ionen scheidt op basis van hun massa/lading ration (M/Z).
+In deze opdracht ga ik kijken naar de massa spectrometrie data van PXD008990.
+Deze studie kijkt naar leeftijdsgerelateerde glycomische en proteomische veranderingen in het nigrostriatal pathway van het brein. Bij Parkinson’s disease (PD) is er sprake van een progressieve degeneratie van dopaminerge neuronen in de nigrostriatal pathway. Gen therapie heeft potentie om deze degeneratie te vertragen of stoppen, adeno-associated virussen (AAV) zijn een voorbeeld van gen therapie. AAV receptoren zijn glycanen, in deze studie wordt er gefocussed op de receptor voor rAAV2 (heparansulfaat proteoglycaan), rAAV9 (N-glycanen met terminale galactose) en proteomics voor receptoren en co-receptoren van adeno-geassocieerd virus in het nigro-striatale gebied van de hersenen.</p>
+</div>
+<div id="planning" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> Planning<a href="r-for-mass-spectrometry.html#planning" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-530cfa52d3babb35245b" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-530cfa52d3babb35245b">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9","10"],["19-11","21-11","27-11","4-12","6-12","11-12","12-12","13-12","23-12","24-12"],["Massa spectrometrie dataset vinden en in R loaden","Verder met Ruwe Data hoofdstuk van R for Massaspectrometry","Verder met Ruwe Data hoofdstuk van R for Massaspectrometry","Verder met Ruwe Data hoofdstuk van R for Massaspectrometry","Identificatie hoofdstuk van R for Massaspectrometry","Verder met Identificatie hoofdstuk van R for Massaspectrometry ","Verder met Identificatie hoofdstuk van R for Massaspectrometry","Packages MSnBase en Spectra tutorials","Seurat: Guided Clustering Tutorial","Seurat: Guided Clustering Tutorial"],["Bestand 2017-02-24-RR-SRT-Rat-25.mzML gedownload, introductie geschreven, packages gedownload","Spectra verkregen van bestand 2017-02-24-RR-SRT en Spectra opties/functies doorgenomen, backend functies doorgenomen en visualisatie van de data","Ruwe data compleet maken door errors op te lossen bij de visualisatie plotten en verdere verdieping op de werking van Spectra en het plotten van spectra (dit is gedaan met PXD008990)","Verder ingaan op de functies van de ruwe data verwerking en grafieken aanpassen op basis van dit. Kon met bestand 2017-02-24-RR-SRT-Rat-25.mzML niet identificatie, dus nieuw compleet bestand gezocht en bestand CSF_MB_7_1.mzML gedownload van PXD018226 en overnieuw ruwe data hoofdstuk langs gelopen, niet alle plotten en functies inbegrepen.","Identificatie hoofdstuk doorgenomen voor voorbeeld","Verder met voorbeeld doornemen en werken aan identificatie op eigen data.","Verder met werken aan eigen identificatie data en chunks 'comparing spectra 2 vb' en 'filtered visualisation' en begonnen met de tutorial van MSnbase package","Verdere uitwerking van visualisatie met MSnbase package en doornemen van tutorial van Spectra package","Begonnen aan de Guided Clustering Tutorial van Seurat","Verder met de Guided Clustering Tutorial van Seurat, dataset zoeken, seurat object analyseren en begin maken aan verwerking van data met de dataset en youtube tutorial 'How to analyze single-cell RNA-Seq data in R' bekijken"],["2","3","3,5","4","3","4,5","3","2,5","3","4"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Datum<\/th>\n      <th>Wat te doen<\/th>\n      <th>Handelingen uitgevoerd<\/th>\n      <th>Uren besteed<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":4,"autoWidth":true,"searching":false,"columnDefs":[{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Datum","targets":1},{"name":"Wat te doen","targets":2},{"name":"Handelingen uitgevoerd","targets":3},{"name":"Uren besteed","targets":4}],"order":[],"orderClasses":false,"lengthMenu":[4,10,25,50,100],"rowCallback":"function(row, data, displayNum, displayIndex, dataIndex) {\nvar value=data[1]; $(this.api().cell(row, 1).node()).css({'font-size':'14px','line-height':'1.5'});\nvar value=data[2]; $(this.api().cell(row, 2).node()).css({'font-size':'14px','line-height':'1.5'});\nvar value=data[3]; $(this.api().cell(row, 3).node()).css({'font-size':'14px','line-height':'1.5'});\nvar value=data[4]; $(this.api().cell(row, 4).node()).css({'font-size':'14px','line-height':'1.5'});\n}"},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":["options.rowCallback"],"jsHooks":[]}</script>
+</div>
+<div id="uitvoering-met-voorbeeld-data-pxdooooo1" class="section level2 tabset hasAnchor" number="4.3">
+<h2><span class="header-section-number">4.3</span> Uitvoering met voorbeeld data PXDOOOOO1<a href="r-for-mass-spectrometry.html#uitvoering-met-voorbeeld-data-pxdooooo1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="inlezen-van-de-data-in-r" class="section level3 hasAnchor" number="4.3.1">
+<h3><span class="header-section-number">4.3.1</span> Inlezen van de data in R<a href="r-for-mass-spectrometry.html#inlezen-van-de-data-in-r" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="r-for-mass-spectrometry.html#cb2-1" tabindex="-1"></a><span class="co">#Inlezen van PXD008990 in R</span></span>
+<span id="cb2-2"><a href="r-for-mass-spectrometry.html#cb2-2" tabindex="-1"></a>px_vb <span class="ot">&lt;-</span> <span class="fu">PXDataset</span>(<span class="st">&quot;PXD000001&quot;</span>)</span>
+<span id="cb2-3"><a href="r-for-mass-spectrometry.html#cb2-3" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="r-for-mass-spectrometry.html#cb2-4" tabindex="-1"></a><span class="co">#Metadata bekijken van PXD008990</span></span>
+<span id="cb2-5"><a href="r-for-mass-spectrometry.html#cb2-5" tabindex="-1"></a><span class="fu">pxtax</span>(px_vb) <span class="co">#Taxonomie van het dier </span></span></code></pre></div>
+<pre><code>## [1] &quot;Erwinia carotovora&quot;</code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="r-for-mass-spectrometry.html#cb4-1" tabindex="-1"></a><span class="fu">pxurl</span>(px_vb) <span class="co">#Website (url) waar de data vandaan komt</span></span></code></pre></div>
+<pre><code>## [1] &quot;ftp://ftp.pride.ebi.ac.uk/pride/data/archive/2012/03/PXD000001/generated&quot;</code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="r-for-mass-spectrometry.html#cb6-1" tabindex="-1"></a><span class="fu">pxref</span>(px_vb) <span class="co">#Referentie naar het artikel</span></span></code></pre></div>
+<pre><code>## [1] &quot;Gatto L, Christoforou A; Using R and Bioconductor for proteomics data analysis., Biochim Biophys Acta, 2013 May 18, doi:10.1016/j.bbapap.2013.04.032 PMID:23692960&quot;</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="r-for-mass-spectrometry.html#cb8-1" tabindex="-1"></a><span class="co">#Downloaden van bestand 2017-02-24-RR-SRT-Rat-25.mzM naar R met de pxget functie</span></span>
+<span id="cb8-2"><a href="r-for-mass-spectrometry.html#cb8-2" tabindex="-1"></a>fn_vb <span class="ot">&lt;-</span> <span class="st">&quot;TMT_Erwinia_1uLSike_Top10HCD_isol2_45stepped_60min_01-20141210.mzML&quot;</span></span>
+<span id="cb8-3"><a href="r-for-mass-spectrometry.html#cb8-3" tabindex="-1"></a>mzf <span class="ot">&lt;-</span> <span class="fu">pxget</span>(px_vb, fn_vb)</span></code></pre></div>
+</div>
+<div id="ruwe-data-visualisatie-verwerking-en-manipulatie" class="section level3 hasAnchor" number="4.3.2">
+<h3><span class="header-section-number">4.3.2</span> Ruwe data visualisatie, verwerking en manipulatie<a href="r-for-mass-spectrometry.html#ruwe-data-visualisatie-verwerking-en-manipulatie" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="r-for-mass-spectrometry.html#cb9-1" tabindex="-1"></a>sp_vb <span class="ot">&lt;-</span> <span class="fu">Spectra</span>(mzf)</span>
+<span id="cb9-2"><a href="r-for-mass-spectrometry.html#cb9-2" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="r-for-mass-spectrometry.html#cb9-3" tabindex="-1"></a><span class="co">#Weergeef alle metadata variabelen </span></span>
+<span id="cb9-4"><a href="r-for-mass-spectrometry.html#cb9-4" tabindex="-1"></a><span class="fu">spectraVariables</span>(sp_vb)</span>
+<span id="cb9-5"><a href="r-for-mass-spectrometry.html#cb9-5" tabindex="-1"></a><span class="co">#Extract alle metadata</span></span>
+<span id="cb9-6"><a href="r-for-mass-spectrometry.html#cb9-6" tabindex="-1"></a><span class="fu">spectraData</span>(sp_vb)</span>
+<span id="cb9-7"><a href="r-for-mass-spectrometry.html#cb9-7" tabindex="-1"></a><span class="co">#Extract een lijst met de ruwe data</span></span>
+<span id="cb9-8"><a href="r-for-mass-spectrometry.html#cb9-8" tabindex="-1"></a><span class="fu">peaksData</span>(sp_vb)</span>
+<span id="cb9-9"><a href="r-for-mass-spectrometry.html#cb9-9" tabindex="-1"></a><span class="co">#Check het aantal spectra in het spectra object -&gt; dit is 7534 scans</span></span>
+<span id="cb9-10"><a href="r-for-mass-spectrometry.html#cb9-10" tabindex="-1"></a><span class="fu">length</span>(sp_vb)</span>
+<span id="cb9-11"><a href="r-for-mass-spectrometry.html#cb9-11" tabindex="-1"></a></span>
+<span id="cb9-12"><a href="r-for-mass-spectrometry.html#cb9-12" tabindex="-1"></a><span class="co">#Maak een nieuw kolom aan met de retentie tijden in minuten</span></span>
+<span id="cb9-13"><a href="r-for-mass-spectrometry.html#cb9-13" tabindex="-1"></a>sp_vb<span class="sc">$</span>rtime_minute <span class="ot">&lt;-</span> <span class="fu">rtime</span>(sp_vb) <span class="sc">/</span> <span class="dv">60</span> </span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="r-for-mass-spectrometry.html#cb10-1" tabindex="-1"></a><span class="fu">with</span>(<span class="fu">spectraData</span>(<span class="fu">filterMsLevel</span>(sp_vb, <span class="dv">1</span>)),</span>
+<span id="cb10-2"><a href="r-for-mass-spectrometry.html#cb10-2" tabindex="-1"></a>     <span class="fu">plot</span>(rtime, totIonCurrent, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>))</span>
+<span id="cb10-3"><a href="r-for-mass-spectrometry.html#cb10-3" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fu">rtime</span>(sp_vb)[<span class="dv">2807</span>], <span class="at">col =</span> <span class="st">&quot;red&quot;</span>) </span></code></pre></div>
+<p><img src="_main_files/figure-html/visualisatie%20chromatogram%20vb-1.png" width="672" /></p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="r-for-mass-spectrometry.html#cb11-1" tabindex="-1"></a><span class="co">#Verkrijg een parent set (MS1) en children (MS2) scans</span></span>
+<span id="cb11-2"><a href="r-for-mass-spectrometry.html#cb11-2" tabindex="-1"></a>ms_2_vb <span class="ot">&lt;-</span> <span class="fu">filterPrecursorScan</span>(sp_vb, <span class="dv">2807</span>)</span>
+<span id="cb11-3"><a href="r-for-mass-spectrometry.html#cb11-3" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="r-for-mass-spectrometry.html#cb11-4" tabindex="-1"></a><span class="co">#Plot het 2807 spectrum en highlight alle pieken die voor MS2 analyse geselecteerd zijn</span></span>
+<span id="cb11-5"><a href="r-for-mass-spectrometry.html#cb11-5" tabindex="-1"></a><span class="fu">plotSpectra</span>(sp_vb[<span class="dv">2807</span>], <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">400</span>, <span class="dv">1000</span>))</span>
+<span id="cb11-6"><a href="r-for-mass-spectrometry.html#cb11-6" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fu">precursorMz</span>(ms_2_vb)[<span class="sc">-</span><span class="dv">1</span>], <span class="at">col =</span> <span class="st">&quot;grey&quot;</span>)</span>
+<span id="cb11-7"><a href="r-for-mass-spectrometry.html#cb11-7" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fu">precursorMz</span>(ms_2_vb)[<span class="dv">2</span>], <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/visualisatie%20MS1%20en%20MS2%20vb-1.png" width="672" /></p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="r-for-mass-spectrometry.html#cb12-1" tabindex="-1"></a><span class="co">#Zoom in op mz values 521.1 en 522.5 om de isotope envelop van de pieken te weergeven</span></span>
+<span id="cb12-2"><a href="r-for-mass-spectrometry.html#cb12-2" tabindex="-1"></a><span class="fu">plotSpectra</span>(sp_vb[<span class="dv">2807</span>], <span class="at">xlim =</span> <span class="fu">c</span>(<span class="fl">521.2</span>, <span class="fl">522.5</span>), <span class="at">type =</span> <span class="st">&quot;l&quot;</span>)</span>
+<span id="cb12-3"><a href="r-for-mass-spectrometry.html#cb12-3" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fu">precursorMz</span>(ms_2_vb)[<span class="dv">2</span>], <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/visualisatie%20MS1%20en%20MS2%20vb-2.png" width="672" /></p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="r-for-mass-spectrometry.html#cb13-1" tabindex="-1"></a><span class="co">#Plot alle 10 de MS2 spectra</span></span>
+<span id="cb13-2"><a href="r-for-mass-spectrometry.html#cb13-2" tabindex="-1"></a><span class="fu">plotSpectra</span>(ms_2_vb[<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>]) </span></code></pre></div>
+<p><img src="_main_files/figure-html/visualisatie%20MS2%20vb-1.png" width="672" /></p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="r-for-mass-spectrometry.html#cb14-1" tabindex="-1"></a>sp2_vb <span class="ot">&lt;-</span> <span class="fu">filterMsLevel</span>(sp_vb, <span class="dv">2</span><span class="dt">L</span>)</span>
+<span id="cb14-2"><a href="r-for-mass-spectrometry.html#cb14-2" tabindex="-1"></a><span class="fu">anyDuplicated</span>(<span class="fu">precursorMz</span>(<span class="fu">filterMsLevel</span>(sp_vb, <span class="dv">2</span>)))</span></code></pre></div>
+<pre><code>## [1] 37</code></pre>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="r-for-mass-spectrometry.html#cb16-1" tabindex="-1"></a>i <span class="ot">&lt;-</span> <span class="fu">which</span>(<span class="fu">precursorMz</span>(sp2_vb) <span class="sc">==</span> <span class="fu">precursorMz</span>(sp2_vb)[<span class="dv">37</span>])</span>
+<span id="cb16-2"><a href="r-for-mass-spectrometry.html#cb16-2" tabindex="-1"></a>sp2_vbi <span class="ot">&lt;-</span> sp2_vb[i]</span>
+<span id="cb16-3"><a href="r-for-mass-spectrometry.html#cb16-3" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="r-for-mass-spectrometry.html#cb16-4" tabindex="-1"></a><span class="co">#Visualiseer het matchende paar</span></span>
+<span id="cb16-5"><a href="r-for-mass-spectrometry.html#cb16-5" tabindex="-1"></a><span class="fu">plotSpectraOverlay</span>(sp2_vbi, <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;steelblue&quot;</span>))</span></code></pre></div>
+<p><img src="_main_files/figure-html/Comparing%20spectra%20vb-1.png" width="672" /></p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="r-for-mass-spectrometry.html#cb17-1" tabindex="-1"></a><span class="fu">plotSpectraMirror</span>(sp2_vbi[<span class="dv">1</span>], sp2_vbi[<span class="dv">2</span>])</span></code></pre></div>
+<p><img src="_main_files/figure-html/Comparing%20spectra%20vb-2.png" width="672" /></p>
+</div>
+<div id="identification-data" class="section level3 hasAnchor" number="4.3.3">
+<h3><span class="header-section-number">4.3.3</span> Identification data<a href="r-for-mass-spectrometry.html#identification-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="r-for-mass-spectrometry.html#cb18-1" tabindex="-1"></a>idf <span class="ot">&lt;-</span> msdata<span class="sc">::</span><span class="fu">ident</span>(<span class="at">full.names =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb18-2"><a href="r-for-mass-spectrometry.html#cb18-2" tabindex="-1"></a><span class="fu">basename</span>(idf)</span></code></pre></div>
+<pre><code>## [1] &quot;TMT_Erwinia_1uLSike_Top10HCD_isol2_45stepped_60min_01-20141210.mzid&quot;</code></pre>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="r-for-mass-spectrometry.html#cb20-1" tabindex="-1"></a><span class="co">#Inlezen van de mzIdentML (mzid)</span></span>
+<span id="cb20-2"><a href="r-for-mass-spectrometry.html#cb20-2" tabindex="-1"></a>id <span class="ot">&lt;-</span> <span class="fu">PSM</span>(idf)</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="r-for-mass-spectrometry.html#cb21-1" tabindex="-1"></a><span class="co">#Het onderstaande tabel geeft het aantal spectra aan die 1, 2, 3, 4 of 5 matches hebben. </span></span>
+<span id="cb21-2"><a href="r-for-mass-spectrometry.html#cb21-2" tabindex="-1"></a><span class="fu">table</span>(<span class="fu">table</span>(id<span class="sc">$</span>spectrumID))</span></code></pre></div>
+<pre><code>## 
+##    1    2    3    4    5 
+## 4936  369   26   10    2</code></pre>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="r-for-mass-spectrometry.html#cb23-1" tabindex="-1"></a><span class="co">#Om te zien hoeveel matches scan 1774 heeft:</span></span>
+<span id="cb23-2"><a href="r-for-mass-spectrometry.html#cb23-2" tabindex="-1"></a>i <span class="ot">&lt;-</span> <span class="fu">which</span>(id<span class="sc">$</span>spectrumID <span class="sc">==</span> <span class="st">&quot;controllerType=0 controllerNumber=1 scan=1774&quot;</span>)</span>
+<span id="cb23-3"><a href="r-for-mass-spectrometry.html#cb23-3" tabindex="-1"></a><span class="fu">data.frame</span>(id[i, ])[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span></code></pre></div>
+<pre><code>##    sequence                                    spectrumID chargeState rank
+## 1 RTRYQAEVR controllerType=0 controllerNumber=1 scan=1774           2    1
+## 2 RTRYQAEVR controllerType=0 controllerNumber=1 scan=1774           2    1
+## 3 RTRYQAEVR controllerType=0 controllerNumber=1 scan=1774           2    1
+## 4 RTRYQAEVR controllerType=0 controllerNumber=1 scan=1774           2    1
+##   passThreshold
+## 1          TRUE
+## 2          TRUE
+## 3          TRUE
+## 4          TRUE</code></pre>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="r-for-mass-spectrometry.html#cb25-1" tabindex="-1"></a><span class="co">#Reducing het PSM object met variabele sprectrumID</span></span>
+<span id="cb25-2"><a href="r-for-mass-spectrometry.html#cb25-2" tabindex="-1"></a>id2 <span class="ot">&lt;-</span> <span class="fu">reducePSMs</span>(id, id<span class="sc">$</span>spectrumID)</span>
+<span id="cb25-3"><a href="r-for-mass-spectrometry.html#cb25-3" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="r-for-mass-spectrometry.html#cb25-4" tabindex="-1"></a>j <span class="ot">&lt;-</span> <span class="fu">which</span>(id2<span class="sc">$</span>spectrumID <span class="sc">==</span> <span class="st">&quot;controllerType=0 controllerNumber=1 scan=1774&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="r-for-mass-spectrometry.html#cb26-1" tabindex="-1"></a><span class="co">#Zet de dataframe om naar een tibble</span></span>
+<span id="cb26-2"><a href="r-for-mass-spectrometry.html#cb26-2" tabindex="-1"></a>id_tbl <span class="ot">&lt;-</span> tidyr<span class="sc">::</span><span class="fu">as_tibble</span>(id)</span>
+<span id="cb26-3"><a href="r-for-mass-spectrometry.html#cb26-3" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="r-for-mass-spectrometry.html#cb26-4" tabindex="-1"></a><span class="co">#Verwijder decoy hits</span></span>
+<span id="cb26-5"><a href="r-for-mass-spectrometry.html#cb26-5" tabindex="-1"></a>id_tbl <span class="ot">&lt;-</span> id_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb26-6"><a href="r-for-mass-spectrometry.html#cb26-6" tabindex="-1"></a>    <span class="fu">filter</span>(<span class="sc">!</span>isDecoy)</span>
+<span id="cb26-7"><a href="r-for-mass-spectrometry.html#cb26-7" tabindex="-1"></a></span>
+<span id="cb26-8"><a href="r-for-mass-spectrometry.html#cb26-8" tabindex="-1"></a><span class="co">#Houd de first rank matches</span></span>
+<span id="cb26-9"><a href="r-for-mass-spectrometry.html#cb26-9" tabindex="-1"></a>id_tbl <span class="ot">&lt;-</span> id_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb26-10"><a href="r-for-mass-spectrometry.html#cb26-10" tabindex="-1"></a>    <span class="fu">filter</span>(rank <span class="sc">==</span> <span class="dv">1</span>)</span>
+<span id="cb26-11"><a href="r-for-mass-spectrometry.html#cb26-11" tabindex="-1"></a></span>
+<span id="cb26-12"><a href="r-for-mass-spectrometry.html#cb26-12" tabindex="-1"></a><span class="co">#Verwijder de gedeelde peptides</span></span>
+<span id="cb26-13"><a href="r-for-mass-spectrometry.html#cb26-13" tabindex="-1"></a>mltm <span class="ot">&lt;-</span></span>
+<span id="cb26-14"><a href="r-for-mass-spectrometry.html#cb26-14" tabindex="-1"></a>    id_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb26-15"><a href="r-for-mass-spectrometry.html#cb26-15" tabindex="-1"></a>    <span class="fu">group_by</span>(spectrumID) <span class="sc">%&gt;%</span></span>
+<span id="cb26-16"><a href="r-for-mass-spectrometry.html#cb26-16" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">nProts =</span> <span class="fu">length</span>(<span class="fu">unique</span>(DatabaseAccess))) <span class="sc">%&gt;%</span></span>
+<span id="cb26-17"><a href="r-for-mass-spectrometry.html#cb26-17" tabindex="-1"></a>    <span class="fu">filter</span>(nProts <span class="sc">&gt;</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb26-18"><a href="r-for-mass-spectrometry.html#cb26-18" tabindex="-1"></a>    <span class="fu">select</span>(spectrumID, nProts)</span>
+<span id="cb26-19"><a href="r-for-mass-spectrometry.html#cb26-19" tabindex="-1"></a>id_tbl <span class="ot">&lt;-</span></span>
+<span id="cb26-20"><a href="r-for-mass-spectrometry.html#cb26-20" tabindex="-1"></a>    id_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb26-21"><a href="r-for-mass-spectrometry.html#cb26-21" tabindex="-1"></a>    <span class="fu">filter</span>(<span class="sc">!</span>spectrumID <span class="sc">%in%</span> mltm<span class="sc">$</span>spectrumID)</span>
+<span id="cb26-22"><a href="r-for-mass-spectrometry.html#cb26-22" tabindex="-1"></a></span>
+<span id="cb26-23"><a href="r-for-mass-spectrometry.html#cb26-23" tabindex="-1"></a><span class="co">#Je kan ook je data filteren met filterPMS(), beide geven een output van 2666 PSMs</span></span>
+<span id="cb26-24"><a href="r-for-mass-spectrometry.html#cb26-24" tabindex="-1"></a>id_filtered <span class="ot">&lt;-</span> <span class="fu">filterPSMs</span>(id)</span>
+<span id="cb26-25"><a href="r-for-mass-spectrometry.html#cb26-25" tabindex="-1"></a></span>
+<span id="cb26-26"><a href="r-for-mass-spectrometry.html#cb26-26" tabindex="-1"></a><span class="co">#describePeptides geeft het aantal unieke of gedeelde peptides</span></span>
+<span id="cb26-27"><a href="r-for-mass-spectrometry.html#cb26-27" tabindex="-1"></a><span class="fu">describePeptides</span>(id_filtered) <span class="co">#Zou alleen unieke hits moeten geven aangezien de gedeelde eruit zijn gefilterd</span></span>
+<span id="cb26-28"><a href="r-for-mass-spectrometry.html#cb26-28" tabindex="-1"></a></span>
+<span id="cb26-29"><a href="r-for-mass-spectrometry.html#cb26-29" tabindex="-1"></a><span class="co">#describeProteins geeft het aantal eiwitten/proteins gedefinieerd door alleen unieke, alleen gedeelde of een mix van beide.</span></span>
+<span id="cb26-30"><a href="r-for-mass-spectrometry.html#cb26-30" tabindex="-1"></a><span class="fu">describeProteins</span>(id_filtered)</span>
+<span id="cb26-31"><a href="r-for-mass-spectrometry.html#cb26-31" tabindex="-1"></a></span>
+<span id="cb26-32"><a href="r-for-mass-spectrometry.html#cb26-32" tabindex="-1"></a><span class="co">#Vergelijk de distributie van ruwe identificatie scores van de decoy en de niet-decoy hits</span></span>
+<span id="cb26-33"><a href="r-for-mass-spectrometry.html#cb26-33" tabindex="-1"></a><span class="fu">as_tibble</span>(id) <span class="sc">%&gt;%</span></span>
+<span id="cb26-34"><a href="r-for-mass-spectrometry.html#cb26-34" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> MS.GF.RawScore,</span>
+<span id="cb26-35"><a href="r-for-mass-spectrometry.html#cb26-35" tabindex="-1"></a>               <span class="at">colour =</span> isDecoy)) <span class="sc">+</span></span>
+<span id="cb26-36"><a href="r-for-mass-spectrometry.html#cb26-36" tabindex="-1"></a>    <span class="fu">geom_density</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/filtering%20data-1.png" width="672" /></p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="r-for-mass-spectrometry.html#cb27-1" tabindex="-1"></a><span class="co">#Bereken de lengte van elke peptide en het aantal peptides per eiwit en plot de lengte van de peptide tegen hun respectieve aantal peptides</span></span>
+<span id="cb27-2"><a href="r-for-mass-spectrometry.html#cb27-2" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(<span class="st">&quot;dplyr&quot;</span>))</span>
+<span id="cb27-3"><a href="r-for-mass-spectrometry.html#cb27-3" tabindex="-1"></a>iddf <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(id_filtered) <span class="sc">%&gt;%</span></span>
+<span id="cb27-4"><a href="r-for-mass-spectrometry.html#cb27-4" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">peplen =</span> <span class="fu">nchar</span>(sequence))</span>
+<span id="cb27-5"><a href="r-for-mass-spectrometry.html#cb27-5" tabindex="-1"></a>npeps <span class="ot">&lt;-</span> iddf <span class="sc">%&gt;%</span></span>
+<span id="cb27-6"><a href="r-for-mass-spectrometry.html#cb27-6" tabindex="-1"></a>    <span class="fu">group_by</span>(DatabaseAccess) <span class="sc">%&gt;%</span></span>
+<span id="cb27-7"><a href="r-for-mass-spectrometry.html#cb27-7" tabindex="-1"></a>    tally</span>
+<span id="cb27-8"><a href="r-for-mass-spectrometry.html#cb27-8" tabindex="-1"></a>iddf <span class="ot">&lt;-</span> <span class="fu">full_join</span>(iddf, npeps)</span>
+<span id="cb27-9"><a href="r-for-mass-spectrometry.html#cb27-9" tabindex="-1"></a><span class="do">## Joining with `by = join_by(DatabaseAccess)`</span></span>
+<span id="cb27-10"><a href="r-for-mass-spectrometry.html#cb27-10" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;ggplot2&quot;</span>)</span>
+<span id="cb27-11"><a href="r-for-mass-spectrometry.html#cb27-11" tabindex="-1"></a><span class="fu">ggplot</span>(iddf, <span class="fu">aes</span>(<span class="at">x =</span> n, <span class="at">y =</span> DBseqLength)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/filtering%20data-2.png" width="672" /></p>
+<p><strong>Combineren van identification data met de ruw data</strong></p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="r-for-mass-spectrometry.html#cb28-1" tabindex="-1"></a><span class="co">#Spectra met meerdere PSMs</span></span>
+<span id="cb28-2"><a href="r-for-mass-spectrometry.html#cb28-2" tabindex="-1"></a><span class="fu">table</span>(<span class="fu">table</span>(id_filtered<span class="sc">$</span>spectrumID))</span></code></pre></div>
+<pre><code>## 
+##    1    2    3    4 
+## 2630   13    2    1</code></pre>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="r-for-mass-spectrometry.html#cb30-1" tabindex="-1"></a><span class="co">#Zoeken welk spectrum 4 matching PSMs heeft</span></span>
+<span id="cb30-2"><a href="r-for-mass-spectrometry.html#cb30-2" tabindex="-1"></a><span class="fu">which</span>(<span class="fu">table</span>(id_filtered<span class="sc">$</span>spectrumID) <span class="sc">==</span> <span class="dv">4</span>)</span></code></pre></div>
+<pre><code>## controllerType=0 controllerNumber=1 scan=5490 
+##                                          1903</code></pre>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="r-for-mass-spectrometry.html#cb32-1" tabindex="-1"></a><span class="co">#Filter dit spectrum uit de data en maak een dataframe ervan</span></span>
+<span id="cb32-2"><a href="r-for-mass-spectrometry.html#cb32-2" tabindex="-1"></a>id_4 <span class="ot">&lt;-</span> id_filtered[id_filtered<span class="sc">$</span>spectrumID <span class="sc">==</span> <span class="st">&quot;controllerType=0 controllerNumber=1 scan=5490&quot;</span>, ] <span class="sc">%&gt;%</span></span>
+<span id="cb32-3"><a href="r-for-mass-spectrometry.html#cb32-3" tabindex="-1"></a>    <span class="fu">as.data.frame</span>()</span>
+<span id="cb32-4"><a href="r-for-mass-spectrometry.html#cb32-4" tabindex="-1"></a></span>
+<span id="cb32-5"><a href="r-for-mass-spectrometry.html#cb32-5" tabindex="-1"></a><span class="co">#De vier PSM verschillen in locatie van de Carbamidomethyl modificatie, dit kan je zien in de dataframe of selecteren met:</span></span>
+<span id="cb32-6"><a href="r-for-mass-spectrometry.html#cb32-6" tabindex="-1"></a>id_4[, <span class="fu">c</span>(<span class="st">&quot;modName&quot;</span>, <span class="st">&quot;modLocation&quot;</span>)]</span></code></pre></div>
+<pre><code>##           modName modLocation
+## 1 Carbamidomethyl           2
+## 2 Carbamidomethyl           5
+## 3 Carbamidomethyl          10
+## 4 Carbamidomethyl          15</code></pre>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="r-for-mass-spectrometry.html#cb34-1" tabindex="-1"></a><span class="co">#De PMS table reduceren om alleen een-op-een matches tussen ruwe spectra en PSMs te krijgen</span></span>
+<span id="cb34-2"><a href="r-for-mass-spectrometry.html#cb34-2" tabindex="-1"></a>id_filtered <span class="ot">&lt;-</span> <span class="fu">reducePSMs</span>(id_filtered, id_filtered<span class="sc">$</span>spectrumID)</span>
+<span id="cb34-3"><a href="r-for-mass-spectrometry.html#cb34-3" tabindex="-1"></a></span>
+<span id="cb34-4"><a href="r-for-mass-spectrometry.html#cb34-4" tabindex="-1"></a><span class="co">#Dan kan je het spectra object en de PSM table samenvoegen</span></span>
+<span id="cb34-5"><a href="r-for-mass-spectrometry.html#cb34-5" tabindex="-1"></a>sp_vb <span class="ot">&lt;-</span> <span class="fu">joinSpectraData</span>(sp_vb, id_filtered,</span>
+<span id="cb34-6"><a href="r-for-mass-spectrometry.html#cb34-6" tabindex="-1"></a>                      <span class="at">by.x =</span> <span class="st">&quot;spectrumId&quot;</span>,</span>
+<span id="cb34-7"><a href="r-for-mass-spectrometry.html#cb34-7" tabindex="-1"></a>                      <span class="at">by.y =</span> <span class="st">&quot;spectrumID&quot;</span>)</span>
+<span id="cb34-8"><a href="r-for-mass-spectrometry.html#cb34-8" tabindex="-1"></a></span>
+<span id="cb34-9"><a href="r-for-mass-spectrometry.html#cb34-9" tabindex="-1"></a><span class="co">#Na gaan of er geen identificatie data is toegevoegd aan de MS1 scans</span></span>
+<span id="cb34-10"><a href="r-for-mass-spectrometry.html#cb34-10" tabindex="-1"></a><span class="fu">all</span>(<span class="fu">is.na</span>(<span class="fu">filterMsLevel</span>(sp_vb, <span class="dv">1</span>)<span class="sc">$</span>sequence))</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="r-for-mass-spectrometry.html#cb36-1" tabindex="-1"></a><span class="co">#Na gaan of het wel is toegevoegd aan de MS2 scans</span></span>
+<span id="cb36-2"><a href="r-for-mass-spectrometry.html#cb36-2" tabindex="-1"></a>sp2_vb <span class="ot">&lt;-</span> <span class="fu">filterMsLevel</span>(sp_vb, <span class="dv">2</span>)</span>
+<span id="cb36-3"><a href="r-for-mass-spectrometry.html#cb36-3" tabindex="-1"></a><span class="fu">table</span>(<span class="fu">is.na</span>(sp2_vb<span class="sc">$</span>sequence))</span></code></pre></div>
+<pre><code>## 
+## FALSE  TRUE 
+##  2646  3457</code></pre>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="r-for-mass-spectrometry.html#cb38-1" tabindex="-1"></a><span class="co">#Vergelijk de precursor/ peptide mass to charges</span></span>
+<span id="cb38-2"><a href="r-for-mass-spectrometry.html#cb38-2" tabindex="-1"></a>sp2_vb <span class="ot">&lt;-</span> sp2_vb[<span class="sc">!</span><span class="fu">is.na</span>(sp2_vb<span class="sc">$</span>sequence)]</span>
+<span id="cb38-3"><a href="r-for-mass-spectrometry.html#cb38-3" tabindex="-1"></a><span class="fu">summary</span>(sp2_vb<span class="sc">$</span>precursorMz <span class="sc">-</span> sp2_vb<span class="sc">$</span>experimentalMassToCharge)</span></code></pre></div>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##  0.0000  0.0000  0.0000  0.0053  0.0000  2.0297</code></pre>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="r-for-mass-spectrometry.html#cb40-1" tabindex="-1"></a><span class="co">#Tel het aantal identificaties voor elke scan</span></span>
+<span id="cb40-2"><a href="r-for-mass-spectrometry.html#cb40-2" tabindex="-1"></a>sp_vb <span class="ot">&lt;-</span> <span class="fu">countIdentifications</span>(sp_vb)</span>
+<span id="cb40-3"><a href="r-for-mass-spectrometry.html#cb40-3" tabindex="-1"></a></span>
+<span id="cb40-4"><a href="r-for-mass-spectrometry.html#cb40-4" tabindex="-1"></a><span class="co">#Toon het aantal PSMs per scan. </span></span>
+<span id="cb40-5"><a href="r-for-mass-spectrometry.html#cb40-5" tabindex="-1"></a><span class="fu">table</span>(<span class="fu">msLevel</span>(sp_vb), sp_vb<span class="sc">$</span>countIdentifications)</span></code></pre></div>
+<pre><code>##    
+##        0    1    2    3    4    5    6    7    8    9   10
+##   1  833   30   45   97  139  132   92   42   17    3    1
+##   2 3457 2646    0    0    0    0    0    0    0    0    0</code></pre>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="r-for-mass-spectrometry.html#cb42-1" tabindex="-1"></a><span class="co">#Visualisatie van de data in de total ion chromatogram</span></span>
+<span id="cb42-2"><a href="r-for-mass-spectrometry.html#cb42-2" tabindex="-1"></a>sp_vb <span class="sc">|&gt;</span></span>
+<span id="cb42-3"><a href="r-for-mass-spectrometry.html#cb42-3" tabindex="-1"></a><span class="fu">filterMsLevel</span>(<span class="dv">1</span>) <span class="sc">|&gt;</span></span>
+<span id="cb42-4"><a href="r-for-mass-spectrometry.html#cb42-4" tabindex="-1"></a><span class="fu">spectraData</span>() <span class="sc">|&gt;</span></span>
+<span id="cb42-5"><a href="r-for-mass-spectrometry.html#cb42-5" tabindex="-1"></a><span class="fu">as_tibble</span>() <span class="sc">|&gt;</span></span>
+<span id="cb42-6"><a href="r-for-mass-spectrometry.html#cb42-6" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> rtime,</span>
+<span id="cb42-7"><a href="r-for-mass-spectrometry.html#cb42-7" tabindex="-1"></a>           <span class="at">y =</span> totIonCurrent)) <span class="sc">+</span></span>
+<span id="cb42-8"><a href="r-for-mass-spectrometry.html#cb42-8" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="at">alpha =</span> <span class="fl">0.25</span>) <span class="sc">+</span></span>
+<span id="cb42-9"><a href="r-for-mass-spectrometry.html#cb42-9" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> <span class="fu">ifelse</span>(countIdentifications <span class="sc">==</span> <span class="dv">0</span>,</span>
+<span id="cb42-10"><a href="r-for-mass-spectrometry.html#cb42-10" tabindex="-1"></a>                                   <span class="cn">NA</span>, countIdentifications)),</span>
+<span id="cb42-11"><a href="r-for-mass-spectrometry.html#cb42-11" tabindex="-1"></a>               <span class="at">size =</span> <span class="fl">0.75</span>,</span>
+<span id="cb42-12"><a href="r-for-mass-spectrometry.html#cb42-12" tabindex="-1"></a>               <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb42-13"><a href="r-for-mass-spectrometry.html#cb42-13" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">colour =</span> <span class="st">&quot;Number of ids&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/total%20ion%20chromatogram-1.png" width="672" /></p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="r-for-mass-spectrometry.html#cb43-1" tabindex="-1"></a><span class="co">#Kies een MS2 Spectrum met een hoge identificatie score en plot het</span></span>
+<span id="cb43-2"><a href="r-for-mass-spectrometry.html#cb43-2" tabindex="-1"></a>i <span class="ot">&lt;-</span> <span class="fu">which</span>(sp_vb<span class="sc">$</span>MS.GF.RawScore <span class="sc">&gt;</span> <span class="dv">100</span>)[<span class="dv">1</span>]</span>
+<span id="cb43-3"><a href="r-for-mass-spectrometry.html#cb43-3" tabindex="-1"></a><span class="fu">plotSpectra</span>(sp_vb[i])</span></code></pre></div>
+<p><img src="_main_files/figure-html/peptide-spectrum%20matches-1.png" width="672" /></p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="r-for-mass-spectrometry.html#cb44-1" tabindex="-1"></a><span class="co">#Gebruik de addFragments() functie om de pieken te annoteren</span></span>
+<span id="cb44-2"><a href="r-for-mass-spectrometry.html#cb44-2" tabindex="-1"></a><span class="fu">plotSpectra</span>(sp_vb[i], <span class="at">labels =</span> addFragments,</span>
+<span id="cb44-3"><a href="r-for-mass-spectrometry.html#cb44-3" tabindex="-1"></a>            <span class="at">labelPos =</span> <span class="dv">3</span>, <span class="at">labelCol =</span> <span class="st">&quot;steelblue&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/peptide-spectrum%20matches-2.png" width="672" /></p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="r-for-mass-spectrometry.html#cb45-1" tabindex="-1"></a><span class="co">#Matching observed peaks to fragments</span></span>
+<span id="cb45-2"><a href="r-for-mass-spectrometry.html#cb45-2" tabindex="-1"></a>sp_vb[i]<span class="sc">$</span>sequence</span></code></pre></div>
+<pre><code>## [1] &quot;THSQEEMQHMQR&quot;</code></pre>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="r-for-mass-spectrometry.html#cb47-1" tabindex="-1"></a><span class="fu">calculateFragments</span>(sp_vb[i]<span class="sc">$</span>sequence) <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="at">n =</span> <span class="dv">10</span>)</span></code></pre></div>
+<pre><code>##           mz ion type pos z        seq
+## 1   102.0550  b1    b   1 1          T
+## 2   239.1139  b2    b   2 1         TH
+## 3   326.1459  b3    b   3 1        THS
+## 4   454.2045  b4    b   4 1       THSQ
+## 5   583.2471  b5    b   5 1      THSQE
+## 6   712.2897  b6    b   6 1     THSQEE
+## 7   843.3301  b7    b   7 1    THSQEEM
+## 8   971.3887  b8    b   8 1   THSQEEMQ
+## 9  1108.4476  b9    b   9 1  THSQEEMQH
+## 10 1239.4881 b10    b  10 1 THSQEEMQHM</code></pre>
+<p><strong>Comparing Spectra</strong></p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="r-for-mass-spectrometry.html#cb49-1" tabindex="-1"></a><span class="co"># Maak een new object met de MS2 spectra met sequenties &quot;SQILQQAGTSVLSQANQVPQTVLSLLR&quot; en &quot;TKGLNVMQNLLTAHPDVQAVFAQNDEMALGALR&quot;</span></span>
+<span id="cb49-2"><a href="r-for-mass-spectrometry.html#cb49-2" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="fu">which</span>(sp_vb<span class="sc">$</span>sequence <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;SQILQQAGTSVLSQANQVPQTVLSLLR&quot;</span>, <span class="st">&quot;TKGLNVMQNLLTAHPDVQAVFAQNDEMALGALR&quot;</span>))</span>
+<span id="cb49-3"><a href="r-for-mass-spectrometry.html#cb49-3" tabindex="-1"></a>sp_k <span class="ot">&lt;-</span> sp_vb[k]</span>
+<span id="cb49-4"><a href="r-for-mass-spectrometry.html#cb49-4" tabindex="-1"></a>sp_k</span></code></pre></div>
+<pre><code>## MSn data (Spectra) with 5 spectra in a MsBackendMzR backend:
+##     msLevel     rtime scanIndex
+##   &lt;integer&gt; &lt;numeric&gt; &lt;integer&gt;
+## 1         2   2687.42      5230
+## 2         2   2688.88      5235
+## 3         2   2748.75      5397
+## 4         2   2765.26      5442
+## 5         2   2768.17      5449
+##  ... 69 more variables/columns.
+## 
+## file(s):
+## 16a7c6761dc79_TMT_Erwinia_1uLSike_Top10HCD_isol2_45stepped_60min_01-20141210.mzML</code></pre>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="r-for-mass-spectrometry.html#cb51-1" tabindex="-1"></a><span class="co"># Bereken de 5 bij 5 gelijkenismatrix tussen alle spectra met behulp van compare spectra</span></span>
+<span id="cb51-2"><a href="r-for-mass-spectrometry.html#cb51-2" tabindex="-1"></a>mat <span class="ot">&lt;-</span> <span class="fu">compareSpectra</span>(sp_k)</span>
+<span id="cb51-3"><a href="r-for-mass-spectrometry.html#cb51-3" tabindex="-1"></a><span class="fu">rownames</span>(mat) <span class="ot">&lt;-</span> <span class="fu">colnames</span>(mat) <span class="ot">&lt;-</span> <span class="fu">strtrim</span>(sp_k<span class="sc">$</span>sequence, <span class="dv">2</span>)</span>
+<span id="cb51-4"><a href="r-for-mass-spectrometry.html#cb51-4" tabindex="-1"></a></span>
+<span id="cb51-5"><a href="r-for-mass-spectrometry.html#cb51-5" tabindex="-1"></a><span class="co"># Maak een heatmap van de bovenstaande resultaten</span></span>
+<span id="cb51-6"><a href="r-for-mass-spectrometry.html#cb51-6" tabindex="-1"></a>pheatmap<span class="sc">::</span><span class="fu">pheatmap</span>(mat)</span></code></pre></div>
+<p><img src="_main_files/figure-html/comparing%20spectra%202%20vb-1.png" width="672" /></p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="r-for-mass-spectrometry.html#cb52-1" tabindex="-1"></a><span class="co"># Vergelijk de spectra met plotting functies</span></span>
+<span id="cb52-2"><a href="r-for-mass-spectrometry.html#cb52-2" tabindex="-1"></a><span class="fu">filterIntensity</span>(sp_k, <span class="fl">1e3</span>) <span class="sc">%&gt;%</span> <span class="fu">plotSpectra</span>(<span class="at">main =</span> sp_k<span class="sc">$</span>sequence)</span>
+<span id="cb52-3"><a href="r-for-mass-spectrometry.html#cb52-3" tabindex="-1"></a></span>
+<span id="cb52-4"><a href="r-for-mass-spectrometry.html#cb52-4" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">1</span>))</span></code></pre></div>
+<p><img src="_main_files/figure-html/comparing%20spectra%202%20vb-2.png" width="672" /></p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="r-for-mass-spectrometry.html#cb53-1" tabindex="-1"></a><span class="fu">plotSpectraMirror</span>(sp_k[<span class="dv">1</span>], sp_k[<span class="dv">2</span>], <span class="at">main =</span> <span class="st">&quot;TK...&quot;</span>)</span>
+<span id="cb53-2"><a href="r-for-mass-spectrometry.html#cb53-2" tabindex="-1"></a><span class="fu">plotSpectraMirror</span>(sp_k[<span class="dv">3</span>], sp_k[<span class="dv">4</span>], <span class="at">main =</span> <span class="st">&quot;SQ...&quot;</span>)</span>
+<span id="cb53-3"><a href="r-for-mass-spectrometry.html#cb53-3" tabindex="-1"></a><span class="fu">plotSpectraMirror</span>(sp_k[<span class="dv">3</span>], sp_k[<span class="dv">4</span>], <span class="at">main =</span> <span class="st">&quot;SQ...&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/comparing%20spectra%202%20vb-3.png" width="672" /></p>
+</div>
+<div id="msnbase-package" class="section level3 hasAnchor" number="4.3.4">
+<h3><span class="header-section-number">4.3.4</span> MSnbase package<a href="r-for-mass-spectrometry.html#msnbase-package" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="r-for-mass-spectrometry.html#cb54-1" tabindex="-1"></a><span class="co"># Inlezen van de data</span></span>
+<span id="cb54-2"><a href="r-for-mass-spectrometry.html#cb54-2" tabindex="-1"></a>ms <span class="ot">&lt;-</span> <span class="fu">openMSfile</span>(mzf)</span>
+<span id="cb54-3"><a href="r-for-mass-spectrometry.html#cb54-3" tabindex="-1"></a>hd <span class="ot">&lt;-</span> <span class="fu">header</span>(ms)</span>
+<span id="cb54-4"><a href="r-for-mass-spectrometry.html#cb54-4" tabindex="-1"></a></span>
+<span id="cb54-5"><a href="r-for-mass-spectrometry.html#cb54-5" tabindex="-1"></a><span class="co"># Spectra tussen 30 en 35 minuten retentietijd selecteren</span></span>
+<span id="cb54-6"><a href="r-for-mass-spectrometry.html#cb54-6" tabindex="-1"></a>ms1 <span class="ot">&lt;-</span> <span class="fu">which</span>(hd<span class="sc">$</span>msLevel <span class="sc">==</span> <span class="dv">1</span>)</span>
+<span id="cb54-7"><a href="r-for-mass-spectrometry.html#cb54-7" tabindex="-1"></a>rtsel <span class="ot">&lt;-</span> hd<span class="sc">$</span>retentionTime[ms1] <span class="sc">/</span> <span class="dv">60</span> <span class="sc">&gt;</span> <span class="dv">30</span> <span class="sc">&amp;</span></span>
+<span id="cb54-8"><a href="r-for-mass-spectrometry.html#cb54-8" tabindex="-1"></a>    hd<span class="sc">$</span>retentionTime[ms1] <span class="sc">/</span> <span class="dv">60</span> <span class="sc">&lt;</span> <span class="dv">35</span></span>
+<span id="cb54-9"><a href="r-for-mass-spectrometry.html#cb54-9" tabindex="-1"></a></span>
+<span id="cb54-10"><a href="r-for-mass-spectrometry.html#cb54-10" tabindex="-1"></a><span class="co"># De map</span></span>
+<span id="cb54-11"><a href="r-for-mass-spectrometry.html#cb54-11" tabindex="-1"></a>M <span class="ot">&lt;-</span> <span class="fu">MSmap</span>(ms, ms1[rtsel], <span class="dv">521</span>, <span class="dv">523</span>, .<span class="dv">005</span>, hd, <span class="at">zeroIsNA =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb54-12"><a href="r-for-mass-spectrometry.html#cb54-12" tabindex="-1"></a><span class="fu">plot</span>(M, <span class="at">aspect =</span> <span class="dv">1</span>, <span class="at">allTicks =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/plot%20retentietijd%20en%20m/z-1.png" width="672" /></p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="r-for-mass-spectrometry.html#cb55-1" tabindex="-1"></a><span class="fu">plot3D</span>(M)</span></code></pre></div>
+<p><img src="_main_files/figure-html/3D%20plot-1.png" width="672" /></p>
+</div>
+</div>
+<div id="uitvoering-met-ms-data-pxd008990" class="section level2 tabset hasAnchor" number="4.4">
+<h2><span class="header-section-number">4.4</span> Uitvoering met MS data PXD008990<a href="r-for-mass-spectrometry.html#uitvoering-met-ms-data-pxd008990" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="inlezen-van-de-data-in-r-1" class="section level3 hasAnchor" number="4.4.1">
+<h3><span class="header-section-number">4.4.1</span> Inlezen van de data in R<a href="r-for-mass-spectrometry.html#inlezen-van-de-data-in-r-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="r-for-mass-spectrometry.html#cb56-1" tabindex="-1"></a><span class="co">#Inlezen van PXD008990 in R</span></span>
+<span id="cb56-2"><a href="r-for-mass-spectrometry.html#cb56-2" tabindex="-1"></a>px <span class="ot">&lt;-</span> <span class="fu">PXDataset</span>(<span class="st">&quot;PXD008990&quot;</span>)</span>
+<span id="cb56-3"><a href="r-for-mass-spectrometry.html#cb56-3" tabindex="-1"></a></span>
+<span id="cb56-4"><a href="r-for-mass-spectrometry.html#cb56-4" tabindex="-1"></a><span class="co">#Bekijken van alle bestanden die horen bij PXD008990</span></span>
+<span id="cb56-5"><a href="r-for-mass-spectrometry.html#cb56-5" tabindex="-1"></a><span class="fu">pxfiles</span>(px)</span>
+<span id="cb56-6"><a href="r-for-mass-spectrometry.html#cb56-6" tabindex="-1"></a></span>
+<span id="cb56-7"><a href="r-for-mass-spectrometry.html#cb56-7" tabindex="-1"></a><span class="co">#Metadata bekijken van PXD008990</span></span>
+<span id="cb56-8"><a href="r-for-mass-spectrometry.html#cb56-8" tabindex="-1"></a><span class="fu">pxtax</span>(px) <span class="co">#Taxonomie van het dier </span></span></code></pre></div>
+<pre><code>## [1] &quot;Rattus norvegicus (rat)&quot;</code></pre>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="r-for-mass-spectrometry.html#cb58-1" tabindex="-1"></a><span class="fu">pxurl</span>(px) <span class="co">#Website (url) waar de data vandaan komt</span></span></code></pre></div>
+<pre><code>## [1] &quot;ftp://ftp.pride.ebi.ac.uk/pride/data/archive/2018/06/PXD008990&quot;</code></pre>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="r-for-mass-spectrometry.html#cb60-1" tabindex="-1"></a><span class="fu">pxref</span>(px) <span class="co">#Referentie naar het artikel</span></span></code></pre></div>
+<pre><code>## [1] &quot;Raghunathan R, Polinski NK, Klein JA, Hogan JD, Shao C, Khatri K, Leon D, McComb ME, Manfredsson FP, Sortwell CE, Zaia J. Glycomic and Proteomic Changes in Aging Brain Nigrostriatal Pathway. Mol Cell Proteomics. 2018 17(9):1778-1787 doi:10.1074/mcp.ra118.000680 PMID:29915149&quot;</code></pre>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="r-for-mass-spectrometry.html#cb62-1" tabindex="-1"></a><span class="co">#Downloaden van bestand 2017-02-24-RR-SRT-Rat-25.mzM naar R met de pxget functie</span></span>
+<span id="cb62-2"><a href="r-for-mass-spectrometry.html#cb62-2" tabindex="-1"></a>filename <span class="ot">&lt;-</span> <span class="st">&quot;2017-02-24-RR-SRT-Rat-25.mzML&quot;</span></span>
+<span id="cb62-3"><a href="r-for-mass-spectrometry.html#cb62-3" tabindex="-1"></a>Rat_25.mzML <span class="ot">&lt;-</span> <span class="fu">pxget</span>(px, filename)</span></code></pre></div>
+</div>
+<div id="ruwe-data-visualisatie-verwerking-en-manipulatie-1" class="section level3 hasAnchor" number="4.4.2">
+<h3><span class="header-section-number">4.4.2</span> Ruwe data visualisatie, verwerking en manipulatie<a href="r-for-mass-spectrometry.html#ruwe-data-visualisatie-verwerking-en-manipulatie-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Spectra</strong>
+Spectra objecten zijn lijsten van individuele sprectra, elk spectrum is geassocieerd met een set van variabelen (bijvoorbeeld MS level en retentietijd). <br>
+De core variabelen van spectra objecten zijn:</p>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-8b9a83bc40fc94bf99f0" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-8b9a83bc40fc94bf99f0">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19"],["acquisitionNum","centroided","collisionEnergy","dataOrigin","dataStorage","intensity","isolationWindowLowerMz","isolationWindowTargetMz","isolationWindowUpperMz","msLevel","mz","polarity","precScanNum","precursorCharge","precursorIntensity","precursorMz","rtime","scanIndex","smoothed"],["integer","logical","numeric","character","character","numeric","numeric","numeric","numeric","integer","numeric","integer","integer","integer","numeric","numeric","numeric","integer","logical"],["the index of acquisition of a spectrum during a MS run","whether the spectrum is in profile or centroid mode","collision energy used to create an MSn spectrum","the origin of the spectrum’s data, e.g. the mzML file from which it was read","the (current) storage location of the spectrum data. This value depends on the backend used to handle and provide the data","intensity values for the spectrum’s peaks","lower m/z for the isolation window in which the (MSn) spectrum was measured","the target m/z for the isolation window in which the (MSn) spectrum was measured","upper m/z for the isolation window in which the (MSn) spectrum was measured","the MS level of the spectrum","the m/z values for the spectrum’s peaks","the polarity of the spectrum (0 and 1 representing negative and positive polarity, respectively)","the scan (acquisition) number of the precursor for an MSn spectrum","the charge of the precursor of an MSn spectrum","the intensity of the precursor of an MSn spectrum","the m/z of the precursor of an MSn spectrum","the retention time of a spectrum","the index of a spectrum within a (raw) file","whether the spectrum was smoothed"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Variabele<\/th>\n      <th>Datatype<\/th>\n      <th>Explanation<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":8,"autoWidth":true,"searching":true,"order":[[0,"asc"]],"columnDefs":[{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Variabele","targets":1},{"name":"Datatype","targets":2},{"name":"Explanation","targets":3}],"orderClasses":false,"lengthMenu":[8,10,25,50,100],"rowCallback":"function(row, data, displayNum, displayIndex, dataIndex) {\nvar value=data[1]; $(this.api().cell(row, 1).node()).css({'font-size':'14px','line-height':'1.5'});\nvar value=data[2]; $(this.api().cell(row, 2).node()).css({'font-size':'14px','line-height':'1.5'});\nvar value=data[3]; $(this.api().cell(row, 3).node()).css({'font-size':'14px','line-height':'1.5'});\n}"},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":["options.rowCallback"],"jsHooks":[]}</script>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="r-for-mass-spectrometry.html#cb63-1" tabindex="-1"></a>spectra <span class="ot">&lt;-</span> <span class="fu">Spectra</span>(Rat_25.mzML)</span>
+<span id="cb63-2"><a href="r-for-mass-spectrometry.html#cb63-2" tabindex="-1"></a></span>
+<span id="cb63-3"><a href="r-for-mass-spectrometry.html#cb63-3" tabindex="-1"></a><span class="co">#Weergeef alle metadata variabelen </span></span>
+<span id="cb63-4"><a href="r-for-mass-spectrometry.html#cb63-4" tabindex="-1"></a><span class="fu">spectraVariables</span>(spectra)</span>
+<span id="cb63-5"><a href="r-for-mass-spectrometry.html#cb63-5" tabindex="-1"></a><span class="co">#Extract alle metadata</span></span>
+<span id="cb63-6"><a href="r-for-mass-spectrometry.html#cb63-6" tabindex="-1"></a><span class="fu">spectraData</span>(spectra)</span>
+<span id="cb63-7"><a href="r-for-mass-spectrometry.html#cb63-7" tabindex="-1"></a><span class="co">#Extract een lijst met de ruwe data</span></span>
+<span id="cb63-8"><a href="r-for-mass-spectrometry.html#cb63-8" tabindex="-1"></a><span class="fu">peaksData</span>(spectra)</span>
+<span id="cb63-9"><a href="r-for-mass-spectrometry.html#cb63-9" tabindex="-1"></a><span class="co">#Check het aantal spectra in het spectra object </span></span>
+<span id="cb63-10"><a href="r-for-mass-spectrometry.html#cb63-10" tabindex="-1"></a><span class="fu">length</span>(spectra)</span>
+<span id="cb63-11"><a href="r-for-mass-spectrometry.html#cb63-11" tabindex="-1"></a></span>
+<span id="cb63-12"><a href="r-for-mass-spectrometry.html#cb63-12" tabindex="-1"></a><span class="co">#Maak een nieuw kolom aan met de retentie tijden in minuten</span></span>
+<span id="cb63-13"><a href="r-for-mass-spectrometry.html#cb63-13" tabindex="-1"></a>spectra<span class="sc">$</span>rtime_minute <span class="ot">&lt;-</span> <span class="fu">rtime</span>(spectra) <span class="sc">/</span> <span class="dv">60</span> </span>
+<span id="cb63-14"><a href="r-for-mass-spectrometry.html#cb63-14" tabindex="-1"></a>spectra<span class="sc">$</span>rtime_minute <span class="sc">%&gt;%</span> <span class="fu">head</span>() </span>
+<span id="cb63-15"><a href="r-for-mass-spectrometry.html#cb63-15" tabindex="-1"></a></span>
+<span id="cb63-16"><a href="r-for-mass-spectrometry.html#cb63-16" tabindex="-1"></a><span class="co">#Kijken hoeveel MS levels er zijn</span></span>
+<span id="cb63-17"><a href="r-for-mass-spectrometry.html#cb63-17" tabindex="-1"></a><span class="fu">unique</span>(spectra<span class="sc">$</span>msLevel)</span>
+<span id="cb63-18"><a href="r-for-mass-spectrometry.html#cb63-18" tabindex="-1"></a></span>
+<span id="cb63-19"><a href="r-for-mass-spectrometry.html#cb63-19" tabindex="-1"></a><span class="co">#Verkrijg de index van het MS2 spectrum met de hoogste base peak intensity</span></span>
+<span id="cb63-20"><a href="r-for-mass-spectrometry.html#cb63-20" tabindex="-1"></a>ms2_bpi <span class="ot">&lt;-</span> <span class="fu">filterMsLevel</span>(spectra, <span class="dv">2</span>) </span>
+<span id="cb63-21"><a href="r-for-mass-spectrometry.html#cb63-21" tabindex="-1"></a>ms2_bpi_max <span class="ot">&lt;-</span> <span class="fu">which.max</span>(ms2_bpi<span class="sc">$</span>basePeakIntensity)</span>
+<span id="cb63-22"><a href="r-for-mass-spectrometry.html#cb63-22" tabindex="-1"></a>max_scanIndex <span class="ot">&lt;-</span> ms2_bpi<span class="sc">$</span>scanIndex[ms2_bpi_max]</span>
+<span id="cb63-23"><a href="r-for-mass-spectrometry.html#cb63-23" tabindex="-1"></a>max_scanIndex</span></code></pre></div>
+<p>De spectra data is opgeslagen in object <code>spectra</code>, een spectra object bevat MS data over de mass peak data en de metadata van een individueel spectrum. Met <code>spectraVariables</code> kan je checken welke variabelen er allemaal aanwezig zijn in jouw spectra object. Met <code>spectraData</code> kan je alle een lijst verkrijgen met alle metadata en met <code>peaksData</code> kan je een lijst verkrijgen met de ruwe data. Om het aantal spectra in een object te weergeven kan je <code>length</code> gebruiken, in dit geval zijn er 37016 spectra. Om bijvoorbeeld na te gaan hoeveel MS levels er zijn kan je gebruik maken van <code>unique(spectra$msLevel)</code>, voor deze data zijn er twee MS levels; MS1 en MS2. Als je de index van het MS2 spectrum met de hoogste base peak intensity wilt verkrijgen moet je eerst filteren voor MS level 2 met <code>filterMsLevel</code>, dan de max bepalen met <code>which.max</code> en dan de scanIndex van de maximale base peak intensity afleiden. De scanIndex van het MS2 spectrum met de hoogste base peak intensity is in dit geval 10222. <br></p>
+<p><em>Backends</em> <br>
+Backends maken het mogelijk om verschillende backends te gebruiken om massa spectrometrie data in op te slaan, terwijl het via de Spectra-klasse een uniform interface biedt om die gegevens te gebruiken. <br>
+Verschillende backends: <br>
+- MsBackendMzR: deze backend bewaard alleen algemene spectra variabelen en berust op het mzR pakket om massa peaks van de orginele MS-bestanden te lezen. <br>
+- MsBackendMemory &amp; MsBackendDataFrame: de volledige MS data is opgeslagen in het geheugen van het object. <br>
+- MsBackendHdf5Peaks: leest alleen peakgegevens op aanvraag, terwijl alle andere spectra variabelen in geheugen worden bewaard. De piekgegevens worden opgeslagen in Hdf5-bestanden. <br>
+- MsBackendSql: alle data opslaan in een SQL database. <br></p>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="r-for-mass-spectrometry.html#cb64-1" tabindex="-1"></a>filtered_m1 <span class="ot">&lt;-</span> <span class="fu">filterMsLevel</span>(spectra, <span class="dv">1</span>)  </span>
+<span id="cb64-2"><a href="r-for-mass-spectrometry.html#cb64-2" tabindex="-1"></a><span class="fu">plot</span>(filtered_m1<span class="sc">$</span>rtime, filtered_m1<span class="sc">$</span>totIonCurrent, <span class="at">type =</span> <span class="st">&quot;h&quot;</span>) </span>
+<span id="cb64-3"><a href="r-for-mass-spectrometry.html#cb64-3" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fu">rtime</span>(spectra)[<span class="dv">10200</span>], <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/visualisatie%20chromatogram%20pd-1.png" width="672" />
+Met de bovenstaande code wordt MS level 1 gefilterd uit het spectra object en vervolgens wordt de data weergeven in een grafiek. De retentietijd (rtime) komt op de x-as en de totale ion current (totIonCurrent) op de y-as. Voor type kan je verschillende soorten gebruiken, type “l” geeft een doorlopende lijn, type “h” geeft data als staven en type “p” geeft data als losse punten. Met <code>abline</code> kan je een scan naar keuze kiezen.</p>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="r-for-mass-spectrometry.html#cb65-1" tabindex="-1"></a><span class="co">#Verkrijg een set parent (MS1) en children (MS2) scans</span></span>
+<span id="cb65-2"><a href="r-for-mass-spectrometry.html#cb65-2" tabindex="-1"></a>ms_2 <span class="ot">&lt;-</span> <span class="fu">filterPrecursorScan</span>(spectra, <span class="dv">10200</span>)</span>
+<span id="cb65-3"><a href="r-for-mass-spectrometry.html#cb65-3" tabindex="-1"></a></span>
+<span id="cb65-4"><a href="r-for-mass-spectrometry.html#cb65-4" tabindex="-1"></a><span class="co">#Weergeven van de precursorMz waardes van ms_2</span></span>
+<span id="cb65-5"><a href="r-for-mass-spectrometry.html#cb65-5" tabindex="-1"></a><span class="fu">precursorMz</span>(ms_2)</span></code></pre></div>
+<pre><code>##  [1]       NA 809.3505 579.8279 523.2855 412.7531 558.2895 395.8815 506.7640
+##  [9] 515.3225 464.1941 611.2835 549.9726 353.6746 563.7582 887.9309 837.3717
+## [17] 724.1328 357.7287 685.3317 933.1257 575.3111</code></pre>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="r-for-mass-spectrometry.html#cb67-1" tabindex="-1"></a><span class="co">#Plot het MS spectrum van scan 3000 en highlight alle pieken die voor MS2 analyse geselecteerd worden</span></span>
+<span id="cb67-2"><a href="r-for-mass-spectrometry.html#cb67-2" tabindex="-1"></a><span class="fu">plotSpectra</span>(spectra[<span class="dv">10200</span>], <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">400</span>, <span class="dv">1000</span>))</span>
+<span id="cb67-3"><a href="r-for-mass-spectrometry.html#cb67-3" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fu">precursorMz</span>(ms_2)[<span class="sc">-</span><span class="dv">1</span>], <span class="at">col =</span> <span class="st">&quot;grey&quot;</span>)</span>
+<span id="cb67-4"><a href="r-for-mass-spectrometry.html#cb67-4" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fu">precursorMz</span>(ms_2)[<span class="dv">2</span><span class="sc">:</span><span class="dv">7</span>], <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/visualitatie%20MS1%20en%20MS2%20pd-1.png" width="672" /></p>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="r-for-mass-spectrometry.html#cb68-1" tabindex="-1"></a><span class="co">#Zoom in op mz values 578 en 580 om de isotope envelop van de pieken te weergeven </span></span>
+<span id="cb68-2"><a href="r-for-mass-spectrometry.html#cb68-2" tabindex="-1"></a><span class="fu">plotSpectra</span>(spectra[<span class="dv">10200</span>], <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">578</span>, <span class="dv">580</span>), <span class="at">type =</span> <span class="st">&quot;l&quot;</span>)</span>
+<span id="cb68-3"><a href="r-for-mass-spectrometry.html#cb68-3" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fu">precursorMz</span>(ms_2)[<span class="dv">3</span>], <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/visualitatie%20MS1%20en%20MS2%20pd-2.png" width="672" />
+Met <code>filterPrecursorScan(spectra, 10200)</code> wordt alle data van scan 10200 in een apart object overgebracht. In dit object is te zien dat er 21 data punten bij horen. Waaronder ook 21 precursorMz waardes. Met <code>precursorMz(ms_2)[-1]</code> wordt de NA waarde van de precursorMz waardes overgeslagen, de rest wordt als grijze lijnen in het spectrum weergeven. Met de rode lijnen kunnen de spectra geselecteerd worden die later voor MS2 analyse gebruikt zullen worden, in dit geval heb zijn spectra 2:7 geselecteerd. Daarna is er met <code>plotSpectra(spectra[10200], xlim = c(578, 580), type = "l")</code> en <code>abline(v = precursorMz(ms_2)[3])</code> verder ingezoomd op precursorMz waarde 3 (579.8279). Hierin is waarde 3 dus met een rode lijn weergeven.</p>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="r-for-mass-spectrometry.html#cb69-1" tabindex="-1"></a><span class="co">#Plot alle 10 de MS2 spectra</span></span>
+<span id="cb69-2"><a href="r-for-mass-spectrometry.html#cb69-2" tabindex="-1"></a><span class="fu">plotSpectra</span>(ms_2[<span class="dv">2</span><span class="sc">:</span><span class="dv">7</span>])</span></code></pre></div>
+<p><img src="_main_files/figure-html/visualisatie%20MS2%20pd-1.png" width="672" />
+Met <code>plotSpectra(ms_2[1:6])</code> worden de 2e t/m 7e MS2 spectra van scan 10200 weergeven.</p>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="r-for-mass-spectrometry.html#cb70-1" tabindex="-1"></a>sp2 <span class="ot">&lt;-</span> <span class="fu">filterMsLevel</span>(spectra, <span class="dv">2</span><span class="dt">L</span>)</span>
+<span id="cb70-2"><a href="r-for-mass-spectrometry.html#cb70-2" tabindex="-1"></a><span class="fu">anyDuplicated</span>(<span class="fu">precursorMz</span>(<span class="fu">filterMsLevel</span>(spectra, <span class="dv">2</span>)))</span></code></pre></div>
+<pre><code>## [1] 2492</code></pre>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="r-for-mass-spectrometry.html#cb72-1" tabindex="-1"></a>i_pd <span class="ot">&lt;-</span> <span class="fu">which</span>(<span class="fu">precursorMz</span>(sp2) <span class="sc">==</span> <span class="fu">precursorMz</span>(sp2)[<span class="dv">2492</span>])</span>
+<span id="cb72-2"><a href="r-for-mass-spectrometry.html#cb72-2" tabindex="-1"></a>sp2_i <span class="ot">&lt;-</span> sp2[i_pd]</span>
+<span id="cb72-3"><a href="r-for-mass-spectrometry.html#cb72-3" tabindex="-1"></a></span>
+<span id="cb72-4"><a href="r-for-mass-spectrometry.html#cb72-4" tabindex="-1"></a><span class="co">#Visualiseer het matchende paar</span></span>
+<span id="cb72-5"><a href="r-for-mass-spectrometry.html#cb72-5" tabindex="-1"></a><span class="fu">plotSpectraOverlay</span>(sp2_i, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">600</span>), <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;#DB7093&quot;</span>, <span class="st">&quot;steelblue&quot;</span>))</span>
+<span id="cb72-6"><a href="r-for-mass-spectrometry.html#cb72-6" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>, <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;#DB7093&quot;</span>, <span class="st">&quot;steelblue&quot;</span>), <span class="at">legend =</span> sp2_i<span class="sc">$</span>scanIndex, <span class="at">pch =</span> <span class="dv">15</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/Comparing%20spectra-1.png" width="672" /></p>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="r-for-mass-spectrometry.html#cb73-1" tabindex="-1"></a><span class="co"># Label functie</span></span>
+<span id="cb73-2"><a href="r-for-mass-spectrometry.html#cb73-2" tabindex="-1"></a>mzLabel <span class="ot">&lt;-</span> <span class="cf">function</span>(z) {</span>
+<span id="cb73-3"><a href="r-for-mass-spectrometry.html#cb73-3" tabindex="-1"></a>    z <span class="ot">&lt;-</span> <span class="fu">peaksData</span>(z)[[<span class="dv">1</span><span class="dt">L</span>]]</span>
+<span id="cb73-4"><a href="r-for-mass-spectrometry.html#cb73-4" tabindex="-1"></a>    lbls <span class="ot">&lt;-</span> <span class="fu">format</span>(z[, <span class="st">&quot;mz&quot;</span>], <span class="at">digits =</span> <span class="dv">4</span>)</span>
+<span id="cb73-5"><a href="r-for-mass-spectrometry.html#cb73-5" tabindex="-1"></a>    lbls[z[, <span class="st">&quot;intensity&quot;</span>] <span class="sc">&lt;</span> <span class="fl">1e5</span>] <span class="ot">&lt;-</span> <span class="st">&quot;&quot;</span></span>
+<span id="cb73-6"><a href="r-for-mass-spectrometry.html#cb73-6" tabindex="-1"></a>    lbls</span>
+<span id="cb73-7"><a href="r-for-mass-spectrometry.html#cb73-7" tabindex="-1"></a>}</span>
+<span id="cb73-8"><a href="r-for-mass-spectrometry.html#cb73-8" tabindex="-1"></a></span>
+<span id="cb73-9"><a href="r-for-mass-spectrometry.html#cb73-9" tabindex="-1"></a><span class="fu">plotSpectraMirror</span>(sp2_i[<span class="dv">1</span>], sp2_i[<span class="dv">2</span>], <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">500</span>), <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;pink&quot;</span>, <span class="st">&quot;steelblue&quot;</span>), <span class="at">labels =</span> mzLabel, <span class="at">labelPos =</span> <span class="dv">2</span>, <span class="at">labelCol =</span> <span class="st">&quot;#36454F&quot;</span>, <span class="at">matchPch =</span> <span class="dv">20</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/Comparing%20spectra-2.png" width="672" />
+<br>
+Met plotSpectraOverlay en plotSpectraMirror kunnen overeenkomende spectra vergeleken worden. Hiervoor wordt eerst MS level 2 gefilterd met <code>filterMsLevel</code>. Met <code>anyDuplicated</code> wordt er gecontroleerd of er duplicaten zijn in de precursor m/z waarde van de scans. Dit geeft aan dat scan 2492 duplicaten heeft. Met <code>which(precursorMz(sp2) == precursorMz(sp2)[2492])</code> wordt gezocht naar scans die dezelfde precursor m/z waarde hebben als de 2492e scan, dit geeft scans 4466 en 7390 als duplicaten. <br>
+Met plotSpectraOverlay worden de spectra van interesse over elkaar heen geplot, hierdoor kun je de verschillen of overeenkomsten in intensiteiten en m/z waarden visualiseren. Het argument <code>col = c("red", "steelblue")</code> van de plotSpectraOverlay geeft aan dat het eerste spectrum in de lijst pale violet red gekleurd zal worden en het tweede spectrum in de lijst steelblue. In de legend staat de bijhorende scanIndex weergeven van de kleuren. <br>
+Met plotSpectraMirror worden twee spectra weerspiegeld ten opzich van elkaar geplot, sp2_i[1] wordt normaal weergeven en sp2_i[2] wordt gespiegeld. Met xlim = c(0, 500) is de range voor m/z waardes van 0 tot 500 gezet, boven de 500 zijn er amper pieken en geen matchende pieken. Met col = (“pink”, “steelblue”) is het mogelijk gemaakt om onderscheid te maken tussen pieken die als match worden gezien en pieken die niet als match worden gezien.</p>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="r-for-mass-spectrometry.html#cb74-1" tabindex="-1"></a><span class="co"># Bepaal een filter functie</span></span>
+<span id="cb74-2"><a href="r-for-mass-spectrometry.html#cb74-2" tabindex="-1"></a>low_int <span class="ot">&lt;-</span> <span class="cf">function</span>(x, ...) {</span>
+<span id="cb74-3"><a href="r-for-mass-spectrometry.html#cb74-3" tabindex="-1"></a>    x <span class="sc">&gt;</span> <span class="fu">max</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">*</span> <span class="fl">0.10</span></span>
+<span id="cb74-4"><a href="r-for-mass-spectrometry.html#cb74-4" tabindex="-1"></a>}</span>
+<span id="cb74-5"><a href="r-for-mass-spectrometry.html#cb74-5" tabindex="-1"></a></span>
+<span id="cb74-6"><a href="r-for-mass-spectrometry.html#cb74-6" tabindex="-1"></a><span class="co"># Gebruik de functie om de spectra te filteren</span></span>
+<span id="cb74-7"><a href="r-for-mass-spectrometry.html#cb74-7" tabindex="-1"></a>sps <span class="ot">&lt;-</span> <span class="fu">filterIntensity</span>(spectra, <span class="at">intensity =</span> low_int)</span>
+<span id="cb74-8"><a href="r-for-mass-spectrometry.html#cb74-8" tabindex="-1"></a></span>
+<span id="cb74-9"><a href="r-for-mass-spectrometry.html#cb74-9" tabindex="-1"></a><span class="co"># Functie voor label benaming</span></span>
+<span id="cb74-10"><a href="r-for-mass-spectrometry.html#cb74-10" tabindex="-1"></a>mzLabel <span class="ot">&lt;-</span> <span class="cf">function</span>(z) {</span>
+<span id="cb74-11"><a href="r-for-mass-spectrometry.html#cb74-11" tabindex="-1"></a>    z <span class="ot">&lt;-</span> <span class="fu">peaksData</span>(z)[[<span class="dv">1</span><span class="dt">L</span>]]</span>
+<span id="cb74-12"><a href="r-for-mass-spectrometry.html#cb74-12" tabindex="-1"></a>    lbls <span class="ot">&lt;-</span> <span class="fu">format</span>(z[, <span class="st">&quot;mz&quot;</span>], <span class="at">digits =</span> <span class="dv">4</span>)</span>
+<span id="cb74-13"><a href="r-for-mass-spectrometry.html#cb74-13" tabindex="-1"></a>    lbls[z[, <span class="st">&quot;intensity&quot;</span>] <span class="sc">&lt;</span> <span class="fl">1e5</span>] <span class="ot">&lt;-</span> <span class="st">&quot;&quot;</span></span>
+<span id="cb74-14"><a href="r-for-mass-spectrometry.html#cb74-14" tabindex="-1"></a>    lbls</span>
+<span id="cb74-15"><a href="r-for-mass-spectrometry.html#cb74-15" tabindex="-1"></a>}</span>
+<span id="cb74-16"><a href="r-for-mass-spectrometry.html#cb74-16" tabindex="-1"></a></span>
+<span id="cb74-17"><a href="r-for-mass-spectrometry.html#cb74-17" tabindex="-1"></a><span class="co"># Plot spectra met gefilterde data en labels</span></span>
+<span id="cb74-18"><a href="r-for-mass-spectrometry.html#cb74-18" tabindex="-1"></a><span class="fu">plotSpectra</span>(sps[<span class="dv">10200</span>], <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">410</span>, <span class="dv">460</span>),</span>
+<span id="cb74-19"><a href="r-for-mass-spectrometry.html#cb74-19" tabindex="-1"></a>            <span class="at">labels =</span> mzLabel,</span>
+<span id="cb74-20"><a href="r-for-mass-spectrometry.html#cb74-20" tabindex="-1"></a>            <span class="at">labelPos =</span> <span class="dv">4</span>,</span>
+<span id="cb74-21"><a href="r-for-mass-spectrometry.html#cb74-21" tabindex="-1"></a>            <span class="at">labelOffset =</span> <span class="fl">0.3</span>,</span>
+<span id="cb74-22"><a href="r-for-mass-spectrometry.html#cb74-22" tabindex="-1"></a>            <span class="at">labelCex =</span> <span class="fl">0.8</span>,</span>
+<span id="cb74-23"><a href="r-for-mass-spectrometry.html#cb74-23" tabindex="-1"></a>            <span class="at">labelCol =</span> <span class="st">&quot;#36454F&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/filtered%20visualisation%20pd-1.png" width="672" /></p>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="r-for-mass-spectrometry.html#cb75-1" tabindex="-1"></a><span class="fu">plotSpectra</span>(spectra[<span class="dv">10200</span>], <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">421</span>, <span class="dv">422</span>), <span class="at">type =</span> <span class="st">&quot;l&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/filtered%20visualisation%20pd-2.png" width="672" />
+Om de pieken met lage intensiteit te verwijderen wordt er gebruik gemaakt van een functie in combinatie met filterIntensity. In het bovenstaande voorbeeld zijn de pieken met een intensiteit lager dan 10% van de maximale intensiteit van elk spectrum verwijderd. In vergelijking met de chunk <code>visualitatie MS1 en MS2 csf</code> `zijn er heel veel pieken verwijderd, boven de 450.3 m/z zijn er niet eens pieken zichtbaar meer. Ook zijn de pieken gelabeld met hun bijhorende m/z waarde.</p>
+</div>
+<div id="samenvattings-opdracht" class="section level3 hasAnchor" number="4.4.3">
+<h3><span class="header-section-number">4.4.3</span> Samenvattings opdracht<a href="r-for-mass-spectrometry.html#samenvattings-opdracht" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="r-for-mass-spectrometry.html#cb76-1" tabindex="-1"></a><span class="co"># Download de eerste 3 mzML files van PX008990</span></span>
+<span id="cb76-2"><a href="r-for-mass-spectrometry.html#cb76-2" tabindex="-1"></a>(mzmls <span class="ot">&lt;-</span> <span class="fu">pxget</span>(px, <span class="fu">grep</span>(<span class="st">&quot;mzML&quot;</span>, <span class="fu">pxfiles</span>(px))[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]))</span></code></pre></div>
+<pre><code>## [1] &quot;/Users/cheryloortwijn/Library/Caches/org.R-project.R/R/rpx/10881571c9ff2_03062017-RR_SN-Rat-18-rerrun.mzML&quot;
+## [2] &quot;/Users/cheryloortwijn/Library/Caches/org.R-project.R/R/rpx/1013c6488d150_03062017-RR_SN-Rat-19-rerrun.mzML&quot;
+## [3] &quot;/Users/cheryloortwijn/Library/Caches/org.R-project.R/R/rpx/108815df0c6c8_03062017-RR_SN-Rat-20-rerun.mzML&quot;</code></pre>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="r-for-mass-spectrometry.html#cb78-1" tabindex="-1"></a><span class="co"># Maak een spectra object ervan</span></span>
+<span id="cb78-2"><a href="r-for-mass-spectrometry.html#cb78-2" tabindex="-1"></a>sp3_pd <span class="ot">&lt;-</span> <span class="fu">Spectra</span>(mzmls)</span>
+<span id="cb78-3"><a href="r-for-mass-spectrometry.html#cb78-3" tabindex="-1"></a></span>
+<span id="cb78-4"><a href="r-for-mass-spectrometry.html#cb78-4" tabindex="-1"></a><span class="co"># Om te zien hoeveel spectra elk bestand heeft</span></span>
+<span id="cb78-5"><a href="r-for-mass-spectrometry.html#cb78-5" tabindex="-1"></a><span class="fu">table</span>(<span class="fu">basename</span>(sp3_pd<span class="sc">$</span>dataOrigin))</span></code></pre></div>
+<pre><code>## 
+## 1013c6488d150_03062017-RR_SN-Rat-19-rerrun.mzML 
+##                                           35931 
+## 10881571c9ff2_03062017-RR_SN-Rat-18-rerrun.mzML 
+##                                           36451 
+##  108815df0c6c8_03062017-RR_SN-Rat-20-rerun.mzML 
+##                                           36799</code></pre>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="r-for-mass-spectrometry.html#cb80-1" tabindex="-1"></a><span class="co"># Kijken of alle levels centroided zijn</span></span>
+<span id="cb80-2"><a href="r-for-mass-spectrometry.html#cb80-2" tabindex="-1"></a><span class="fu">table</span>(sp3_pd<span class="sc">$</span>centroided, sp3_pd<span class="sc">$</span>msLevel)</span></code></pre></div>
+<pre><code>##       
+##            1     2
+##   TRUE 55382 53799</code></pre>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="r-for-mass-spectrometry.html#cb82-1" tabindex="-1"></a><span class="do">## Chromatogram van de 3 bestanden gecombineerd</span></span>
+<span id="cb82-2"><a href="r-for-mass-spectrometry.html#cb82-2" tabindex="-1"></a><span class="fu">filterMsLevel</span>(sp3_pd, <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb82-3"><a href="r-for-mass-spectrometry.html#cb82-3" tabindex="-1"></a>    <span class="fu">spectraData</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb82-4"><a href="r-for-mass-spectrometry.html#cb82-4" tabindex="-1"></a>    <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb82-5"><a href="r-for-mass-spectrometry.html#cb82-5" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> rtime,</span>
+<span id="cb82-6"><a href="r-for-mass-spectrometry.html#cb82-6" tabindex="-1"></a>               <span class="at">y =</span> totIonCurrent,</span>
+<span id="cb82-7"><a href="r-for-mass-spectrometry.html#cb82-7" tabindex="-1"></a>               <span class="at">colour =</span> <span class="fu">basename</span>(dataOrigin))) <span class="sc">+</span></span>
+<span id="cb82-8"><a href="r-for-mass-spectrometry.html#cb82-8" tabindex="-1"></a>    <span class="fu">geom_line</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/3%20bestanden%20pd-1.png" width="672" />
+<br>
+Het is ook mogelijk om drie bestanden te vergelijken, hiervoor moeten de bestanden eerst verkregen worden met <code>pxget</code>. Als ook het spectrum verkregen is kan je een chromatogram van de 3 bestanden maken. De bestanden hebben verschillende kleuren in het chromatogram. Aangezien het reruns zijn, is het logisch dat de spectra er ongeveer hetzelfde uitzien.</p>
+</div>
+<div id="msnbase-package-1" class="section level3 hasAnchor" number="4.4.4">
+<h3><span class="header-section-number">4.4.4</span> MSnbase package<a href="r-for-mass-spectrometry.html#msnbase-package-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Plotting Raw Data</strong></p>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="r-for-mass-spectrometry.html#cb83-1" tabindex="-1"></a><span class="co"># Inlezen van de data</span></span>
+<span id="cb83-2"><a href="r-for-mass-spectrometry.html#cb83-2" tabindex="-1"></a>ms_csf <span class="ot">&lt;-</span> <span class="fu">openMSfile</span>(Rat_25.mzML)</span>
+<span id="cb83-3"><a href="r-for-mass-spectrometry.html#cb83-3" tabindex="-1"></a>hd_csf <span class="ot">&lt;-</span> <span class="fu">header</span>(ms_csf)</span>
+<span id="cb83-4"><a href="r-for-mass-spectrometry.html#cb83-4" tabindex="-1"></a></span>
+<span id="cb83-5"><a href="r-for-mass-spectrometry.html#cb83-5" tabindex="-1"></a>ms1_csf <span class="ot">&lt;-</span> <span class="fu">which</span>(hd_csf<span class="sc">$</span>msLevel <span class="sc">==</span> <span class="dv">1</span>)</span>
+<span id="cb83-6"><a href="r-for-mass-spectrometry.html#cb83-6" tabindex="-1"></a>rtsel_csf <span class="ot">&lt;-</span> hd_csf<span class="sc">$</span>retentionTime[ms1_csf] <span class="sc">/</span> <span class="dv">60</span> <span class="sc">&gt;</span> <span class="dv">50</span> <span class="sc">&amp;</span></span>
+<span id="cb83-7"><a href="r-for-mass-spectrometry.html#cb83-7" tabindex="-1"></a>    hd_csf<span class="sc">$</span>retentionTime[ms1_csf] <span class="sc">/</span> <span class="dv">60</span> <span class="sc">&lt;</span> <span class="dv">60</span></span>
+<span id="cb83-8"><a href="r-for-mass-spectrometry.html#cb83-8" tabindex="-1"></a></span>
+<span id="cb83-9"><a href="r-for-mass-spectrometry.html#cb83-9" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb83-10"><a href="r-for-mass-spectrometry.html#cb83-10" tabindex="-1"></a>M_csf <span class="ot">&lt;-</span> <span class="fu">MSmap</span>(ms_csf, ms1_csf[rtsel_csf], <span class="dv">578</span>, <span class="dv">582</span>, .<span class="dv">03</span>, hd_csf, <span class="at">zeroIsNA =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb83-11"><a href="r-for-mass-spectrometry.html#cb83-11" tabindex="-1"></a></span>
+<span id="cb83-12"><a href="r-for-mass-spectrometry.html#cb83-12" tabindex="-1"></a><span class="co"># Plot het spectrum</span></span>
+<span id="cb83-13"><a href="r-for-mass-spectrometry.html#cb83-13" tabindex="-1"></a><span class="fu">plot</span>(M_csf, <span class="at">aspect =</span> <span class="dv">1</span>, <span class="at">allTicks =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/plot%20rtime%20en%20m/z%20pd-1.png" width="672" />
+<br>
+Eerst wordt de data ingelezen met <code>openMSfile</code>, deze functie verwijst naar het openen van een bestand dat massa-spectrometriegegevens bevat, met als doel de gegevens te lezen en verder te verwerken voor analyse. <br>
+De <code>header</code> functie retourneert een dataframe met de spectra parameters van de scans (alleen MSn). <br>
+Met <code>which(hd_csf$msLevel == 1)</code> worden alle spectra met MS level een gefilterd. <br>
+Het rtsel_csf object bevat de gewenste retentietijden, in dit geval is er gekozen voor boven de 50 en onder de 60. <br>
+In M_csf staat de informatie opgeslagen voor de map. Met <code>MSmap</code> kan je selecteren welke informatie je wilt, 578 is de ondergrens van het m/z bereik, 582 is de bovengrens, 0.3 is de resolutie (de dikte van de lijntjes in de map) en zeroIsNA zet intensiteiten van 0 om naar NA.
+Met <code>plot</code> wordt de grafiek vervolgens gemaakt, aspect = 1 staat voor een vierkante plot en allTicks = FALSE zorgt ervoor dat niet alle ticks (de markers langs de assen van de plot) getoont worden. Met de heatmap wordt de intensiteit van het signaal weergeven. <br>
+In de grafiek kan je terug zien dat de hoogste intensiteit (de donkerste blauwe kleur) voornamelijk terug te zien is rond m/z waarde 579. <br>
+Het onderstaande plot is gebaseerd op dezelfde gegevens, als het bovenstaande plot. Ook hier is de hoogste intensiteit te zien rond m/z waarde 579. <br></p>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="r-for-mass-spectrometry.html#cb84-1" tabindex="-1"></a><span class="fu">plot3D</span>(M_csf)</span></code></pre></div>
+<p><img src="_main_files/figure-html/3D%20plot%20pd-1.png" width="672" /></p>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="r-for-mass-spectrometry.html#cb85-1" tabindex="-1"></a>csf_i <span class="ot">&lt;-</span> ms1_csf[<span class="fu">which</span>(rtsel_csf)][<span class="dv">4</span>]</span>
+<span id="cb85-2"><a href="r-for-mass-spectrometry.html#cb85-2" tabindex="-1"></a>csf_j <span class="ot">&lt;-</span> ms1_csf[<span class="fu">which</span>(rtsel_csf)][<span class="dv">5</span>]</span>
+<span id="cb85-3"><a href="r-for-mass-spectrometry.html#cb85-3" tabindex="-1"></a>M2_csf <span class="ot">&lt;-</span> <span class="fu">MSmap</span>(ms_csf, csf_i<span class="sc">:</span>csf_j, <span class="dv">100</span>, <span class="dv">1000</span>, <span class="dv">1</span>, hd_csf)</span>
+<span id="cb85-4"><a href="r-for-mass-spectrometry.html#cb85-4" tabindex="-1"></a><span class="fu">plot3D</span>(M2_csf)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-2-1.png" width="672" />
+<br>
+In deze 3D plot zijn de 4e en 5e MS1 spectra te zien van de eerste map (M_csf) en alle tussenliggende MS spectra. Op de oranje lijnen zien de MS2 pieken te zien, in dit geval zitten de meeste MS2 pieken voor de retentietijd van 400 en op de 2e lijn van rechts.</p>
+<p><strong>Quality Control</strong></p>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="r-for-mass-spectrometry.html#cb86-1" tabindex="-1"></a><span class="co"># Zet de kolommen van hd_csf zo om dat ze gebruikt kunnen worden voor het z argument</span></span>
+<span id="cb86-2"><a href="r-for-mass-spectrometry.html#cb86-2" tabindex="-1"></a>plot2d <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">rename</span>(hd_csf, <span class="at">retention.time=</span> retentionTime, <span class="at">precursor.mz=</span> precursorMZ, <span class="at">peaks.count=</span> peaksCount, <span class="at">charge=</span> precursorCharge, <span class="at">ionCount=</span> totIonCurrent)</span>
+<span id="cb86-3"><a href="r-for-mass-spectrometry.html#cb86-3" tabindex="-1"></a></span>
+<span id="cb86-4"><a href="r-for-mass-spectrometry.html#cb86-4" tabindex="-1"></a><span class="co">#Plot 2d met als kleuring peaks count en charge</span></span>
+<span id="cb86-5"><a href="r-for-mass-spectrometry.html#cb86-5" tabindex="-1"></a><span class="fu">plot2d</span>(plot2d, <span class="at">z=</span><span class="st">&quot;peaks.count&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.2</span>, <span class="at">plot =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb86-6"><a href="r-for-mass-spectrometry.html#cb86-6" tabindex="-1"></a><span class="fu">plot2d</span>(plot2d, <span class="at">z=</span><span class="st">&quot;charge&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>, <span class="at">plot =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb86-7"><a href="r-for-mass-spectrometry.html#cb86-7" tabindex="-1"></a></span>
+<span id="cb86-8"><a href="r-for-mass-spectrometry.html#cb86-8" tabindex="-1"></a><span class="co"># Filter de plots op seqNum 20000 tot 21000 om een overzichtelijkere weergave te krijgen</span></span>
+<span id="cb86-9"><a href="r-for-mass-spectrometry.html#cb86-9" tabindex="-1"></a>plot2d_filtered <span class="ot">&lt;-</span> plot2d <span class="sc">%&gt;%</span> <span class="fu">filter</span>(seqNum <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">20000</span><span class="sc">:</span><span class="dv">21000</span>)) <span class="sc">%&gt;%</span> <span class="fu">filter</span>(charge <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>))</span>
+<span id="cb86-10"><a href="r-for-mass-spectrometry.html#cb86-10" tabindex="-1"></a><span class="fu">plot2d</span>(plot2d_filtered, <span class="at">z=</span><span class="st">&quot;charge&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>, <span class="at">plot =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p><br>
+De punten in de bovenstaande plots representeren individuele MS2 spectra. In het eerste plot zijn de punten gekleurd gebaseerd op aantal pieken (peaks count) en in het tweede plot zijn ze gekleurd gebaseerd op de precursor charge. <br>
+In het derde plot is er gefilterd op seqNum 20000 tot 21000 en charge 3, 4 of 5 (dit is random gekozen) zodat er minder data punten zijn om een overzichtelijker plot te verkrijgen. Hierin kan de dan ook zien dan een charge van 5 in verhouding tot charge 3 en 4 weinig voorkomt en als het wel voorkomt is dit meestal bij een hoge precursor mz.</p>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="r-for-mass-spectrometry.html#cb87-1" tabindex="-1"></a>plot2d_na <span class="ot">&lt;-</span> plot2d[<span class="sc">!</span><span class="fu">is.na</span>(plot2d<span class="sc">$</span>charge), ] </span>
+<span id="cb87-2"><a href="r-for-mass-spectrometry.html#cb87-2" tabindex="-1"></a><span class="fu">plotDensity</span>(plot2d_na, <span class="at">z=</span><span class="st">&quot;peaks.count&quot;</span>, <span class="at">plot =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with
+## `binwidth`.</code></pre>
+<p><img src="_main_files/figure-html/plotDensity%20quality%20control-1.png" width="672" /></p>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="r-for-mass-spectrometry.html#cb89-1" tabindex="-1"></a><span class="fu">plotDensity</span>(plot2d_na, <span class="at">z=</span><span class="st">&quot;precursor.mz&quot;</span>, <span class="at">plot =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with
+## `binwidth`.</code></pre>
+<p><img src="_main_files/figure-html/plotDensity%20quality%20control-2.png" width="672" />
+<br>
+Met <code>plotDensity</code> is handig voor het visualiseren van de distributie van bijvoorbeeld ion intensities. Bij beide is de hoogste dichtheid zichtbaar bij een charge van 2 en bij 5 en 6 is er een hele lage dichtheid.</p>
+</div>
+</div>
+<div id="uitvoering-met-ms-data-pxd018226" class="section level2 tabset hasAnchor" number="4.5">
+<h2><span class="header-section-number">4.5</span> Uitvoering met MS data PXD018226<a href="r-for-mass-spectrometry.html#uitvoering-met-ms-data-pxd018226" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Medulloblastoma (MB) is een embryonale tumor van het cerebellum. MB gaat vaak gepaard met leptomeningeal dissemination, dit is de detectie van kankercellen in de leptomeningnes (arachnoid en pia mater), de subarachnoïde ruimte en in cerebrospinale vloeistof (CSF). Er is weinig bekend over de micro-omgeving van MB en het terugkeren van MB. In deze studie wordt er multi-omics massa spectrometrie uitgevoerd op CSF van patiënten met terugkerende MB.</p>
+<div id="inlezen-van-data-in-r" class="section level3 hasAnchor" number="4.5.1">
+<h3><span class="header-section-number">4.5.1</span> Inlezen van data in R<a href="r-for-mass-spectrometry.html#inlezen-van-data-in-r" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="r-for-mass-spectrometry.html#cb91-1" tabindex="-1"></a><span class="co"># Inlezen van PXD018226 in R</span></span>
+<span id="cb91-2"><a href="r-for-mass-spectrometry.html#cb91-2" tabindex="-1"></a>px_csf <span class="ot">&lt;-</span> <span class="fu">PXDataset</span>(<span class="st">&quot;PXD018226&quot;</span>)</span>
+<span id="cb91-3"><a href="r-for-mass-spectrometry.html#cb91-3" tabindex="-1"></a></span>
+<span id="cb91-4"><a href="r-for-mass-spectrometry.html#cb91-4" tabindex="-1"></a><span class="co"># Downloaden van bestand CSF_MB_7_1.mzML naar R met de pxget functie</span></span>
+<span id="cb91-5"><a href="r-for-mass-spectrometry.html#cb91-5" tabindex="-1"></a>fn_csf <span class="ot">&lt;-</span> <span class="st">&quot;CSF_MB_7_1.mzML&quot;</span></span>
+<span id="cb91-6"><a href="r-for-mass-spectrometry.html#cb91-6" tabindex="-1"></a>CSF_MB_7_1.mzML <span class="ot">&lt;-</span> <span class="fu">pxget</span>(px_csf, fn_csf)</span></code></pre></div>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="r-for-mass-spectrometry.html#cb92-1" tabindex="-1"></a>sp_csf <span class="ot">&lt;-</span> <span class="fu">Spectra</span>(CSF_MB_7_1.mzML)</span></code></pre></div>
+</div>
+<div id="ruwe-data-visualisatie" class="section level3 hasAnchor" number="4.5.2">
+<h3><span class="header-section-number">4.5.2</span> Ruwe data visualisatie<a href="r-for-mass-spectrometry.html#ruwe-data-visualisatie" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="r-for-mass-spectrometry.html#cb93-1" tabindex="-1"></a><span class="fu">with</span>(<span class="fu">spectraData</span>(<span class="fu">filterMsLevel</span>(sp_csf, <span class="dv">1</span>)),  </span>
+<span id="cb93-2"><a href="r-for-mass-spectrometry.html#cb93-2" tabindex="-1"></a>    <span class="fu">plot</span>(sp_csf<span class="sc">$</span>rtime, sp_csf<span class="sc">$</span>totIonCurrent, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>)) </span>
+<span id="cb93-3"><a href="r-for-mass-spectrometry.html#cb93-3" tabindex="-1"></a></span>
+<span id="cb93-4"><a href="r-for-mass-spectrometry.html#cb93-4" tabindex="-1"></a><span class="co">#Om de retentietijd van scan 8700 af te kunnen lezen</span></span>
+<span id="cb93-5"><a href="r-for-mass-spectrometry.html#cb93-5" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fu">rtime</span>(sp_csf)[<span class="dv">8605</span>], <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="r-for-mass-spectrometry.html#cb94-1" tabindex="-1"></a><span class="co">#Verkrijg een set parent (MS1) en children (MS2) scans</span></span>
+<span id="cb94-2"><a href="r-for-mass-spectrometry.html#cb94-2" tabindex="-1"></a>ms2_csf <span class="ot">&lt;-</span> <span class="fu">filterPrecursorScan</span>(sp_csf, <span class="dv">8605</span>)</span>
+<span id="cb94-3"><a href="r-for-mass-spectrometry.html#cb94-3" tabindex="-1"></a></span>
+<span id="cb94-4"><a href="r-for-mass-spectrometry.html#cb94-4" tabindex="-1"></a><span class="co">#Weergeven van de precursorMz waardes van ms2_csf</span></span>
+<span id="cb94-5"><a href="r-for-mass-spectrometry.html#cb94-5" tabindex="-1"></a><span class="fu">precursorMz</span>(ms2_csf)</span></code></pre></div>
+<pre><code>## [1] 729.3318</code></pre>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="r-for-mass-spectrometry.html#cb96-1" tabindex="-1"></a><span class="co">#Plot het MS spectrum van scan 3000 en highlight alle pieken die voor MS2 analyse geselecteerd worden</span></span>
+<span id="cb96-2"><a href="r-for-mass-spectrometry.html#cb96-2" tabindex="-1"></a><span class="fu">plotSpectra</span>(sp_csf[<span class="dv">8605</span>], <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">750</span>))</span>
+<span id="cb96-3"><a href="r-for-mass-spectrometry.html#cb96-3" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fu">precursorMz</span>(ms2_csf)[<span class="dv">1</span>], <span class="at">col =</span> <span class="st">&quot;grey&quot;</span>)</span>
+<span id="cb96-4"><a href="r-for-mass-spectrometry.html#cb96-4" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fu">precursorMz</span>(ms2_csf)[<span class="dv">1</span>], <span class="at">col =</span> <span class="st">&quot;red&quot;</span>) </span></code></pre></div>
+<p><img src="_main_files/figure-html/visualitatie%20MS1%20en%20MS2%20csf-1.png" width="672" /></p>
+<p>Spectra kunnen ook vergeleken worden door overlay of mirror plotting met de plotSpectraOverlay() en plotSpectraMirror() functies.</p>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="r-for-mass-spectrometry.html#cb97-1" tabindex="-1"></a><span class="co">#Vinden van de overeenkomende paren</span></span>
+<span id="cb97-2"><a href="r-for-mass-spectrometry.html#cb97-2" tabindex="-1"></a>sp2_csf <span class="ot">&lt;-</span> <span class="fu">filterMsLevel</span>(sp_csf, <span class="dv">2</span><span class="dt">L</span>)</span>
+<span id="cb97-3"><a href="r-for-mass-spectrometry.html#cb97-3" tabindex="-1"></a><span class="fu">anyDuplicated</span>(<span class="fu">precursorMz</span>(<span class="fu">filterMsLevel</span>(sp_csf, <span class="dv">2</span>)))</span>
+<span id="cb97-4"><a href="r-for-mass-spectrometry.html#cb97-4" tabindex="-1"></a></span>
+<span id="cb97-5"><a href="r-for-mass-spectrometry.html#cb97-5" tabindex="-1"></a>i_csf <span class="ot">&lt;-</span> <span class="fu">which</span>(<span class="fu">precursorMz</span>(sp2_csf) <span class="sc">==</span> <span class="fu">precursorMz</span>(sp2_csf)[<span class="dv">96</span>])</span>
+<span id="cb97-6"><a href="r-for-mass-spectrometry.html#cb97-6" tabindex="-1"></a>sp2i_csf <span class="ot">&lt;-</span> sp2_csf[i_csf]</span>
+<span id="cb97-7"><a href="r-for-mass-spectrometry.html#cb97-7" tabindex="-1"></a></span>
+<span id="cb97-8"><a href="r-for-mass-spectrometry.html#cb97-8" tabindex="-1"></a><span class="co">#Visualiseren van de overeenkomende paren</span></span>
+<span id="cb97-9"><a href="r-for-mass-spectrometry.html#cb97-9" tabindex="-1"></a><span class="fu">plotSpectraOverlay</span>(sp2i_csf, <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;steelblue&quot;</span>))</span>
+<span id="cb97-10"><a href="r-for-mass-spectrometry.html#cb97-10" tabindex="-1"></a><span class="fu">plotSpectraMirror</span>(sp2i_csf[<span class="dv">1</span>], sp2i_csf[<span class="dv">2</span>])</span></code></pre></div>
+</div>
+<div id="identification-data-1" class="section level3 hasAnchor" number="4.5.3">
+<h3><span class="header-section-number">4.5.3</span> Identification data<a href="r-for-mass-spectrometry.html#identification-data-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="r-for-mass-spectrometry.html#cb98-1" tabindex="-1"></a><span class="co">#Inlezen van mzid bestand CSF_MB_7_1.mzid.gz door eerst met pxget het bestand te downloaden en daarna met PSM</span></span>
+<span id="cb98-2"><a href="r-for-mass-spectrometry.html#cb98-2" tabindex="-1"></a>fn_csf_id <span class="ot">&lt;-</span> <span class="st">&quot;CSF_MB_7_1.mzid.gz&quot;</span></span>
+<span id="cb98-3"><a href="r-for-mass-spectrometry.html#cb98-3" tabindex="-1"></a>CSF_MB_7_1.mzid.gz <span class="ot">&lt;-</span> <span class="fu">pxget</span>(px_csf, fn_csf_id)</span>
+<span id="cb98-4"><a href="r-for-mass-spectrometry.html#cb98-4" tabindex="-1"></a>id_csf <span class="ot">&lt;-</span> <span class="fu">PSM</span>(CSF_MB_7_1.mzid.gz)</span></code></pre></div>
+<pre><code>## No scoring information available</code></pre>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="r-for-mass-spectrometry.html#cb100-1" tabindex="-1"></a><span class="co">#Het onderstaande tabel geeft het aantal matches per spectrum aan </span></span>
+<span id="cb100-2"><a href="r-for-mass-spectrometry.html#cb100-2" tabindex="-1"></a><span class="fu">table</span>(<span class="fu">table</span>(id_csf<span class="sc">$</span>spectrumID))</span></code></pre></div>
+<pre><code>## 
+##    1    2    3    4    5    6    8   10 
+## 3532  426  130   35    9    7    1    1</code></pre>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="r-for-mass-spectrometry.html#cb102-1" tabindex="-1"></a><span class="co">#Achterhaal welke scan 10 matches heeft</span></span>
+<span id="cb102-2"><a href="r-for-mass-spectrometry.html#cb102-2" tabindex="-1"></a>match_counts <span class="ot">&lt;-</span> <span class="fu">table</span>(id_csf<span class="sc">$</span>spectrumID)</span>
+<span id="cb102-3"><a href="r-for-mass-spectrometry.html#cb102-3" tabindex="-1"></a>spectra_with_10_matches <span class="ot">&lt;-</span> <span class="fu">names</span>(match_counts[match_counts <span class="sc">==</span> <span class="dv">10</span>])</span>
+<span id="cb102-4"><a href="r-for-mass-spectrometry.html#cb102-4" tabindex="-1"></a></span>
+<span id="cb102-5"><a href="r-for-mass-spectrometry.html#cb102-5" tabindex="-1"></a><span class="co">#Om de matches te zien scan 7490 heeft:</span></span>
+<span id="cb102-6"><a href="r-for-mass-spectrometry.html#cb102-6" tabindex="-1"></a>matches_csf <span class="ot">&lt;-</span> <span class="fu">which</span>(id_csf<span class="sc">$</span>spectrumID <span class="sc">==</span> <span class="st">&quot;scan=7490 file=3445&quot;</span>)</span>
+<span id="cb102-7"><a href="r-for-mass-spectrometry.html#cb102-7" tabindex="-1"></a><span class="fu">data.frame</span>(id_csf[matches_csf, ])[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span></code></pre></div>
+<pre><code>##              sequence          spectrumID chargeState rank passThreshold
+## 1  BIZMTQSPSSLSASVGDR scan=7490 file=3445           2    4          TRUE
+## 2  BIZMTQSPSSLSASVGDR scan=7490 file=3445           2    4          TRUE
+## 3  BIZMTQSPSSLSASVGDR scan=7490 file=3445           2    4          TRUE
+## 4  BIZMTQSPSSLSASVGDR scan=7490 file=3445           2    4          TRUE
+## 5  BIZMTQSPSSLSASVGDR scan=7490 file=3445           2    2          TRUE
+## 6  BIZMTQSPSSLSASVGDR scan=7490 file=3445           2    2          TRUE
+## 7  BIZMTQSPSSLSASVGDR scan=7490 file=3445           2    2          TRUE
+## 8  BIZMTQSPSSLSASVGDR scan=7490 file=3445           2    2          TRUE
+## 9  DIQMTQSPSSLSASVGDR scan=7490 file=3445           2    1          TRUE
+## 10 DIQMTQSPSSLSASVGDR scan=7490 file=3445           2    1          TRUE</code></pre>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="r-for-mass-spectrometry.html#cb104-1" tabindex="-1"></a><span class="co">#Reducing het PSM object met variabele sprectrumID</span></span>
+<span id="cb104-2"><a href="r-for-mass-spectrometry.html#cb104-2" tabindex="-1"></a>id2_csf <span class="ot">&lt;-</span> <span class="fu">reducePSMs</span>(id_csf, id_csf<span class="sc">$</span>spectrumID)</span>
+<span id="cb104-3"><a href="r-for-mass-spectrometry.html#cb104-3" tabindex="-1"></a></span>
+<span id="cb104-4"><a href="r-for-mass-spectrometry.html#cb104-4" tabindex="-1"></a><span class="co">#Scan 7490 heeft nu in plaats van 10 PSM&#39;s maar 1 PSM</span></span>
+<span id="cb104-5"><a href="r-for-mass-spectrometry.html#cb104-5" tabindex="-1"></a>j_csf <span class="ot">&lt;-</span> <span class="fu">which</span>(id2_csf<span class="sc">$</span>spectrumID <span class="sc">==</span> <span class="st">&quot;scan=7490 file=3445&quot;</span>) </span>
+<span id="cb104-6"><a href="r-for-mass-spectrometry.html#cb104-6" tabindex="-1"></a>id2_csf[j, ]</span></code></pre></div>
+<pre><code>## Reduced PSM with 1 rows and 29 columns.
+## names(29): sequence spectrumID ... subReplacementResidue subLocation</code></pre>
+<p>Met <code>table(table(id_csf$sprectrumID))</code> is het aantal matches per spectrum berekend en daar is weer een tabel van gemaakt, hier zie je dat er een spectrum is die 10 matches heeft. Om te achterhalen welke scan 10 matches heeft wordt eerst de volledige data van het aantal matches per spectrum verkregen met <code>table(id_csf$spectrumID)</code> en vervolgens wordt hierin gezocht wat de naam is van match count 10, met <code>names(match_counts[match_counts == 10])</code>. Het spectrum met 10 match counts is “scan=7490 file=3445”. Met <code>which(id_csf$spectrumID == "scan=7490 file=3445")</code> worden de rijen naar voren gehaald die matchen met dit spectrumID. Vervolgens wordt met <code>data.frame(id_csf[matches_csf, ])[1:5]</code> de eerste 5 variabelen van deze matches in een dataframe weergeven. Met reducePSMs wordt het aantal PSMs gereduceerd, vaak door het combineren van PSMs die overeenkomen met dezelfde peptide.</p>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="r-for-mass-spectrometry.html#cb106-1" tabindex="-1"></a><span class="co"># Filter voor decoy false waardes, voor rank == 1 en voor gedeelde peptiden. </span></span>
+<span id="cb106-2"><a href="r-for-mass-spectrometry.html#cb106-2" tabindex="-1"></a>id_csf_fil <span class="ot">&lt;-</span> <span class="fu">filterPSMs</span>(id_csf)</span>
+<span id="cb106-3"><a href="r-for-mass-spectrometry.html#cb106-3" tabindex="-1"></a></span>
+<span id="cb106-4"><a href="r-for-mass-spectrometry.html#cb106-4" tabindex="-1"></a><span class="co"># Samenvatting van de peptides en proteins in de PSM resultaten</span></span>
+<span id="cb106-5"><a href="r-for-mass-spectrometry.html#cb106-5" tabindex="-1"></a><span class="fu">describePeptides</span>(id_csf)</span>
+<span id="cb106-6"><a href="r-for-mass-spectrometry.html#cb106-6" tabindex="-1"></a><span class="fu">describePeptides</span>(id_csf_fil)</span>
+<span id="cb106-7"><a href="r-for-mass-spectrometry.html#cb106-7" tabindex="-1"></a></span>
+<span id="cb106-8"><a href="r-for-mass-spectrometry.html#cb106-8" tabindex="-1"></a><span class="fu">describeProteins</span>(id_csf)</span>
+<span id="cb106-9"><a href="r-for-mass-spectrometry.html#cb106-9" tabindex="-1"></a><span class="fu">describeProteins</span>(id_csf_fil)</span></code></pre></div>
+<p>De id_csf data wordt met <code>filterPSMs(id_csf)</code> gefilterd voor isDecoy = FALSE waardes, voor PSMs met een rank van 1 en voor gedeelde peptiden. De resultaten geven aan dat er geen decoy hits zijn verwijderd, dat er 26 PSMs met een rank hoger dan 1 zijn verwijderd en dat er 465 gedeelde peptiden zijn verwijderd. Uiteindelijk blijven er van de 5019 PSMs nog 4528 over. <br>
+<br>
+Met <code>describePeptides</code> en <code>describeProteins</code> kan er een samenvatting worden gegeven van de peptides en proteins in de PSM resultaten. Eerst is dit uitgevoerd op de ongefilterde data, de <code>describePeptides</code> gaf 2599 unieke peptides en 127 gedeelde peptiden, welk weer verdeeld waren over 4 proteins. Na filteren blijven er nog 2590 peptiden over, waarvan alles uniek is. De <code>describeProteins</code> gaf 575 eiwitten, waarvan er 522 uniek zijn en 53 zijn uniek en gedeeld. Na filteren blijven er nog 574 eiwitten over, deze zijn allemaal uniek.</p>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="r-for-mass-spectrometry.html#cb107-1" tabindex="-1"></a><span class="co"># Maak een tibble van de gefilterde data</span></span>
+<span id="cb107-2"><a href="r-for-mass-spectrometry.html#cb107-2" tabindex="-1"></a>id_csf_tbl <span class="ot">&lt;-</span> tidyr<span class="sc">::</span><span class="fu">as_tibble</span>(id_csf_fil)</span>
+<span id="cb107-3"><a href="r-for-mass-spectrometry.html#cb107-3" tabindex="-1"></a></span>
+<span id="cb107-4"><a href="r-for-mass-spectrometry.html#cb107-4" tabindex="-1"></a><span class="co"># Maak een plot waarin je de lengte van de eiwitten uit zet tegen hun respectieve aantal peptiden. </span></span>
+<span id="cb107-5"><a href="r-for-mass-spectrometry.html#cb107-5" tabindex="-1"></a>id_csf_tbl <span class="ot">&lt;-</span> id_csf_tbl <span class="sc">%&gt;%</span> </span>
+<span id="cb107-6"><a href="r-for-mass-spectrometry.html#cb107-6" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">peplen =</span> <span class="fu">nchar</span>(sequence))</span>
+<span id="cb107-7"><a href="r-for-mass-spectrometry.html#cb107-7" tabindex="-1"></a>npeps_csf <span class="ot">&lt;-</span> id_csf_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb107-8"><a href="r-for-mass-spectrometry.html#cb107-8" tabindex="-1"></a>    <span class="fu">group_by</span>(DatabaseAccess) <span class="sc">%&gt;%</span></span>
+<span id="cb107-9"><a href="r-for-mass-spectrometry.html#cb107-9" tabindex="-1"></a>    tally</span>
+<span id="cb107-10"><a href="r-for-mass-spectrometry.html#cb107-10" tabindex="-1"></a>id_csf_tbl <span class="ot">&lt;-</span> <span class="fu">full_join</span>(id_csf_tbl, npeps_csf, <span class="at">by =</span> <span class="fu">join_by</span>(DatabaseAccess))</span>
+<span id="cb107-11"><a href="r-for-mass-spectrometry.html#cb107-11" tabindex="-1"></a></span>
+<span id="cb107-12"><a href="r-for-mass-spectrometry.html#cb107-12" tabindex="-1"></a><span class="fu">ggplot</span>(id_csf_tbl, <span class="fu">aes</span>(<span class="at">x =</span> id_csf_tbl<span class="sc">$</span>n, <span class="at">y =</span> id_csf_tbl<span class="sc">$</span>DBseqLength)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/plot%20eiwit%20lengte%20en%20peptide%20aantal-1.png" width="672" /></p>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="r-for-mass-spectrometry.html#cb108-1" tabindex="-1"></a><span class="co"># Maak nog een plot waar n gefilterd is op waardes onder de 20 om een beter overzicht te hebben</span></span>
+<span id="cb108-2"><a href="r-for-mass-spectrometry.html#cb108-2" tabindex="-1"></a>plot_csf <span class="ot">&lt;-</span> id_csf_tbl <span class="sc">%&gt;%</span> <span class="fu">filter</span>(n <span class="sc">&lt;</span> <span class="dv">20</span>)</span>
+<span id="cb108-3"><a href="r-for-mass-spectrometry.html#cb108-3" tabindex="-1"></a><span class="fu">ggplot</span>(plot_csf, <span class="fu">aes</span>(<span class="at">x =</span> n, <span class="at">y =</span> DBseqLength)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/plot%20eiwit%20lengte%20en%20peptide%20aantal-2.png" width="672" />
+Van de gefilterde data is een tibble gemaakt, vervolgens is met mutate een kolom toegevoegd met de peptide lengte. De peptide lengte is berekent met <code>nchar(sequence)</code>. Daarna wordt de DatabaseAccess kolom gegroepeerd en in het nieuwe object npeps_cs is per groupering het aantal rijen te zien, dit is getelt met de <code>tally</code> functie. Het kolom DatabaseAccess bevat de eiwitnamen/ symbolen. <br>
+De tibble data is vervolgens geplot, dit is het bovenste figuur. Doordat hier ook hoge x-as waardes bijzitten maar vooral veel lage x-as waardes zijn de punten op de linkerkant van de x-as moeilijk te onderscheiden. Om dit op te lossen is er nog een grafiek gemaakt met alleen n waardes onder de 20, dit grafiek bevat dus niet alle data maar is enkel voor een beter overzicht/ betere weergave!</p>
+</div>
+<div id="combineren-van-identificatie-data-met-ruwe-data" class="section level3 hasAnchor" number="4.5.4">
+<h3><span class="header-section-number">4.5.4</span> Combineren van identificatie data met ruwe data<a href="r-for-mass-spectrometry.html#combineren-van-identificatie-data-met-ruwe-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="r-for-mass-spectrometry.html#cb109-1" tabindex="-1"></a><span class="co"># In de gefilterde data zijn er nog steeds meerdere PSMs die aan een enkel spectrum gekoppeld zijn</span></span>
+<span id="cb109-2"><a href="r-for-mass-spectrometry.html#cb109-2" tabindex="-1"></a><span class="fu">table</span>(<span class="fu">table</span>(id_csf_fil<span class="sc">$</span>spectrumID))</span></code></pre></div>
+<pre><code>## 
+##    1    2    3    4    5    6    8 
+## 3527  265  105   25    6    3    1</code></pre>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="r-for-mass-spectrometry.html#cb111-1" tabindex="-1"></a><span class="co"># Om na te gaan wel spectrum 8 matches heeft</span></span>
+<span id="cb111-2"><a href="r-for-mass-spectrometry.html#cb111-2" tabindex="-1"></a><span class="fu">which</span>(<span class="fu">table</span>(id_csf_fil<span class="sc">$</span>spectrumID) <span class="sc">==</span> <span class="dv">8</span>)</span></code></pre></div>
+<pre><code>## scan=2054 file=3445 
+##                1584</code></pre>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="r-for-mass-spectrometry.html#cb113-1" tabindex="-1"></a><span class="co"># Verdere verdieping in de data</span></span>
+<span id="cb113-2"><a href="r-for-mass-spectrometry.html#cb113-2" tabindex="-1"></a>csf_8m <span class="ot">&lt;-</span> id_csf_fil[id_csf_fil<span class="sc">$</span>spectrumID <span class="sc">==</span> <span class="st">&quot;scan=2054 file=3445&quot;</span>, ] <span class="sc">%&gt;%</span> <span class="fu">as.data.frame</span>()</span>
+<span id="cb113-3"><a href="r-for-mass-spectrometry.html#cb113-3" tabindex="-1"></a>csf_8m[, <span class="fu">c</span>(<span class="st">&quot;modName&quot;</span>, <span class="st">&quot;modLocation&quot;</span>)]</span></code></pre></div>
+<pre><code>##           modName modLocation
+## 1 Carbamidomethyl          16
+## 2       Oxidation          20
+## 3 Carbamidomethyl          16
+## 4       Oxidation          19
+## 5 Carbamidomethyl          16
+## 6       Oxidation          20
+## 7 Carbamidomethyl          16
+## 8       Oxidation          19</code></pre>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="r-for-mass-spectrometry.html#cb115-1" tabindex="-1"></a><span class="co"># Reduceren van de PSMs</span></span>
+<span id="cb115-2"><a href="r-for-mass-spectrometry.html#cb115-2" tabindex="-1"></a>id_csf_fil <span class="ot">&lt;-</span> <span class="fu">reducePSMs</span>(id_csf_fil, id_csf_fil<span class="sc">$</span>spectrumID)</span>
+<span id="cb115-3"><a href="r-for-mass-spectrometry.html#cb115-3" tabindex="-1"></a><span class="fu">table</span>(<span class="fu">table</span>(id_csf_fil<span class="sc">$</span>spectrumID))</span></code></pre></div>
+<pre><code>## 
+##    1 
+## 3932</code></pre>
+<p>In de gefilterde data zijn er nog steeds meerdere PSMs die aan een enkel spectrum gekoppeld zijn, het spectrum met 10 matches is er wel uit gefilterd. Er is ook nog een spectrum met 8 matches, met <code>which(table(id_csf_fil$spectrumID) == 8)</code> is achterhaald dat dit “scan=2054 file=3445” is. <br>
+Deze PSMs van dit spectrum verschillen in type modificatie en modificatie locatie, 4 van de PSMs hebben een Carbamidomethyl modificatie en vier van de PSMs hebben een Oxidatie modificatie. De locatie van de Carbamidomethyl modificatie is voor alle vier de PSMs hetzelfde, namelijk 16. De locatie van de Oxidatie modificatie verschilt tussen de PSMs, twee modificaties zijn op locatie 19 en twee op locatie 20. Voor de rest is alle data van de PSMs gelijk.
+<br>
+Voordat de ruwe data en de identificatie data samengevoegd kunnen worden moet het aantal PSMs nog een keer gereduceerd worden, zodat er alleen unieke PSMs overblijven, dit wordt uitgevoerd met <code>reducePSMs</code>. Als je daarna nog een keer <code>table(table(id_csf_fil$spectrumID))</code> gebruikt, krijg je alleen spectrums met 1 match.</p>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="r-for-mass-spectrometry.html#cb117-1" tabindex="-1"></a>com_csf <span class="ot">&lt;-</span> <span class="fu">joinSpectraData</span>(sp_csf, id_csf_fil,</span>
+<span id="cb117-2"><a href="r-for-mass-spectrometry.html#cb117-2" tabindex="-1"></a>                           <span class="at">by.x =</span> <span class="st">&quot;spectrumId&quot;</span>,</span>
+<span id="cb117-3"><a href="r-for-mass-spectrometry.html#cb117-3" tabindex="-1"></a>                           <span class="at">by.y =</span> <span class="st">&quot;spectrumID&quot;</span>)</span>
+<span id="cb117-4"><a href="r-for-mass-spectrometry.html#cb117-4" tabindex="-1"></a></span>
+<span id="cb117-5"><a href="r-for-mass-spectrometry.html#cb117-5" tabindex="-1"></a>com_csf1 <span class="ot">&lt;-</span> <span class="fu">filterMsLevel</span>(com_csf, <span class="dv">1</span>)</span>
+<span id="cb117-6"><a href="r-for-mass-spectrometry.html#cb117-6" tabindex="-1"></a><span class="fu">unique</span>(<span class="fu">any</span>(<span class="fu">is.na</span>(com_csf1<span class="sc">$</span>sequence)))</span></code></pre></div>
+<pre><code>## logical(0)</code></pre>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="r-for-mass-spectrometry.html#cb119-1" tabindex="-1"></a>com_csf2 <span class="ot">&lt;-</span> <span class="fu">filterMsLevel</span>(com_csf, <span class="dv">2</span>)</span>
+<span id="cb119-2"><a href="r-for-mass-spectrometry.html#cb119-2" tabindex="-1"></a><span class="fu">unique</span>(<span class="fu">any</span>(<span class="fu">is.na</span>(com_csf2<span class="sc">$</span>sequence)))</span></code></pre></div>
+<pre><code>## [1] FALSE</code></pre>
+<p>Met <code>joinSpectraData</code> worden de objecten sp_csf en id_csf_fil samengevoegd. <br>
+Om te controleren of er geen identificatie data is toegevoegd aan MS1 scans wordt er gefilterd op MS1 scans en daarna gekeken over er sequence data is. Dit geeft logical(0), dit komt omdat PXD018226 geen MS1 data bevat. Wanneer hetzelfde gedaan wordt voor MS2, zie je dat de identificatie data aan 100% van de MS2 spectra is toegevoegd, alles geeft namelijk FALSE.</p>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="r-for-mass-spectrometry.html#cb121-1" tabindex="-1"></a>com_csf <span class="ot">&lt;-</span> <span class="fu">countIdentifications</span>(com_csf)</span></code></pre></div>
+<p>De functie <code>countIdentifications(com_csf)</code> geeft de error: ‘Error in as.vector(x, mode): coercing an Atomiclist object to an atomic vector is supported only for object with top-level elements of length &lt;= 1’. Dit komt doordat veel elementen in id_csf_fil een lijst hebben, namelijk sequence, peptideRef, end, DatabaseAccess, DBseqLength, DatabaseSeq, DatabaseDescription, modPeptideRef, modName en modMass. Ik heb geprobeerd dit op te lossen met de <code>unlist()</code> functie, maar deze werkt alleen op de top level waardoor heel veel variabelen en data verloren gaan. Ik heb het ook apart geprobeerd op te lossen met <code>unlist(id_csf_fil@listData[["sequence"]])</code> dit heeft wel de unlistData uit de lijst van de sequence gehaald.</p>
+</div>
+</div>
+<div id="links" class="section level2 hasAnchor" number="4.6">
+<h2><span class="header-section-number">4.6</span> Links<a href="r-for-mass-spectrometry.html#links" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Massa spectrometry website voor R: <a href="https://www.rformassspectrometry.org/pkgs/">click here for the link</a> <br>
+PRIDE PXD008990: <a href="https://www.ebi.ac.uk/pride/archive/projects/PXD008990">click here for the link</a> <br>
+Pubmed artikel: <a href="%22Glycomic%20and%20Proteomic%20Changes%20in%20Aging%20Brain%20Nigrostriatal%20Pathway%22:%20https://pubmed.ncbi.nlm.nih.gov/29915149/">click here for the link</a> <br>
+PRIDE PXD018226: <a href="https://www.ebi.ac.uk/pride/archive/projects/PXD018226">click here for the link</a> <br>
+Pubmed artikel: <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7352284/">click here for the link</a>
+Spectra tutorial: <a href="https://jorainer.github.io/SpectraTutorials/articles/analyzing-MS-data-from-different-sources-with-Spectra.html">click here for the link</a> <br>
+MSnbase tutorial: <a href="https://www.bioconductor.org/packages/devel/bioc/vignettes/MSnbase/inst/doc/v01-MSnbase-demo.html">click here for the link</a>
+Spectra package tutorial: <a href="https://www.bioconductor.org/packages/devel/bioc/vignettes/Spectra/inst/doc/Spectra.html#34_Data_manipulations">click here for the link</a></p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="looking-ahead.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="r-seurat-guided-clustering-tutorial.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

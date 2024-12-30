@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>6 Guerrilla Analytics framework | Portfolio</title>
+  <meta name="description" content="6 Guerrilla Analytics framework | Portfolio" />
+  <meta name="generator" content="bookdown 0.41 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="6 Guerrilla Analytics framework | Portfolio" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="6 Guerrilla Analytics framework | Portfolio" />
+  
+  
+  
+
+<meta name="author" content="Cheryl" />
+
+
+<meta name="date" content="2024-12-30" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="r-seurat-guided-clustering-tutorial.html"/>
+<link rel="next" href="c.elegans-plate-experiment.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="libs/datatables-binding-0.33/datatables.js"></script>
+<link href="libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
+<link href="libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
+<script src="libs/plotly-binding-4.10.4/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introductie</a></li>
+<li class="chapter" data-level="2" data-path="curriculum-vitae.html"><a href="curriculum-vitae.html"><i class="fa fa-check"></i><b>2</b> Curriculum vitae</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="curriculum-vitae.html"><a href="curriculum-vitae.html#opleidingen"><i class="fa fa-check"></i><b>2.1</b> Opleidingen</a></li>
+<li class="chapter" data-level="2.2" data-path="curriculum-vitae.html"><a href="curriculum-vitae.html#werkervaring"><i class="fa fa-check"></i><b>2.2</b> Werkervaring</a></li>
+<li class="chapter" data-level="2.3" data-path="curriculum-vitae.html"><a href="curriculum-vitae.html#vaardigheden"><i class="fa fa-check"></i><b>2.3</b> Vaardigheden</a></li>
+<li class="chapter" data-level="2.4" data-path="curriculum-vitae.html"><a href="curriculum-vitae.html#cursussen"><i class="fa fa-check"></i><b>2.4</b> Cursussen</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="looking-ahead.html"><a href="looking-ahead.html"><i class="fa fa-check"></i><b>3</b> Looking ahead</a></li>
+<li class="chapter" data-level="4" data-path="r-for-mass-spectrometry.html"><a href="r-for-mass-spectrometry.html"><i class="fa fa-check"></i><b>4</b> R for Mass Spectrometry</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="r-for-mass-spectrometry.html"><a href="r-for-mass-spectrometry.html#introductie-1"><i class="fa fa-check"></i><b>4.1</b> Introductie</a></li>
+<li class="chapter" data-level="4.2" data-path="r-for-mass-spectrometry.html"><a href="r-for-mass-spectrometry.html#planning"><i class="fa fa-check"></i><b>4.2</b> Planning</a></li>
+<li class="chapter" data-level="4.3" data-path="r-for-mass-spectrometry.html"><a href="r-for-mass-spectrometry.html#uitvoering-met-voorbeeld-data-pxdooooo1"><i class="fa fa-check"></i><b>4.3</b> Uitvoering met voorbeeld data PXDOOOOO1</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="r-for-mass-spectrometry.html"><a href="r-for-mass-spectrometry.html#inlezen-van-de-data-in-r"><i class="fa fa-check"></i><b>4.3.1</b> Inlezen van de data in R</a></li>
+<li class="chapter" data-level="4.3.2" data-path="r-for-mass-spectrometry.html"><a href="r-for-mass-spectrometry.html#ruwe-data-visualisatie-verwerking-en-manipulatie"><i class="fa fa-check"></i><b>4.3.2</b> Ruwe data visualisatie, verwerking en manipulatie</a></li>
+<li class="chapter" data-level="4.3.3" data-path="r-for-mass-spectrometry.html"><a href="r-for-mass-spectrometry.html#identification-data"><i class="fa fa-check"></i><b>4.3.3</b> Identification data</a></li>
+<li class="chapter" data-level="4.3.4" data-path="r-for-mass-spectrometry.html"><a href="r-for-mass-spectrometry.html#msnbase-package"><i class="fa fa-check"></i><b>4.3.4</b> MSnbase package</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="r-for-mass-spectrometry.html"><a href="r-for-mass-spectrometry.html#uitvoering-met-ms-data-pxd008990"><i class="fa fa-check"></i><b>4.4</b> Uitvoering met MS data PXD008990</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="r-for-mass-spectrometry.html"><a href="r-for-mass-spectrometry.html#inlezen-van-de-data-in-r-1"><i class="fa fa-check"></i><b>4.4.1</b> Inlezen van de data in R</a></li>
+<li class="chapter" data-level="4.4.2" data-path="r-for-mass-spectrometry.html"><a href="r-for-mass-spectrometry.html#ruwe-data-visualisatie-verwerking-en-manipulatie-1"><i class="fa fa-check"></i><b>4.4.2</b> Ruwe data visualisatie, verwerking en manipulatie</a></li>
+<li class="chapter" data-level="4.4.3" data-path="r-for-mass-spectrometry.html"><a href="r-for-mass-spectrometry.html#samenvattings-opdracht"><i class="fa fa-check"></i><b>4.4.3</b> Samenvattings opdracht</a></li>
+<li class="chapter" data-level="4.4.4" data-path="r-for-mass-spectrometry.html"><a href="r-for-mass-spectrometry.html#msnbase-package-1"><i class="fa fa-check"></i><b>4.4.4</b> MSnbase package</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="r-for-mass-spectrometry.html"><a href="r-for-mass-spectrometry.html#uitvoering-met-ms-data-pxd018226"><i class="fa fa-check"></i><b>4.5</b> Uitvoering met MS data PXD018226</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="r-for-mass-spectrometry.html"><a href="r-for-mass-spectrometry.html#inlezen-van-data-in-r"><i class="fa fa-check"></i><b>4.5.1</b> Inlezen van data in R</a></li>
+<li class="chapter" data-level="4.5.2" data-path="r-for-mass-spectrometry.html"><a href="r-for-mass-spectrometry.html#ruwe-data-visualisatie"><i class="fa fa-check"></i><b>4.5.2</b> Ruwe data visualisatie</a></li>
+<li class="chapter" data-level="4.5.3" data-path="r-for-mass-spectrometry.html"><a href="r-for-mass-spectrometry.html#identification-data-1"><i class="fa fa-check"></i><b>4.5.3</b> Identification data</a></li>
+<li class="chapter" data-level="4.5.4" data-path="r-for-mass-spectrometry.html"><a href="r-for-mass-spectrometry.html#combineren-van-identificatie-data-met-ruwe-data"><i class="fa fa-check"></i><b>4.5.4</b> Combineren van identificatie data met ruwe data</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="r-for-mass-spectrometry.html"><a href="r-for-mass-spectrometry.html#links"><i class="fa fa-check"></i><b>4.6</b> Links</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="r-seurat-guided-clustering-tutorial.html"><a href="r-seurat-guided-clustering-tutorial.html"><i class="fa fa-check"></i><b>5</b> R Seurat: Guided Clustering Tutorial</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="r-seurat-guided-clustering-tutorial.html"><a href="r-seurat-guided-clustering-tutorial.html#uitvoering-met-voorbeeld-data"><i class="fa fa-check"></i><b>5.1</b> Uitvoering met voorbeeld data</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="r-seurat-guided-clustering-tutorial.html"><a href="r-seurat-guided-clustering-tutorial.html#pre-processing-workflow"><i class="fa fa-check"></i><b>5.1.1</b> Pre-processing workflow</a></li>
+<li class="chapter" data-level="5.1.2" data-path="r-seurat-guided-clustering-tutorial.html"><a href="r-seurat-guided-clustering-tutorial.html#identification-of-highly-variable-features"><i class="fa fa-check"></i><b>5.1.2</b> Identification of highly variable features</a></li>
+<li class="chapter" data-level="5.1.3" data-path="r-seurat-guided-clustering-tutorial.html"><a href="r-seurat-guided-clustering-tutorial.html#perform-linear-dimensional-reduction"><i class="fa fa-check"></i><b>5.1.3</b> Perform linear dimensional reduction</a></li>
+<li class="chapter" data-level="5.1.4" data-path="r-seurat-guided-clustering-tutorial.html"><a href="r-seurat-guided-clustering-tutorial.html#cluster-the-cells-umap"><i class="fa fa-check"></i><b>5.1.4</b> Cluster the cells &amp; UMAP</a></li>
+<li class="chapter" data-level="5.1.5" data-path="r-seurat-guided-clustering-tutorial.html"><a href="r-seurat-guided-clustering-tutorial.html#finding-differentially-expressed-features"><i class="fa fa-check"></i><b>5.1.5</b> Finding differentially expressed features</a></li>
+<li class="chapter" data-level="5.1.6" data-path="r-seurat-guided-clustering-tutorial.html"><a href="r-seurat-guided-clustering-tutorial.html#assigning-cell-type-identity-to-clusters"><i class="fa fa-check"></i><b>5.1.6</b> Assigning cell type identity to clusters</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="r-seurat-guided-clustering-tutorial.html"><a href="r-seurat-guided-clustering-tutorial.html#uitvoering-met-csf1r-related-disorder"><i class="fa fa-check"></i><b>5.2</b> Uitvoering met CSF1R-related disorder</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="r-seurat-guided-clustering-tutorial.html"><a href="r-seurat-guided-clustering-tutorial.html#pre-processing-workflow-1"><i class="fa fa-check"></i><b>5.2.1</b> Pre-processing workflow</a></li>
+<li class="chapter" data-level="5.2.2" data-path="r-seurat-guided-clustering-tutorial.html"><a href="r-seurat-guided-clustering-tutorial.html#identification-of-highly-variable-features-1"><i class="fa fa-check"></i><b>5.2.2</b> Identification of highly variable features</a></li>
+<li class="chapter" data-level="5.2.3" data-path="r-seurat-guided-clustering-tutorial.html"><a href="r-seurat-guided-clustering-tutorial.html#perform-linear-dimensional-reduction-1"><i class="fa fa-check"></i><b>5.2.3</b> Perform linear dimensional reduction</a></li>
+<li class="chapter" data-level="5.2.4" data-path="r-seurat-guided-clustering-tutorial.html"><a href="r-seurat-guided-clustering-tutorial.html#cluster-the-cells-umap-1"><i class="fa fa-check"></i><b>5.2.4</b> Cluster the cells &amp; UMAP</a></li>
+<li class="chapter" data-level="5.2.5" data-path="r-seurat-guided-clustering-tutorial.html"><a href="r-seurat-guided-clustering-tutorial.html#finding-differentially-expressed-features-1"><i class="fa fa-check"></i><b>5.2.5</b> Finding differentially expressed features</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="r-seurat-guided-clustering-tutorial.html"><a href="r-seurat-guided-clustering-tutorial.html#links-1"><i class="fa fa-check"></i><b>5.3</b> Links</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="guerrilla-analytics-framework.html"><a href="guerrilla-analytics-framework.html"><i class="fa fa-check"></i><b>6</b> Guerrilla Analytics framework</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="guerrilla-analytics-framework.html"><a href="guerrilla-analytics-framework.html#daur2"><i class="fa fa-check"></i><b>6.1</b> Daur2</a></li>
+<li class="chapter" data-level="6.2" data-path="guerrilla-analytics-framework.html"><a href="guerrilla-analytics-framework.html#workflows"><i class="fa fa-check"></i><b>6.2</b> Workflows</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="c.elegans-plate-experiment.html"><a href="c.elegans-plate-experiment.html"><i class="fa fa-check"></i><b>7</b> <em>C.elegans</em> plate experiment</a></li>
+<li class="chapter" data-level="8" data-path="open-peer-review-reproducibility.html"><a href="open-peer-review-reproducibility.html"><i class="fa fa-check"></i><b>8</b> Open peer review: reproducibility</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="open-peer-review-reproducibility.html"><a href="open-peer-review-reproducibility.html#part-1"><i class="fa fa-check"></i><b>8.1</b> Part 1</a></li>
+<li class="chapter" data-level="8.2" data-path="open-peer-review-reproducibility.html"><a href="open-peer-review-reproducibility.html#part-2"><i class="fa fa-check"></i><b>8.2</b> Part 2</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="create-a-package.html"><a href="create-a-package.html"><i class="fa fa-check"></i><b>9</b> Create a package</a></li>
+<li class="chapter" data-level="10" data-path="projecticum-antimicrobiële-resistentie-amr.html"><a href="projecticum-antimicrobiële-resistentie-amr.html"><i class="fa fa-check"></i><b>10</b> Projecticum Antimicrobiële Resistentie (AMR)</a></li>
+<li class="chapter" data-level="11" data-path="ecdc-covid-19-cases-data-parameterization.html"><a href="ecdc-covid-19-cases-data-parameterization.html"><i class="fa fa-check"></i><b>11</b> ECDC COVID-19 cases data parameterization</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Portfolio</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="guerrilla-analytics-framework" class="section level1 hasAnchor" number="6">
+<h1><span class="header-section-number">6</span> Guerrilla Analytics framework<a href="guerrilla-analytics-framework.html#guerrilla-analytics-framework" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="daur2" class="section level2 hasAnchor" number="6.1">
+<h2><span class="header-section-number">6.1</span> Daur2<a href="guerrilla-analytics-framework.html#daur2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="guerrilla-analytics-framework.html#cb183-1" tabindex="-1"></a><span class="fu">library</span>(fs)</span>
+<span id="cb183-2"><a href="guerrilla-analytics-framework.html#cb183-2" tabindex="-1"></a>fs<span class="sc">::</span><span class="fu">dir_tree</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;daur2&quot;</span>))</span></code></pre></div>
+<pre><code>## /Users/cheryloortwijn/dsfb2/dsfb2_workflows_portfolio/daur2
+## ├── airway_rnaseq
+## │   ├── README.txt
+## │   ├── airway_rnaseq.Rmd
+## │   ├── data
+## │   │   ├── bam
+## │   │   ├── count
+## │   │   ├── fastqc
+## │   │   └── genome_index
+## │   ├── raw_data
+## │   │   ├── GRCh38.primary_assembly.genome.fa.gz
+## │   │   ├── rna_rawdata1.txt
+## │   │   └── sample_data
+## │   └── verslag
+## ├── eindopdracht_daur2
+## │   ├── README.txt
+## │   ├── data
+## │   │   ├── bam
+## │   │   ├── fastqc
+## │   │   └── read_counts_OC1.rds
+## │   ├── eindopdracht.Rmd
+## │   └── raw_data
+## │       ├── fastq
+## │       └── sample_data.csv
+## ├── ipsc_rnaseq
+## │   ├── README.txt
+## │   ├── data
+## │   │   ├── bam
+## │   │   ├── counts
+## │   │   └── fastqc
+## │   ├── ipsc_rnaseq.Rmd
+## │   └── raw data
+## │       ├── rawdata_ipsc.fastq
+## │       ├── rawdata_ipsc1.fastq
+## │       └── sample_data.txt
+## ├── metagenomics_formative
+## │   ├── data
+## │   │   ├── bracken
+## │   │   ├── fastqc
+## │   │   └── kraken2
+## │   ├── metagenomics_formative.Rmd
+## │   └── ruw_data
+## │       └── fastq
+## └── metagenomics_reader
+##     ├── README.txt
+##     ├── data
+##     │   ├── bracken
+##     │   │   └── mock1.bracken
+##     │   ├── fastqc
+##     │   └── kraken2
+##     │       └── mock1
+##     ├── metagenomics_reader.Rmd
+##     └── raw_data
+##         ├── HU1_MOCK1_L001_R1_001.fastq.gz
+##         ├── HU_waternet_MOCK1_composition.csv
+##         └── minikraken2_v2_8GB_201904_UPDATE</code></pre>
+</div>
+<div id="workflows" class="section level2 hasAnchor" number="6.2">
+<h2><span class="header-section-number">6.2</span> Workflows<a href="guerrilla-analytics-framework.html#workflows" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><em>Workflows portfolio:</em></p>
+<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="guerrilla-analytics-framework.html#cb185-1" tabindex="-1"></a>fs<span class="sc">::</span><span class="fu">dir_tree</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;../dsfb2_workflows_portfolio&quot;</span>))</span></code></pre></div>
+<pre><code>## /Users/cheryloortwijn/dsfb2/dsfb2_workflows_portfolio/../dsfb2_workflows_portfolio
+## ├── 01_CV.Rmd
+## ├── 02_Extra_tijd.Rmd
+## ├── 03_opdracht_vrije_tijd.Rmd
+## ├── 04_vrije_tijd_seurat.Rmd
+## ├── 05_opdracht_3.Rmd
+## ├── 06_opdracht_4.1.Rmd
+## ├── 07_opdracht_4.2.Rmd
+## ├── 08_package.Rmd
+## ├── 09_opdracht_7.Rmd
+## ├── 10_opdracht_9.Rmd
+## ├── MS-data
+## │   ├── MS_voorbeeld.Rmd
+## │   ├── README.md
+## │   ├── data
+## │   └── raw_data
+## ├── Rmd
+## │   ├── Opdracht_4.2.Rmd
+## │   └── anoniem-vrouw-stichting-Sparrow.jpg
+## ├── _book
+## │   ├── 404.html
+## │   ├── Rmd
+## │   │   └── anoniem-vrouw-stichting-Sparrow.jpg
+## │   ├── _main_files
+## │   │   └── figure-html
+## │   │       ├── 3 bestanden pd-1.png
+## │   │       ├── 3D plot pd-1.png
+## │   │       ├── 3D plot-1.png
+## │   │       ├── Comparing spectra vb-1.png
+## │   │       ├── Comparing spectra vb-2.png
+## │   │       ├── Comparing spectra-1.png
+## │   │       ├── Comparing spectra-2.png
+## │   │       ├── DE visualisatie ad-1.png
+## │   │       ├── DE visualisatie ad-2.png
+## │   │       ├── DE visualisatie ad-3.png
+## │   │       ├── DE visualisatie ad-4.png
+## │   │       ├── DE visualisatie-1.png
+## │   │       ├── DE visualisatie-2.png
+## │   │       ├── DE visualisatie-3.png
+## │   │       ├── DE visualisatie-4.png
+## │   │       ├── QC and selecting cells ad-1.png
+## │   │       ├── QC and selecting cells ad-2.png
+## │   │       ├── QC and selecting cells-1.png
+## │   │       ├── QC and selecting cells-2.png
+## │   │       ├── cell type-1.png
+## │   │       ├── cell type-2.png
+## │   │       ├── clustering ad-1.png
+## │   │       ├── clustering-1.png
+## │   │       ├── comparing spectra 2 vb-1.png
+## │   │       ├── comparing spectra 2 vb-2.png
+## │   │       ├── comparing spectra 2 vb-3.png
+## │   │       ├── dimensionality ad-1.png
+## │   │       ├── dimensionality-1.png
+## │   │       ├── filtered visualisation pd-1.png
+## │   │       ├── filtered visualisation pd-2.png
+## │   │       ├── filtering data-1.png
+## │   │       ├── filtering data-2.png
+## │   │       ├── linear dimensional reduction ad-1.png
+## │   │       ├── linear dimensional reduction ad-2.png
+## │   │       ├── linear dimensional reduction ad-3.png
+## │   │       ├── linear dimensional reduction ad-4.png
+## │   │       ├── linear dimensional reduction-1.png
+## │   │       ├── linear dimensional reduction-2.png
+## │   │       ├── linear dimensional reduction-3.png
+## │   │       ├── linear dimensional reduction-4.png
+## │   │       ├── overlay spinal cord-1.png
+## │   │       ├── overlay spinal cord-2.png
+## │   │       ├── peptide-spectrum matches-1.png
+## │   │       ├── peptide-spectrum matches-2.png
+## │   │       ├── plot eiwit lengte en peptide aantal-1.png
+## │   │       ├── plot eiwit lengte en peptide aantal-2.png
+## │   │       ├── plot retentietijd en m
+## │   │       │   └── z-1.png
+## │   │       ├── plot rtime en m
+## │   │       │   └── z pd-1.png
+## │   │       ├── plotDensity quality control-1.png
+## │   │       ├── plotDensity quality control-2.png
+## │   │       ├── total ion chromatogram-1.png
+## │   │       ├── unnamed-chunk-10-1.png
+## │   │       ├── unnamed-chunk-11-1.png
+## │   │       ├── unnamed-chunk-2-1.png
+## │   │       ├── unnamed-chunk-7-1.png
+## │   │       ├── unnamed-chunk-8-1.png
+## │   │       ├── unnamed-chunk-9-1.png
+## │   │       ├── variable features ad-1.png
+## │   │       ├── variable features-1.png
+## │   │       ├── visualisatie 10 MS2 spectra spinal cord-1.png
+## │   │       ├── visualisatie MS1 en MS2 vb-1.png
+## │   │       ├── visualisatie MS1 en MS2 vb-2.png
+## │   │       ├── visualisatie MS2 pd-1.png
+## │   │       ├── visualisatie MS2 spectra csf-1.png
+## │   │       ├── visualisatie MS2 vb-1.png
+## │   │       ├── visualisatie chromatogram pd-1.png
+## │   │       ├── visualisatie chromatogram vb-1.png
+## │   │       ├── visualitatie MS1 en MS2 csf-1.png
+## │   │       ├── visualitatie MS1 en MS2 pd-1.png
+## │   │       ├── visualitatie MS1 en MS2 pd-2.png
+## │   │       ├── visualitatie MS1 en MS2 spinal cord-1.png
+## │   │       ├── visualitatie MS1 en MS2 spinal cord-2.png
+## │   │       ├── visualitatie MS1 en MS2-1.png
+## │   │       └── visualitatie MS1 en MS2-2.png
+## │   ├── c.elegans-plate-experiment.html
+## │   ├── contactgegevens.html
+## │   ├── create-a-package.html
+## │   ├── curriculum-vitae.html
+## │   ├── cv.html
+## │   ├── ecdc-covid-19-cases-data-parameterization.html
+## │   ├── guerrilla-analytics-framework.html
+## │   ├── index.html
+## │   ├── libs
+## │   │   ├── anchor-sections-1.1.0
+## │   │   │   ├── anchor-sections-hash.css
+## │   │   │   ├── anchor-sections.css
+## │   │   │   └── anchor-sections.js
+## │   │   ├── bsTable-3.3.7
+## │   │   │   ├── bootstrapTable.js
+## │   │   │   └── bootstrapTable.min.css
+## │   │   ├── crosstalk-1.2.1
+## │   │   │   ├── css
+## │   │   │   │   └── crosstalk.min.css
+## │   │   │   └── js
+## │   │   │       └── crosstalk.min.js
+## │   │   ├── datatables-binding-0.33
+## │   │   │   └── datatables.js
+## │   │   ├── datatables-css-0.0.0
+## │   │   │   └── datatables-crosstalk.css
+## │   │   ├── dt-core-1.13.6
+## │   │   │   ├── css
+## │   │   │   │   ├── jquery.dataTables.extra.css
+## │   │   │   │   └── jquery.dataTables.min.css
+## │   │   │   └── js
+## │   │   │       └── jquery.dataTables.min.js
+## │   │   ├── gitbook-2.6.7
+## │   │   │   ├── css
+## │   │   │   │   ├── fontawesome
+## │   │   │   │   │   └── fontawesome-webfont.ttf
+## │   │   │   │   ├── plugin-bookdown.css
+## │   │   │   │   ├── plugin-clipboard.css
+## │   │   │   │   ├── plugin-fontsettings.css
+## │   │   │   │   ├── plugin-highlight.css
+## │   │   │   │   ├── plugin-search.css
+## │   │   │   │   ├── plugin-table.css
+## │   │   │   │   └── style.css
+## │   │   │   └── js
+## │   │   │       ├── app.min.js
+## │   │   │       ├── clipboard.min.js
+## │   │   │       ├── jquery.highlight.js
+## │   │   │       ├── plugin-bookdown.js
+## │   │   │       ├── plugin-clipboard.js
+## │   │   │       ├── plugin-fontsettings.js
+## │   │   │       ├── plugin-search.js
+## │   │   │       └── plugin-sharing.js
+## │   │   ├── htmltools-fill-0.5.8.1
+## │   │   │   └── fill.css
+## │   │   ├── htmlwidgets-1.6.4
+## │   │   │   └── htmlwidgets.js
+## │   │   ├── jquery-3.6.0
+## │   │   │   └── jquery-3.6.0.min.js
+## │   │   ├── kePrint-0.0.1
+## │   │   │   └── kePrint.js
+## │   │   ├── lightable-0.0.1
+## │   │   │   └── lightable.css
+## │   │   ├── plotly-binding-4.10.4
+## │   │   │   └── plotly.js
+## │   │   ├── plotly-htmlwidgets-css-2.11.1
+## │   │   │   └── plotly-htmlwidgets.css
+## │   │   ├── plotly-main-2.11.1
+## │   │   │   └── plotly-latest.min.js
+## │   │   └── typedarray-0.1
+## │   │       └── typedarray.min.js
+## │   ├── links-1.html
+## │   ├── looking-ahead.html
+## │   ├── massa-spectrometrie---opdracht-vrije-tijd.html
+## │   ├── massa-spectrometrie-verdieping.html
+## │   ├── opdracht-1.html
+## │   ├── opdracht-3-guerrilla-analytics-framework.html
+## │   ├── opdracht-4.2-deel-2.html
+## │   ├── opdracht-4.html
+## │   ├── open-peer-review-reproducibility.html
+## │   ├── opleidingen.html
+## │   ├── perform-linear-dimensional-reduction.html
+## │   ├── projecticum-antimicrobiële-resistentie-amr.html
+## │   ├── r-for-mass-spectrometry.html
+## │   ├── r-seurat-guided-clustering-tutorial.html
+## │   ├── search_index.json
+## │   ├── vaardigheden.html
+## │   ├── vrije-tijd.html
+## │   └── werkervaring.html
+## ├── _bookdown_files
+## ├── _main.Rmd
+## ├── _main_cache
+## │   └── html
+## │       ├── __packages
+## │       ├── unnamed-chunk-10_7ab1860554f06f8dd74610a26ba1d021.RData
+## │       ├── unnamed-chunk-10_7ab1860554f06f8dd74610a26ba1d021.rdb
+## │       ├── unnamed-chunk-10_7ab1860554f06f8dd74610a26ba1d021.rdx
+## │       ├── unnamed-chunk-11_b46effe8a3dcc917387f379a4e0cfbdc.RData
+## │       ├── unnamed-chunk-11_b46effe8a3dcc917387f379a4e0cfbdc.rdb
+## │       ├── unnamed-chunk-11_b46effe8a3dcc917387f379a4e0cfbdc.rdx
+## │       ├── unnamed-chunk-12_b353983f6dcd7ef17f9419e6e9a39711.RData
+## │       ├── unnamed-chunk-12_b353983f6dcd7ef17f9419e6e9a39711.rdb
+## │       ├── unnamed-chunk-12_b353983f6dcd7ef17f9419e6e9a39711.rdx
+## │       ├── unnamed-chunk-13_b9f3bbbe4ad72693616a1dd42dad02fd.RData
+## │       ├── unnamed-chunk-13_b9f3bbbe4ad72693616a1dd42dad02fd.rdb
+## │       ├── unnamed-chunk-13_b9f3bbbe4ad72693616a1dd42dad02fd.rdx
+## │       ├── unnamed-chunk-14_3c4d861096a32f7c2f2a3289c4d01c53.RData
+## │       ├── unnamed-chunk-14_3c4d861096a32f7c2f2a3289c4d01c53.rdb
+## │       ├── unnamed-chunk-14_3c4d861096a32f7c2f2a3289c4d01c53.rdx
+## │       ├── unnamed-chunk-15_8e14c1b3ade978dc5e448928d46f6a64.RData
+## │       ├── unnamed-chunk-15_8e14c1b3ade978dc5e448928d46f6a64.rdb
+## │       ├── unnamed-chunk-15_8e14c1b3ade978dc5e448928d46f6a64.rdx
+## │       ├── unnamed-chunk-2_a65e632132d9ed7d61fb9cda2204d47a.RData
+## │       ├── unnamed-chunk-2_a65e632132d9ed7d61fb9cda2204d47a.rdb
+## │       ├── unnamed-chunk-2_a65e632132d9ed7d61fb9cda2204d47a.rdx
+## │       ├── unnamed-chunk-3_1056daa2ed1efd2dfbdd7573d7c51667.RData
+## │       ├── unnamed-chunk-3_1056daa2ed1efd2dfbdd7573d7c51667.rdb
+## │       ├── unnamed-chunk-3_1056daa2ed1efd2dfbdd7573d7c51667.rdx
+## │       ├── unnamed-chunk-4_ffac9b11f0fe461087cc0c74337b5514.RData
+## │       ├── unnamed-chunk-4_ffac9b11f0fe461087cc0c74337b5514.rdb
+## │       ├── unnamed-chunk-4_ffac9b11f0fe461087cc0c74337b5514.rdx
+## │       ├── unnamed-chunk-5_713df932383111d40b78759066a42fa6.RData
+## │       ├── unnamed-chunk-5_713df932383111d40b78759066a42fa6.rdb
+## │       └── unnamed-chunk-5_713df932383111d40b78759066a42fa6.rdx
+## ├── _main_files
+## │   └── figure-html
+## │       ├── 3 bestanden pd-1.png
+## │       ├── 3D plot pd-1.png
+## │       ├── 3D plot-1.png
+## │       ├── Comparing spectra vb-1.png
+## │       ├── Comparing spectra vb-2.png
+## │       ├── Comparing spectra-1.png
+## │       ├── Comparing spectra-2.png
+## │       ├── DE visualisatie ad-1.png
+## │       ├── DE visualisatie ad-2.png
+## │       ├── DE visualisatie ad-3.png
+## │       ├── DE visualisatie ad-4.png
+## │       ├── DE visualisatie-1.png
+## │       ├── DE visualisatie-2.png
+## │       ├── DE visualisatie-3.png
+## │       ├── DE visualisatie-4.png
+## │       ├── QC and selecting cells ad-1.png
+## │       ├── QC and selecting cells ad-2.png
+## │       ├── QC and selecting cells-1.png
+## │       ├── QC and selecting cells-2.png
+## │       ├── cell type-1.png
+## │       ├── cell type-2.png
+## │       ├── clustering ad-1.png
+## │       ├── clustering-1.png
+## │       ├── comparing spectra 2 vb-1.png
+## │       ├── comparing spectra 2 vb-2.png
+## │       ├── comparing spectra 2 vb-3.png
+## │       ├── dimensionality ad-1.png
+## │       ├── dimensionality-1.png
+## │       ├── filtered visualisation pd-1.png
+## │       ├── filtered visualisation pd-2.png
+## │       ├── filtering data-1.png
+## │       ├── filtering data-2.png
+## │       ├── linear dimensional reduction ad-1.png
+## │       ├── linear dimensional reduction ad-2.png
+## │       ├── linear dimensional reduction ad-3.png
+## │       ├── linear dimensional reduction ad-4.png
+## │       ├── linear dimensional reduction-1.png
+## │       ├── linear dimensional reduction-2.png
+## │       ├── linear dimensional reduction-3.png
+## │       ├── linear dimensional reduction-4.png
+## │       ├── overlay spinal cord-1.png
+## │       ├── overlay spinal cord-2.png
+## │       ├── peptide-spectrum matches-1.png
+## │       ├── peptide-spectrum matches-2.png
+## │       ├── plot eiwit lengte en peptide aantal-1.png
+## │       ├── plot eiwit lengte en peptide aantal-2.png
+## │       ├── plot retentietijd en m
+## │       │   └── z-1.png
+## │       ├── plot rtime en m
+## │       │   └── z pd-1.png
+## │       ├── plotDensity quality control-1.png
+## │       ├── plotDensity quality control-2.png
+## │       ├── total ion chromatogram-1.png
+## │       ├── unnamed-chunk-10-1.png
+## │       ├── unnamed-chunk-11-1.png
+## │       ├── unnamed-chunk-2-1.png
+## │       ├── unnamed-chunk-7-1.png
+## │       ├── unnamed-chunk-8-1.png
+## │       ├── unnamed-chunk-9-1.png
+## │       ├── variable features ad-1.png
+## │       ├── variable features-1.png
+## │       ├── visualisatie 10 MS2 spectra spinal cord-1.png
+## │       ├── visualisatie MS1 en MS2 vb-1.png
+## │       ├── visualisatie MS1 en MS2 vb-2.png
+## │       ├── visualisatie MS2 pd-1.png
+## │       ├── visualisatie MS2 spectra csf-1.png
+## │       ├── visualisatie MS2 vb-1.png
+## │       ├── visualisatie chromatogram pd-1.png
+## │       ├── visualisatie chromatogram vb-1.png
+## │       ├── visualitatie MS1 en MS2 csf-1.png
+## │       ├── visualitatie MS1 en MS2 pd-1.png
+## │       ├── visualitatie MS1 en MS2 pd-2.png
+## │       ├── visualitatie MS1 en MS2 spinal cord-1.png
+## │       ├── visualitatie MS1 en MS2 spinal cord-2.png
+## │       ├── visualitatie MS1 en MS2-1.png
+## │       └── visualitatie MS1 en MS2-2.png
+## ├── amr.bib
+## ├── daur2
+## │   ├── airway_rnaseq
+## │   │   ├── README.txt
+## │   │   ├── airway_rnaseq.Rmd
+## │   │   ├── data
+## │   │   │   ├── bam
+## │   │   │   ├── count
+## │   │   │   ├── fastqc
+## │   │   │   └── genome_index
+## │   │   ├── raw_data
+## │   │   │   ├── GRCh38.primary_assembly.genome.fa.gz
+## │   │   │   ├── rna_rawdata1.txt
+## │   │   │   └── sample_data
+## │   │   └── verslag
+## │   ├── eindopdracht_daur2
+## │   │   ├── README.txt
+## │   │   ├── data
+## │   │   │   ├── bam
+## │   │   │   ├── fastqc
+## │   │   │   └── read_counts_OC1.rds
+## │   │   ├── eindopdracht.Rmd
+## │   │   └── raw_data
+## │   │       ├── fastq
+## │   │       └── sample_data.csv
+## │   ├── ipsc_rnaseq
+## │   │   ├── README.txt
+## │   │   ├── data
+## │   │   │   ├── bam
+## │   │   │   ├── counts
+## │   │   │   └── fastqc
+## │   │   ├── ipsc_rnaseq.Rmd
+## │   │   └── raw data
+## │   │       ├── rawdata_ipsc.fastq
+## │   │       ├── rawdata_ipsc1.fastq
+## │   │       └── sample_data.txt
+## │   ├── metagenomics_formative
+## │   │   ├── data
+## │   │   │   ├── bracken
+## │   │   │   ├── fastqc
+## │   │   │   └── kraken2
+## │   │   ├── metagenomics_formative.Rmd
+## │   │   └── ruw_data
+## │   │       └── fastq
+## │   └── metagenomics_reader
+## │       ├── README.txt
+## │       ├── data
+## │       │   ├── bracken
+## │       │   │   └── mock1.bracken
+## │       │   ├── fastqc
+## │       │   └── kraken2
+## │       │       └── mock1
+## │       ├── metagenomics_reader.Rmd
+## │       └── raw_data
+## │           ├── HU1_MOCK1_L001_R1_001.fastq.gz
+## │           ├── HU_waternet_MOCK1_composition.csv
+## │           └── minikraken2_v2_8GB_201904_UPDATE
+## ├── dsfb2_workflows_portfolio.Rproj
+## ├── index.Rmd
+## ├── opdracht9
+## │   ├── 08_opdracht_9.Rmd
+## │   ├── 08_opdracht_9.html
+## │   ├── test.Rmd
+## │   └── test.html
+## └── seurat_data
+##     └── ruwe data
+##         └── filtered_gene_bc_matrices
+##             └── hg19
+##                 ├── barcodes.tsv
+##                 ├── genes.tsv
+##                 └── matrix.mtx</code></pre>
+<p><em>Workflows Exercises:</em></p>
+<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="guerrilla-analytics-framework.html#cb187-1" tabindex="-1"></a>fs<span class="sc">::</span><span class="fu">dir_tree</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;~/dsfb2/dsfb2_workflows_exercises/&quot;</span>))</span></code></pre></div>
+<pre><code>## ~/dsfb2/dsfb2_workflows_exercises/
+## ├── README.md
+## ├── data
+## │   ├── FancySuppTable2.xls
+## │   ├── salmonella CFU kinetics OD600 in LB van ipecs 8okt2020 kleur.xlsx
+## │   ├── salmonella_cfu_kinetics_od600.csv
+## │   └── toxrefdb_nel_lel_noael_loael_summary_AUG2014_FOR_PUBLIC_RELEASE-2.csv
+## ├── dsfb2_workflows_exercises.Rproj
+## ├── md5_examples
+## │   ├── MD5_exampledata_1.txt
+## │   ├── MD5_exampledata_backupcomputercrash.txt
+## │   ├── MD5_exampledata_maybethisone.txt
+## │   └── MD5_exampledata_savethisone.txt
+## └── opdrachten_workflows
+##     ├── Rplot not cb.jpeg
+##     ├── Rplot_colorblind.jpeg
+##     ├── bibliography.json
+##     ├── friends.css
+##     ├── images
+##     │   ├── RossGeller.webp
+##     │   ├── Season_4_chandler.webp
+##     │   ├── bac435688f1410bb2b93770d2e5642e1.jpg
+##     │   ├── images.jpeg
+##     │   ├── jennifer-aniston-rachel-green-friends.jpg.webp
+##     │   └── phoebeprimary-12e7dbc2b11a48488f58d51a586a4c30.jpg
+##     ├── opdracht 8
+##     │   ├── opdracht_8.1.Rmd
+##     │   ├── opdracht_8.1.docx
+##     │   ├── opdracht_8.1.html
+##     │   ├── opdracht_8.1.pdf
+##     │   ├── rabbit.Rmd
+##     │   ├── rabbit.html
+##     │   ├── test-report.Rmd
+##     │   ├── test-report.docx
+##     │   └── word-styles-reference-01.docx
+##     ├── opdrachten_les1.Rmd
+##     ├── opdrachten_les3.Rmd
+##     ├── opdrachten_les4.Rmd
+##     ├── opdrachten_les5.Rmd
+##     ├── opdrachten_les7.Rmd
+##     ├── opdrachten_les7.html
+##     ├── referencefriends.bib
+##     ├── test.Rmd
+##     └── test.html</code></pre>
+<p><em>Workflows Projecticum:</em></p>
+<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="guerrilla-analytics-framework.html#cb189-1" tabindex="-1"></a>fs<span class="sc">::</span><span class="fu">dir_tree</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;~/dsfb2/AK_FFR_OC/&quot;</span>))</span></code></pre></div>
+<pre><code>## ~/dsfb2/AK_FFR_OC/
+## ├── AK_FFR_OC.Rproj
+## ├── FFR_testing_geomap
+## │   └── map_display_test1.R
+## ├── Isolation_date
+## │   ├── app.R
+## │   └── metadata.txt
+## ├── nederland_map
+## │   └── app.R
+## ├── nl_map_in_app
+## │   ├── app.R
+## │   └── app.Rmd
+## ├── original_app
+## │   └── app.R
+## └── visuele_opzet.Rmd</code></pre>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="r-seurat-guided-clustering-tutorial.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="c.elegans-plate-experiment.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
