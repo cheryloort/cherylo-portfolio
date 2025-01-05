@@ -23,7 +23,7 @@
 <meta name="author" content="Cheryl" />
 
 
-<meta name="date" content="2024-12-30" />
+<meta name="date" content="2025-01-05" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -344,33 +344,34 @@ Ik zou het een 4 geven, er wordt niet duidelijk uitgelegd waarom bepaalde functi
 <p>Raw cloze probability:</p>
 <div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="open-peer-review-reproducibility.html#cb196-1" tabindex="-1"></a>dat <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="at">file=</span><span class="st">&quot;../../Downloads/osfstorage-archive/data_and_materials/SPRT_LogLin_216.csv&quot;</span>,<span class="at">head=</span>T)</span>
 <span id="cb196-2"><a href="open-peer-review-reproducibility.html#cb196-2" tabindex="-1"></a></span>
-<span id="cb196-3"><a href="open-peer-review-reproducibility.html#cb196-3" tabindex="-1"></a>lin_gam<span class="ot">=</span><span class="fu">gam</span>(SUM_3RT_trimmed <span class="sc">~</span><span class="fu">s</span>(c_cloze) <span class="sc">+</span> <span class="fu">s</span>(SUB,<span class="at">bs=</span><span class="st">&quot;re&quot;</span>)<span class="sc">+</span></span>
+<span id="cb196-3"><a href="open-peer-review-reproducibility.html#cb196-3" tabindex="-1"></a>lin_gam<span class="ot">=</span>mgcv<span class="sc">::</span><span class="fu">gam</span>(SUM_3RT_trimmed <span class="sc">~</span><span class="fu">s</span>(c_cloze) <span class="sc">+</span> <span class="fu">s</span>(SUB,<span class="at">bs=</span><span class="st">&quot;re&quot;</span>)<span class="sc">+</span></span>
 <span id="cb196-4"><a href="open-peer-review-reproducibility.html#cb196-4" tabindex="-1"></a>              <span class="fu">s</span>(ITEM,<span class="at">bs=</span> <span class="st">&quot;re&quot;</span>),</span>
 <span id="cb196-5"><a href="open-peer-review-reproducibility.html#cb196-5" tabindex="-1"></a>             <span class="at">data=</span>dat, <span class="at">method =</span> <span class="st">&quot;REML&quot;</span>)</span>
 <span id="cb196-6"><a href="open-peer-review-reproducibility.html#cb196-6" tabindex="-1"></a><span class="co">#summary(lin_gam)</span></span>
-<span id="cb196-7"><a href="open-peer-review-reproducibility.html#cb196-7" tabindex="-1"></a><span class="fu">plot.gam</span>(lin_gam, <span class="at">select =</span> <span class="dv">1</span>)</span>
-<span id="cb196-8"><a href="open-peer-review-reproducibility.html#cb196-8" tabindex="-1"></a></span>
-<span id="cb196-9"><a href="open-peer-review-reproducibility.html#cb196-9" tabindex="-1"></a><span class="co">#y_pred &lt;- predict(lin_gam, data.frame(x = x_new)) </span></span></code></pre></div>
+<span id="cb196-7"><a href="open-peer-review-reproducibility.html#cb196-7" tabindex="-1"></a>mgcv<span class="sc">::</span><span class="fu">plot.gam</span>(lin_gam, <span class="at">select =</span> <span class="dv">1</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="open-peer-review-reproducibility.html#cb197-1" tabindex="-1"></a><span class="co">#y_pred &lt;- predict(lin_gam, data.frame(x = x_new)) </span></span></code></pre></div>
 <p>Log-transformed cloze probability:</p>
-<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="open-peer-review-reproducibility.html#cb197-1" tabindex="-1"></a>log_gam<span class="ot">=</span><span class="fu">gam</span>(SUM_3RT_trimmed <span class="sc">~</span> <span class="fu">s</span>(c_log_cloze) <span class="sc">+</span> <span class="fu">s</span>(SUB,<span class="at">bs=</span><span class="st">&quot;re&quot;</span>)<span class="sc">+</span></span>
-<span id="cb197-2"><a href="open-peer-review-reproducibility.html#cb197-2" tabindex="-1"></a>              <span class="fu">s</span>(ITEM,<span class="at">bs=</span> <span class="st">&quot;re&quot;</span>),</span>
-<span id="cb197-3"><a href="open-peer-review-reproducibility.html#cb197-3" tabindex="-1"></a>            <span class="at">data=</span>dat,</span>
-<span id="cb197-4"><a href="open-peer-review-reproducibility.html#cb197-4" tabindex="-1"></a>            <span class="at">method =</span> <span class="st">&quot;REML&quot;</span>)</span>
-<span id="cb197-5"><a href="open-peer-review-reproducibility.html#cb197-5" tabindex="-1"></a><span class="fu">plot.gam</span>(log_gam, <span class="at">select =</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="open-peer-review-reproducibility.html#cb198-1" tabindex="-1"></a>log_gam<span class="ot">=</span>mgcv<span class="sc">::</span><span class="fu">gam</span>(SUM_3RT_trimmed <span class="sc">~</span> <span class="fu">s</span>(c_log_cloze) <span class="sc">+</span> <span class="fu">s</span>(SUB,<span class="at">bs=</span><span class="st">&quot;re&quot;</span>)<span class="sc">+</span></span>
+<span id="cb198-2"><a href="open-peer-review-reproducibility.html#cb198-2" tabindex="-1"></a>              <span class="fu">s</span>(ITEM,<span class="at">bs=</span> <span class="st">&quot;re&quot;</span>),</span>
+<span id="cb198-3"><a href="open-peer-review-reproducibility.html#cb198-3" tabindex="-1"></a>            <span class="at">data=</span>dat,</span>
+<span id="cb198-4"><a href="open-peer-review-reproducibility.html#cb198-4" tabindex="-1"></a>            <span class="at">method =</span> <span class="st">&quot;REML&quot;</span>)</span>
+<span id="cb198-5"><a href="open-peer-review-reproducibility.html#cb198-5" tabindex="-1"></a>mgcv<span class="sc">::</span><span class="fu">plot.gam</span>(log_gam, <span class="at">select =</span> <span class="dv">1</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
 <p><em>Experiment 2</em> <br></p>
 <p>Trying to reproduce GAMMs analysis. Raw cloze probability:</p>
-<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="open-peer-review-reproducibility.html#cb198-1" tabindex="-1"></a>dat2 <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="at">file=</span><span class="st">&quot;data_and_materials/LogLin_Naming.csv&quot;</span>,<span class="at">head=</span>T)</span>
-<span id="cb198-2"><a href="open-peer-review-reproducibility.html#cb198-2" tabindex="-1"></a></span>
-<span id="cb198-3"><a href="open-peer-review-reproducibility.html#cb198-3" tabindex="-1"></a>lin_gam<span class="ot">=</span><span class="fu">gam</span>(TRIM_RT <span class="sc">~</span><span class="fu">s</span>(c_cloze) <span class="sc">+</span> <span class="fu">s</span>(subject,<span class="at">bs=</span><span class="st">&quot;re&quot;</span>)<span class="sc">+</span></span>
-<span id="cb198-4"><a href="open-peer-review-reproducibility.html#cb198-4" tabindex="-1"></a>              <span class="fu">s</span>(item,<span class="at">bs=</span> <span class="st">&quot;re&quot;</span>),</span>
-<span id="cb198-5"><a href="open-peer-review-reproducibility.html#cb198-5" tabindex="-1"></a>            <span class="at">data=</span>dat2, <span class="at">method =</span> <span class="st">&quot;REML&quot;</span>)</span>
-<span id="cb198-6"><a href="open-peer-review-reproducibility.html#cb198-6" tabindex="-1"></a><span class="fu">plot.gam</span>(lin_gam, <span class="at">select =</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="open-peer-review-reproducibility.html#cb199-1" tabindex="-1"></a>dat2 <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="at">file=</span><span class="st">&quot;data_and_materials/LogLin_Naming.csv&quot;</span>,<span class="at">head=</span>T)</span>
+<span id="cb199-2"><a href="open-peer-review-reproducibility.html#cb199-2" tabindex="-1"></a></span>
+<span id="cb199-3"><a href="open-peer-review-reproducibility.html#cb199-3" tabindex="-1"></a>lin_gam<span class="ot">=</span>mgcv<span class="sc">::</span><span class="fu">gam</span>(TRIM_RT <span class="sc">~</span><span class="fu">s</span>(c_cloze) <span class="sc">+</span> <span class="fu">s</span>(subject,<span class="at">bs=</span><span class="st">&quot;re&quot;</span>)<span class="sc">+</span></span>
+<span id="cb199-4"><a href="open-peer-review-reproducibility.html#cb199-4" tabindex="-1"></a>              <span class="fu">s</span>(item,<span class="at">bs=</span> <span class="st">&quot;re&quot;</span>),</span>
+<span id="cb199-5"><a href="open-peer-review-reproducibility.html#cb199-5" tabindex="-1"></a>            <span class="at">data=</span>dat2, <span class="at">method =</span> <span class="st">&quot;REML&quot;</span>)</span>
+<span id="cb199-6"><a href="open-peer-review-reproducibility.html#cb199-6" tabindex="-1"></a>mgcv<span class="sc">::</span><span class="fu">plot.gam</span>(lin_gam, <span class="at">select =</span> <span class="dv">1</span>)</span></code></pre></div>
 <p>Log-transformed cloze probability:</p>
-<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="open-peer-review-reproducibility.html#cb199-1" tabindex="-1"></a>log_gam<span class="ot">=</span><span class="fu">gam</span>(TRIM_RT <span class="sc">~</span> <span class="fu">s</span>(c_log_cloze) <span class="sc">+</span> <span class="fu">s</span>(subject,<span class="at">bs=</span><span class="st">&quot;re&quot;</span>)<span class="sc">+</span></span>
-<span id="cb199-2"><a href="open-peer-review-reproducibility.html#cb199-2" tabindex="-1"></a>              <span class="fu">s</span>(item,<span class="at">bs=</span> <span class="st">&quot;re&quot;</span>),</span>
-<span id="cb199-3"><a href="open-peer-review-reproducibility.html#cb199-3" tabindex="-1"></a>            <span class="at">data=</span>dat2,</span>
-<span id="cb199-4"><a href="open-peer-review-reproducibility.html#cb199-4" tabindex="-1"></a>            <span class="at">method =</span> <span class="st">&quot;REML&quot;</span>)</span>
-<span id="cb199-5"><a href="open-peer-review-reproducibility.html#cb199-5" tabindex="-1"></a><span class="fu">plot.gam</span>(log_gam, <span class="at">select =</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="open-peer-review-reproducibility.html#cb200-1" tabindex="-1"></a>log_gam<span class="ot">=</span>mgcv<span class="sc">::</span><span class="fu">gam</span>(TRIM_RT <span class="sc">~</span> <span class="fu">s</span>(c_log_cloze) <span class="sc">+</span> <span class="fu">s</span>(subject,<span class="at">bs=</span><span class="st">&quot;re&quot;</span>)<span class="sc">+</span></span>
+<span id="cb200-2"><a href="open-peer-review-reproducibility.html#cb200-2" tabindex="-1"></a>              <span class="fu">s</span>(item,<span class="at">bs=</span> <span class="st">&quot;re&quot;</span>),</span>
+<span id="cb200-3"><a href="open-peer-review-reproducibility.html#cb200-3" tabindex="-1"></a>            <span class="at">data=</span>dat2,</span>
+<span id="cb200-4"><a href="open-peer-review-reproducibility.html#cb200-4" tabindex="-1"></a>            <span class="at">method =</span> <span class="st">&quot;REML&quot;</span>)</span>
+<span id="cb200-5"><a href="open-peer-review-reproducibility.html#cb200-5" tabindex="-1"></a>mgcv<span class="sc">::</span><span class="fu">plot.gam</span>(log_gam, <span class="at">select =</span> <span class="dv">1</span>)</span></code></pre></div>
 <p><em>Taken together on a scale from 1 (very hard) to 5 (very easy), how much effort did it take you to reproduce the visualization from the project, report or article?</em> <br>
 Ik zou het overall een 3,5 geven, ik heb de visualisatie van 2 experimenten uitgevoerd. Experiment 1 ging in een keer zonder errors of flaws. Bij experiment 2 kreeg ik wel een error: ‘names’ attribute [1] must be the same length as the vector [0]. Aangezien ik wat data/ uitleg bij deze code mis lukt het me niet over welke attribute en vector het gaat. Het is me niet gelukt om deze code op te lossen.</p>
 <p>Ik mis verder wel metadata en een README file.</p>
